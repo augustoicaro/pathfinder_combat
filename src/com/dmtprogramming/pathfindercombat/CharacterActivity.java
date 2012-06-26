@@ -20,6 +20,7 @@ public class CharacterActivity extends Activity {
 	private PFCharacterDataSource datasource;
 	private PFCharacter _char;
 	private List<CharacterModifier> _mods;
+	private CharacterModifier _smite;
 		
     /** Called when the activity is first created. */
     @Override
@@ -153,6 +154,11 @@ public class CharacterActivity extends Activity {
     	return value;
     }
     
+    protected void updateSmite() {
+    	_smite.hit = _char.getChaMod();
+    	_smite.damage = _char.getLevel();
+    }
+    
     protected void setupToggles() {
     	_mods = new ArrayList<CharacterModifier>();
     	// id, +str, +damage dice, +damage, +hit, +size
@@ -160,9 +166,8 @@ public class CharacterActivity extends Activity {
     	powerAttack.hit = -2;
     	powerAttack.damage = 4;
     	
-    	CharacterModifier smite = new CharacterModifier();
-    	smite.hit = _char.getChaMod();
-    	smite.damage = _char.getLevel();
+    	_smite = new CharacterModifier();
+    	updateSmite();
     	
     	CharacterModifier plus2Str = new CharacterModifier();
     	plus2Str.str = 2;
@@ -200,7 +205,7 @@ public class CharacterActivity extends Activity {
     	CharacterModifier crit = new CharacterModifier();
     	
     	addToggle(R.id.btnPowerAttack, powerAttack);
-    	addToggle(R.id.btnSmite, smite);
+    	addToggle(R.id.btnSmite, _smite);
     	addToggle(R.id.btnPlus2Str, plus2Str);
     	addToggle(R.id.btnPlus4Str, plus4Str);
     	addToggle(R.id.btnPlus1Hit, plus1Hit);
@@ -241,7 +246,9 @@ public class CharacterActivity extends Activity {
     public void updateCharacter(String field) {
     	Log.d(TAG, "updateCharacter()");
     	datasource.updatePFCharacter(_char);
+    	updateSmite();
     	populateStats(field);
+
     }
     
     public PFCharacter character() {
