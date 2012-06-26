@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="5dip"
+    android:showDividers="beginning" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +20,7 @@
             <LinearLayout
                 android:id="@+id/stats"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical" >
 
                 <TextView
@@ -268,7 +270,7 @@
             <LinearLayout
                 android:id="@+id/formulas"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="5dip" >
@@ -426,7 +428,7 @@
                 <TableLayout
                     android:id="@+id/damage_table"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:stretchColumns="*" >
@@ -434,9 +436,8 @@
                     <TableRow
                         android:id="@+id/damage_header"
                         android:layout_width="match_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1" >
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" >
 
                         <TextView
                             android:id="@+id/textView19"
@@ -529,7 +530,6 @@
                             android:text="1d10 + 9 + 2d6"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
-
                 </TableLayout>
 
             </LinearLayout>
