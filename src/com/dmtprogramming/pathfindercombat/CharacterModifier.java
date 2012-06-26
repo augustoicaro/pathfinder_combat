@@ -37,19 +37,19 @@ public class CharacterModifier {
 		}
 		Log.d(TAG, "applying modifier str = " + str);
 		if (field.equals("str")) {
-			int i = Integer.parseInt(value);
+			int i = parseInt(value);
 			i += this.str;
 			return String.valueOf(i);
 		} else if (field.equals("strmod")) {
-			int i = Integer.parseInt(value);
+			int i = parseInt(value);
 			i += this.str / 2;
 			return String.valueOf(i);
 		} else if (field.equals("plus_hit")) {
-			int i = Integer.parseInt(value);
+			int i = parseInt(value);
 			i += this.hit;
 			return String.valueOf(i);
 		} else if (field.equals("plus_damage")) {
-			int i = Integer.parseInt(value);
+			int i = parseInt(value);
 			i += this.damage;
 			return String.valueOf(i);	
 		} else if (field.equals("damage_dice")) {
@@ -57,7 +57,18 @@ public class CharacterModifier {
 				value = value.concat(" + ");
 			}
 			return value.concat(this.damageDice);
+		} else if (field.equals("size")) {
+			int i = parseInt(value);
+			i += this.size;
+			return String.valueOf(i);
 		}
 		return value;
+	}
+	
+	private int parseInt(String s) {
+		if (s.equals("")) {
+			return 0;
+		}
+		return Integer.parseInt(s);
 	}
 }

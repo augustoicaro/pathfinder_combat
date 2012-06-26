@@ -16,6 +16,24 @@ public class PFCharacter {
 	private boolean weapon_focus;
 	private boolean power_attack;
 	
+	private String size;
+	private String weapon_damage;
+	private int weapon_plus;
+	
+	public static String[] SIZES = {
+		"Tiny", "Medium", "Large"
+	};
+	
+	public static String[] TINY_WEAPON_DAMAGES = {
+		"1d2", "1d3", "1d4", "1d6", "1d8", "1d4", "1d8", "1d10", "2d6"
+	};
+	public static String[] MEDIUM_WEAPON_DAMAGES = {
+		"1d4", "1d6", "1d8", "1d10", "1d12", "2d4", "2d6", "2d8", "2d10"
+	};
+	public static String[] LARGE_WEAPON_DAMAGES = {
+		"1d6", "1d8", "2d6", "2d8", "3d6", "2d6", "3d6", "3d8", "4d8"
+	};
+	
 	public long getId() {
 		return id;
 	}
@@ -138,6 +156,17 @@ public class PFCharacter {
 				return false;
 			}
 			setLevel(i);
+			return true;
+		}
+		if (field == "weapon_plus") {
+			if (value.equals("")) {
+				return true;
+			}
+			int i = Integer.parseInt(value);
+			if (this.weapon_plus == i) {
+				return false;
+			}
+			setWeaponPlus(i);
 			return true;
 		}
 
@@ -295,4 +324,30 @@ public class PFCharacter {
 		}
 		return 0;
 	}
+	
+	public String getSize() {
+		// return this.size;
+		return "Medium";
+	}
+	
+	public void setSize(String size) {
+		this.size = size;
+	}
+	
+	public String getWeaponDamage() {
+		return this.weapon_damage;
+	}
+	
+	public void setWeaponDamage(String weapon_damage) {
+		this.weapon_damage = weapon_damage;
+	}
+	
+	public int getWeaponPlus() {
+		return this.weapon_plus;
+	}
+	
+	public void setWeaponPlus(int weapon_plus) {
+		this.weapon_plus = weapon_plus;
+	}
 }
+

@@ -10,11 +10,15 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-public class CharacterActivity extends Activity {
+public class CharacterActivity extends Activity implements AdapterView.OnItemSelectedListener {
 	
 	private static final String TAG = "PFCombat:CharacterActivity";
 	private PFCharacterDataSource datasource;
@@ -73,14 +77,42 @@ public class CharacterActivity extends Activity {
     	populate(R.id.txtIntMod, f, "intmod", String.valueOf(c.getIntMod()));
     	populate(R.id.txtWisMod, f, "wismod", String.valueOf(c.getWisMod()));
     	populate(R.id.txtChaMod, f, "chamod", String.valueOf(c.getChaMod()));
+    	populate(R.id.txtWeaponDice, f, "weapon_damage", c.getWeaponDamage());
     	
     	populate(R.id.txtAttacks, f, "attacks", c.getAttacks());
     	populate(R.id.txtStrModPlusAttack, f, "strmod", String.valueOf(c.getStrMod()));
+    	populate(R.id.txtWeaponPlusAttack, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
     	populate(R.id.txtWeaponFocusPlusAttack, f, "weapon_focus_atk", String.valueOf(c.getWeaponFocusMod()));
     	populate(R.id.txtOtherPlusAttack, f, "plus_hit", String.valueOf(0));
     	
     	populate(R.id.txtStrModPlusDamage, f, "strmod", String.valueOf(c.getStrMod()));
+    	populate(R.id.txtWeaponPlusDamage, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
     	populate(R.id.txtOtherPlusDamage, f, "plus_damage", String.valueOf(c.getPowerAttackDamage()));
+    	
+    	
+    	CheckBox weaponFocus = (CheckBox) findViewById(R.id.ckWeaponFocus);
+    	if (weaponFocus.isChecked()) {
+    		TextView tv = (TextView) findViewById(R.id.txtWeaponFocusPlusAttack);
+    		tv.setText("1");
+    	}
+    	
+    	String weapon_damage = _char.getWeaponDamage();
+    	int sizeMod = 0;
+    	String sizeStr = applyToggles("size", "");
+    	if (!sizeStr.equals("")) {
+    		sizeMod = Integer.parseInt(sizeStr);
+    	}
+    	if (sizeMod > 0) {
+    		int ind = -1;
+    		for (int i = 0; i < PFCharacter.MEDIUM_WEAPON_DAMAGES.length; i++) {
+    			if (PFCharacter.MEDIUM_WEAPON_DAMAGES[i].equals(weapon_damage)) {
+    				ind = i;
+    			}
+    		}
+    		if (ind != -1) {
+    			weapon_damage = PFCharacter.LARGE_WEAPON_DAMAGES[ind];
+    		}
+    	}
     	
     	int plusHit = 0;
     	plusHit += parseIntField(R.id.txtStrModPlusAttack);
@@ -94,14 +126,21 @@ public class CharacterActivity extends Activity {
     	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
     	plusDamage += parseIntField(R.id.txtWeaponPlusDamage);
     	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
-    	String weaponDice = (String) ((TextView) findViewById(R.id.txtWeaponDice)).getText();
-    	calculateFinalPlusDamage(weaponDice, plusDamage);
+    	calculateFinalPlusDamage(weapon_damage, plusDamage);
    }
     
     protected int parseIntField(int id) {
-    	TextView tv = (TextView) findViewById(id);
-    	int i = Integer.parseInt(tv.getText().toString());
-    	return i;
+    	View v = findViewById(id);
+		String type = v.getClass().getName();
+		int i = 0;
+		if (type.equals("android.widget.EditText")) {
+			EditText tv = (EditText) v;
+			i = Integer.parseInt(tv.getText().toString());
+		} else if (type.equals("android.widget.TextView")) {
+			TextView tv = (TextView) v;
+			i = Integer.parseInt(tv.getText().toString());
+		}
+		return i;
     }
     
     protected void calculateFinalPlusHit(String attacks_str, int plusHit) {
@@ -159,9 +198,24 @@ public class CharacterActivity extends Activity {
     	_smite.damage = _char.getLevel();
     }
     
+    // callback for the damage spinner
+    public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
+    	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
+    	_char.setWeaponDamage(damageSpinner.getSelectedItem().toString());
+    	populateStats("");
+    }
+    
     protected void setupToggles() {
+    	
+    	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
+    	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PFCharacter.MEDIUM_WEAPON_DAMAGES);
+    	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	damageSpinner.setAdapter(adapter);
+
+    	damageSpinner.setOnItemSelectedListener(this);
+    	
     	_mods = new ArrayList<CharacterModifier>();
-    	// id, +str, +damage dice, +damage, +hit, +size
+
     	CharacterModifier powerAttack = new CharacterModifier();
     	powerAttack.hit = -2;
     	powerAttack.damage = 4;
@@ -204,6 +258,11 @@ public class CharacterActivity extends Activity {
     	
     	CharacterModifier crit = new CharacterModifier();
     	
+    	CharacterModifier enlargePerson = new CharacterModifier();
+    	enlargePerson.size = 1;
+    	enlargePerson.str = 2;
+    	enlargePerson.hit = -1;
+    	
     	addToggle(R.id.btnPowerAttack, powerAttack);
     	addToggle(R.id.btnSmite, _smite);
     	addToggle(R.id.btnPlus2Str, plus2Str);
@@ -218,6 +277,14 @@ public class CharacterActivity extends Activity {
     	addToggle(R.id.btnPlus1d6, plus1d6);
     	addToggle(R.id.btnPlus2d6, plus2d6);
     	addToggle(R.id.btnCritical, crit);
+    	addToggle(R.id.btnEnlargePerson, enlargePerson);
+    	
+    	CheckBox weaponFocus = (CheckBox) findViewById(R.id.ckWeaponFocus);
+    	weaponFocus.setOnClickListener(new OnClickListener() {
+    		public void onClick(View v) {
+    			populateStats("");
+    		}
+    	});
     }
     
     protected void addToggle(int id, CharacterModifier mod) {
@@ -236,6 +303,7 @@ public class CharacterActivity extends Activity {
     	setupTrigger(R.id.txtInt, "int");
     	setupTrigger(R.id.txtWis, "wis");
     	setupTrigger(R.id.txtCha, "cha");
+    	setupTrigger(R.id.txtWeaponPlus, "weapon_plus");
     }
     
     protected void setupTrigger(int id, String field) {
@@ -265,6 +333,12 @@ public class CharacterActivity extends Activity {
 	protected void onPause() {
 		datasource.close();
 		super.onPause();
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
     
 }
