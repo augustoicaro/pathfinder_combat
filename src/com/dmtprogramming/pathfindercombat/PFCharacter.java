@@ -96,6 +96,39 @@ public class PFCharacter {
 			setCon(i);
 			return true;
 		}
+		if (field == "int") {
+			if (value.equals("")) {
+				return true;
+			}
+			int i = Integer.parseInt(value);
+			if (this.intel == i) {
+				return false;
+			}
+			setInt(i);
+			return true;
+		}
+		if (field == "wis") {
+			if (value.equals("")) {
+				return true;
+			}
+			int i = Integer.parseInt(value);
+			if (this.wis == i) {
+				return false;
+			}
+			setWis(i);
+			return true;
+		}
+		if (field == "cha") {
+			if (value.equals("")) {
+				return true;
+			}
+			int i = Integer.parseInt(value);
+			if (this.cha == i) {
+				return false;
+			}
+			setCha(i);
+			return true;
+		}
 		if (field == "level") {
 			if (value.equals("")) {
 				return true;

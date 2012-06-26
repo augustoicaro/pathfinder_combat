@@ -386,7 +386,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="Power Attack"
+                            android:text="Other"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
 
@@ -429,7 +429,7 @@
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
-                            android:id="@+id/txtPowerAttackPlusAttack"
+                            android:id="@+id/txtOtherPlusAttack"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
@@ -505,14 +505,7 @@
                             android:id="@+id/textView22"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="Power Attack"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView24"
-                            android:layout_height="30dp"
-                            android:gravity="center"
-                            android:text="Holy"
+                            android:text="Other"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
 
@@ -522,7 +515,7 @@
                         android:layout_height="fill_parent" >
 
                         <TextView
-                            android:id="@+id/textView25"
+                            android:id="@+id/txtWeaponDice"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:text="1d10"
@@ -543,17 +536,10 @@
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
-                            android:id="@+id/txtPowerAttackPlusDamage"
+                            android:id="@+id/txtOtherPlusDamage"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:text="4"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                        <TextView
-                            android:id="@+id/textView29"
-                            android:layout_height="30dp"
-                            android:gravity="center"
-                            android:text="2d6"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
@@ -721,12 +707,20 @@
                     android:textOn="+2 Damage" />
 
                 <ToggleButton
-                    android:id="@+id/btnFullDefense"
+                    android:id="@+id/btnFightDefensively"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="ToggleButton"
-                    android:textOff="Full Defense"
-                    android:textOn="Full Defense" />
+                    android:textOff="Fight Defensively"
+                    android:textOn="Fight Defensively (+2AC)" />
+
+                <ToggleButton
+                    android:id="@+id/btnCritical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ToggleButton"
+                    android:textOff="Critical"
+                    android:textOn="Critical" />
 
             </TableRow>
         </TableLayout>
