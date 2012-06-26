@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DBVERSION = 1;
+	private static final int DBVERSION = 2;
 	
 	private static final String TAG = "PFCombat:DatabaseHelper";
 	
@@ -63,9 +63,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.v(TAG, "onUpgrade()");
-		String drop_locations_table = String.format("DROP TABLE IF EXISTS %s", _t_characters);
-		Log.v(TAG, String.format("SQL: %s", drop_locations_table));
-		db.execSQL(drop_locations_table);
+		String drop_characters_table = String.format("DROP TABLE IF EXISTS %s", _t_characters);
+		Log.v(TAG, String.format("SQL: %s", drop_characters_table));
+		db.execSQL(drop_characters_table);
 		
 		onCreate(db);
 	}
