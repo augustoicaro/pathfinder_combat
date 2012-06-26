@@ -1,15 +1,36 @@
 package com.dmtprogramming.pathfindercombat;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 public class PFCharacterDataSource {
+	private static final String TAG = "PFCombat:PFCharacterDataSource";
+	
 	private SQLiteDatabase database;
 	private DatabaseHelper dbHelper;
+	
 	private String[] allColumns = { DatabaseHelper._c_characters_id,
-			DatabaseHelper._c_characters_name };
+			DatabaseHelper._c_characters_name,
+			DatabaseHelper._c_characters_character_class,
+			DatabaseHelper._c_characters_player,
+			DatabaseHelper._c_characters_level,
+			DatabaseHelper._c_characters_monk_level,
+			DatabaseHelper._c_characters_strength,
+			DatabaseHelper._c_characters_dexterity,
+			DatabaseHelper._c_characters_constitution,
+			DatabaseHelper._c_characters_intelligence,
+			DatabaseHelper._c_characters_wisdom,
+			DatabaseHelper._c_characters_charisma,
+			DatabaseHelper._c_characters_weapon_focus,
+			DatabaseHelper._c_characters_power_attack,
+			DatabaseHelper._c_characters_weapon_finesse
+			};
 	
 	public PFCharacterDataSource(Context context) {
 		dbHelper = new DatabaseHelper(context);
@@ -23,13 +44,71 @@ public class PFCharacterDataSource {
 		dbHelper.close();
 	}
 	
-	public PFCharacter findCharacter(int id) {
-		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, DatabaseHelper._c_characters_id + " = " + id, null, null, null, null);
+	public PFCharacter findCharacter(long _id) {
+		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, DatabaseHelper._c_characters_id + " = " + _id, null, null, null, null);
 		cursor.moveToFirst();
 		if (cursor.getCount() == 1) {
+			Log.d(TAG, "PFCharacter found with id = " + _id);
 			return cursorToPFCharacter(cursor);
 		}
+		Log.d(TAG, "PFCharacter not found with id = " + _id);
 		return new PFCharacter();
+	}
+	
+	public PFCharacter createPFCharacter(String name) {
+		ContentValues values = new ContentValues();
+		
+		values.put(DatabaseHelper._c_characters_character_class, "Paladin");
+		values.put(DatabaseHelper._c_characters_player, "Player");
+		values.put(DatabaseHelper._c_characters_name, name);
+		values.put(DatabaseHelper._c_characters_level, 1);
+		values.put(DatabaseHelper._c_characters_monk_level, 0);
+		values.put(DatabaseHelper._c_characters_strength, 10);
+		values.put(DatabaseHelper._c_characters_dexterity, 10);
+		values.put(DatabaseHelper._c_characters_constitution, 10);
+		values.put(DatabaseHelper._c_characters_intelligence, 10);
+		values.put(DatabaseHelper._c_characters_wisdom, 10);
+		values.put(DatabaseHelper._c_characters_charisma, 10);
+		values.put(DatabaseHelper._c_characters_weapon_finesse, false);
+		values.put(DatabaseHelper._c_characters_power_attack, false);
+		values.put(DatabaseHelper._c_characters_weapon_focus, false);
+		
+		long insertId = database.insert(DatabaseHelper._t_characters, null, values);
+		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, DatabaseHelper._c_characters_id + " = " + insertId, null, null, null, null);
+		cursor.moveToFirst();
+		PFCharacter cha = cursorToPFCharacter(cursor);
+		cursor.close();
+		Log.d(TAG, "PFCharacter created with id = " + insertId + " and name = " + name);
+		return cha;
+	}
+	
+	public void updatePFCharacter(PFCharacter cha) {
+		ContentValues values = new ContentValues();
+		
+		values.put(DatabaseHelper._c_characters_character_class, cha.getCharacterClass());
+		values.put(DatabaseHelper._c_characters_player, cha.getPlayer());
+		values.put(DatabaseHelper._c_characters_name, cha.getName());
+		values.put(DatabaseHelper._c_characters_level, cha.getLevel());
+		values.put(DatabaseHelper._c_characters_monk_level, cha.getMonkLevel());
+		values.put(DatabaseHelper._c_characters_strength, cha.getStr());
+		values.put(DatabaseHelper._c_characters_dexterity, cha.getDex());
+		values.put(DatabaseHelper._c_characters_constitution, cha.getCon());
+		values.put(DatabaseHelper._c_characters_intelligence, cha.getInt());
+		values.put(DatabaseHelper._c_characters_wisdom, cha.getWis());
+		values.put(DatabaseHelper._c_characters_charisma, cha.getCha());
+		values.put(DatabaseHelper._c_characters_weapon_finesse, false);
+		values.put(DatabaseHelper._c_characters_power_attack, cha.getPowerAttack());
+		values.put(DatabaseHelper._c_characters_weapon_focus, cha.getWeaponFocus());
+		
+		int num = database.update(DatabaseHelper._t_characters, values, DatabaseHelper._c_characters_id + " = " + cha.getId(), null);
+		
+		Log.d(TAG, "updated PFCharacter id = " + cha.getId() + " rows affected = " + num);
+	}
+	
+	public void deletePFCharacter(PFCharacter cha) {
+		long id = cha.getId();
+		Log.d(TAG, "PFCharacter deleted with id = " + id);
+		database.delete(DatabaseHelper._t_characters, DatabaseHelper._c_characters_id + " = " + id, null);
 	}
 	
 	private PFCharacter cursorToPFCharacter(Cursor cursor) {
@@ -37,7 +116,35 @@ public class PFCharacterDataSource {
 		
 		cha.setId(cursor.getLong(0));
 		cha.setName(cursor.getString(1));
-		
+		cha.setCharacterClass(cursor.getString(2));
+		cha.setPlayer(cursor.getString(3));
+		cha.setLevel(cursor.getInt(4));
+		cha.setMonkLevel(cursor.getInt(5));
+		cha.setStr(cursor.getInt(6));
+		cha.setDex(cursor.getInt(7));
+		cha.setCon(cursor.getInt(8));
+		cha.setInt(cursor.getInt(9));
+		cha.setWis(cursor.getInt(10));
+		cha.setCha(cursor.getInt(11));
+		cha.setWeaponFocus(cursor.getInt(12) > 0);
+		cha.setPowerAttack(cursor.getInt(13) > 0);
+
 		return cha;
+	}
+
+	public List<PFCharacter> getAllPFCharacters() {
+		List<PFCharacter> characters = new ArrayList<PFCharacter>();
+		
+		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, null, null, null, null, null);
+		
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			PFCharacter cha = cursorToPFCharacter(cursor);
+			characters.add(cha);
+			cursor.moveToNext();
+		}
+		
+		cursor.close();
+		return characters;
 	}
 }

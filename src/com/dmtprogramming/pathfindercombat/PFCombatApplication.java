@@ -6,14 +6,17 @@ import android.util.Log;
 public class PFCombatApplication extends Application {
 	
 	private static final String TAG = "PFCombat:PFCombatApplication";
-	private PFCombatDB _db = null;
+	private PFCharacterDataSource _db = null;
 	
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		Log.v(TAG, "onCreate()");
-		_db = new PFCombatDB(this);
+		_db = new PFCharacterDataSource(this);
 	}
 
+	public PFCharacterDataSource characterDataSource() {
+		return _db;
+	}
 }
