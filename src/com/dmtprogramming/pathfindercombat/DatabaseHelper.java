@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DBVERSION = 2;
+	private static final int DBVERSION = 3;
 	
 	private static final String TAG = "PFCombat:DatabaseHelper";
 	
@@ -32,6 +32,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String _c_characters_weapon_focus = "weapon_focus";
 	public static final String _c_characters_power_attack = "power_attack";
 	public static final String _c_characters_weapon_finesse = "weapon_finesse";
+	public static final String _c_characters_size = "size";
+	public static final String _c_characters_weapon_damage = "weapon_damage";
+	public static final String _c_characters_weapon_plus = "weapon_plus";
+	public static final String _c_characters_unarmed = "unarmed";
 	
 	public DatabaseHelper(Context context) {
 		super(context, _dbName, null, DBVERSION);
@@ -41,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.v(TAG, "onCreate()");
-		String create_character_table = String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s BOOLEAN, %s BOOLEAN, %s BOOLEAN)",
+		String create_character_table = String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s BOOLEAN, %s BOOLEAN, %s BOOLEAN, %s TEXT, %s TEXT, %s INTEGER, %s BOOLEAN)",
 				_t_characters,
 				_c_characters_id,
 				_c_characters_name,
@@ -57,7 +61,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				_c_characters_charisma,
 				_c_characters_weapon_focus,
 				_c_characters_power_attack,
-				_c_characters_weapon_finesse
+				_c_characters_weapon_finesse,
+				_c_characters_size,
+				_c_characters_weapon_damage,
+				_c_characters_weapon_plus,
+				_c_characters_unarmed
 		);
 		Log.v(TAG, String.format("SQL: %s", create_character_table));
 		db.execSQL(create_character_table);
@@ -65,12 +73,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		Log.v(TAG, "onUpgrade()");
-		String drop_characters_table = String.format("DROP TABLE IF EXISTS %s", _t_characters);
-		Log.v(TAG, String.format("SQL: %s", drop_characters_table));
-		db.execSQL(drop_characters_table);
-		
-		onCreate(db);
+		Log.v(TAG, String.format("onUpgrade(%d, %d)", oldVersion, newVersion));
+		while (oldVersion < newVersion) {
+			Log.v(TAG, String.format("upgrading database from version %d to %d", oldVersion, oldVersion + 1));
+			doUpgrade(db, oldVersion);
+			oldVersion++;
+		}
+	}
+	
+	private void doUpgrade(SQLiteDatabase db, int oldVersion) {
+		String upgrade_sql;
+		if (oldVersion == 1) {
+			addCharacterClass(db);
+		} else if (oldVersion == 2) {
+			addSizeAndWeaponColumns(db);
+		} else {
+			Log.v(TAG, String.format("unknown upgrade to db from version %d", oldVersion));
+		}
 	}
 
+	private void addCharacterClass(SQLiteDatabase db) {
+		String upgrade_sql;
+		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s TEXT", _t_characters, _c_characters_character_class);
+		db.execSQL(upgrade_sql);
+	}
+	
+	private void addSizeAndWeaponColumns(SQLiteDatabase db) {
+		String upgrade_sql;
+		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s TEXT", _t_characters, _c_characters_size);
+		db.execSQL(upgrade_sql);
+		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s TEXT", _t_characters, _c_characters_weapon_damage);
+		db.execSQL(upgrade_sql);
+		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s INTEGER", _t_characters, _c_characters_weapon_plus);
+		db.execSQL(upgrade_sql);
+		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s BOOLEAN", _t_characters, _c_characters_unarmed);
+		db.execSQL(upgrade_sql);
+	}
 }
