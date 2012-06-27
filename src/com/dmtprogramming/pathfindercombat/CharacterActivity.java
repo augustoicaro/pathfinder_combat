@@ -56,6 +56,8 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
         setupTriggers();
     }
     
+    // populate all of the stats from the db model
+    // also uses the toggles to change the data
     public void populateStats(String f) {
     	Log.d(TAG, "populateStats(" + f + ")");
     	
@@ -184,6 +186,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	}
     }
     
+    // apply the stats from all of the toggles to a single field
     protected String applyToggles(String field, String value) {
     	Log.d(TAG, "applyToggles(" + field + ", " + value +") - mods = " + _mods.size());
     	for (int i = 0; i < _mods.size(); i++) {
@@ -193,6 +196,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	return value;
     }
     
+    // update smite when the character gets updated
     protected void updateSmite() {
     	_smite.hit = _char.getChaMod();
     	_smite.damage = _char.getLevel();
@@ -205,6 +209,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	populateStats("");
     }
     
+    // set up the events for the toggle buttons
     protected void setupToggles() {
     	
     	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
@@ -297,6 +302,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	_mods.add(mod);
     }
     
+    // set up the events for when text fields are updated by the user
     protected void setupTriggers() {
     	setupTrigger(R.id.txtCharacter, "name");
     	setupTrigger(R.id.txtPlayer, "player");
@@ -315,12 +321,12 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	e.addTextChangedListener(new CustomTextWatcher(e, field, this));
     }
     
+    // saves the character after a field update and refreshes everything
     public void updateCharacter(String field) {
     	Log.d(TAG, "updateCharacter()");
     	datasource.updatePFCharacter(_char);
     	updateSmite();
     	populateStats(field);
-
     }
     
     public PFCharacter character() {
@@ -347,6 +353,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     
 }
 
+// text watcher for the various text fields on the page
 class CustomTextWatcher implements TextWatcher {
 	private static final String TAG = "PFCombat:CustomTextWatcher";
 	private EditText _text;
@@ -374,6 +381,7 @@ class CustomTextWatcher implements TextWatcher {
     }
 }
 
+// events for the toggle buttons
 class ToggleClickListener implements OnClickListener {
 	//private static final String TAG = "PFCombat:ToggleClickListener";
 	
