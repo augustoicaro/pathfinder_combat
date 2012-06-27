@@ -91,13 +91,14 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	populate(R.id.txtWeaponPlusDamage, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
     	populate(R.id.txtOtherPlusDamage, f, "plus_damage", String.valueOf(c.getPowerAttackDamage()));
     	
-    	
+    	// weapon focus calcs
     	CheckBox weaponFocus = (CheckBox) findViewById(R.id.ckWeaponFocus);
     	if (weaponFocus.isChecked()) {
     		TextView tv = (TextView) findViewById(R.id.txtWeaponFocusPlusAttack);
     		tv.setText("1");
     	}
     	
+    	// size modifier calcs
     	String weapon_damage = _char.getWeaponDamage();
     	int sizeMod = 0;
     	String sizeStr = applyToggles("size", "");
@@ -116,6 +117,16 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     		}
     	}
     	
+    	// extra attack calc
+    	String extraAttack = applyToggles("extra_attack", "false");
+    	if (extraAttack.equals("true")) {
+    		TextView tv = (TextView) findViewById(R.id.txtAttacks);
+    		String attacks = tv.getText().toString();
+    		attacks = attacks.concat(" / " + _char.getBAB());
+    		tv.setText(attacks);
+    	}
+    	
+    	// plus to hit calcs
     	int plusHit = 0;
     	plusHit += parseIntField(R.id.txtStrModPlusAttack);
     	plusHit += parseIntField(R.id.txtWeaponPlusAttack);
@@ -124,6 +135,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	String attacks = (String) ((TextView) findViewById(R.id.txtAttacks)).getText();
     	calculateFinalPlusHit(attacks, plusHit);
     	
+    	// plus to damage calcs
     	int plusDamage = 0;
     	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
     	plusDamage += parseIntField(R.id.txtWeaponPlusDamage);
@@ -270,6 +282,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	
     	CharacterModifier haste = new CharacterModifier();
     	haste.hit = 1;
+    	haste.extraAttack = true;
     	
     	addToggle(R.id.btnPowerAttack, powerAttack);
     	addToggle(R.id.btnSmite, _smite);

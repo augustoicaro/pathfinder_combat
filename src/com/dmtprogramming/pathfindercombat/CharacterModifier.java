@@ -10,6 +10,7 @@ public class CharacterModifier {
 	public int hit;
 	public int size;
 	public boolean enabled;
+	public boolean extraAttack;
 	
 	public CharacterModifier() {
 		enabled = false;
@@ -19,18 +20,9 @@ public class CharacterModifier {
 		damage = 0;
 		hit = 0;
 		size = 0;		
+		extraAttack = false;
 	}
 	
-	public CharacterModifier(int _id) {
-		enabled = false;
-		id = _id;
-		str = 0;
-		damageDice = "";
-		damage = 0;
-		hit = 0;
-		size = 0;
-	}
-
 	public String apply(String field, String value) {
 		if (this.enabled == false) {
 			return value;
@@ -61,6 +53,14 @@ public class CharacterModifier {
 			int i = parseInt(value);
 			i += this.size;
 			return String.valueOf(i);
+		} else if (field.equals("extra_attack")) {
+			if (value.equals("true")) {
+				return value;
+			}
+			if (this.extraAttack) {
+				return "true";
+			}
+			return "false";
 		}
 		return value;
 	}
