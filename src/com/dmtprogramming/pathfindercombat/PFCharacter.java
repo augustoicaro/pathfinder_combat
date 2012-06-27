@@ -1,6 +1,28 @@
 package com.dmtprogramming.pathfindercombat;
 
 public class PFCharacter {
+	
+	public static String[] SIZES = {"Tiny", "Medium", "Large"};
+	
+	public static String[] FLURRY_OF_BLOWS_ATTACKS = { "-1 / -1", "0 / 0", "1 / 1", "2 / 2", "3 / 3", "4 / 4 / -1", "5 / 5 / 0", "6 / 6 / 1 / 1",
+		"7 / 7 / 2 / 2", "8 / 8 / 3 / 3", "9 / 9 / 4 / 4 / -1", "10 / 10 / 5 / 5 / 0", "11 / 11 / 6 / 6 / 1", "12 / 12 / 7 / 7 / 2", "13 / 13 / 8 / 8 / 3 / 3",
+		"14 / 14 / 9 / 9 / 4 / 4 / -1", "15 / 15 / 10 / 10 / 5 / 5 / 0", "16 / 16 / 11 / 11 / 6 / 6 / 1", "17 / 17 / 12 / 12 / 7 / 7 / 2", 
+		"18 / 18 / 13 / 13 / 8 / 8 / 3"};
+	
+	public static String[] CHARACTER_CLASSES = { "Paladin", "Monk" };
+	
+	public static int[] FAST_BAB_PROGRESSION = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
+	public static int[] MEDIUM_BAB_PROGRESSION = { 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 13, 14, 15 };
+	public static int[] SLOW_BAB_PROGRESSION = { 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10 };
+	
+	public static String[] TINY_WEAPON_DAMAGES = {"1d2", "1d3", "1d4", "1d6", "1d8", "1d4", "1d8", "1d10", "2d6"};
+	public static String[] MEDIUM_WEAPON_DAMAGES = {"1d4", "1d6", "1d8", "1d10", "1d12", "2d4", "2d6", "2d8", "2d10"};
+	public static String[] LARGE_WEAPON_DAMAGES = {"1d6", "1d8", "2d6", "2d8", "3d6", "2d6", "3d6", "3d8", "4d8"};
+	
+	public static String[] TINY_MONK_DAMAGES = { "1d4", "1d6", "1d8", "1d10", "2d6", "2d8" };
+	public static String[] MEDIUM_MONK_DAMAGES = { "1d6", "1d8", "1d10", "2d6", "2d8", "2d10" };
+	public static String[] LARGE_MONK_DAMAGES = { "1d8", "2d6", "2d8", "3d6", "3d8", "4d8" };
+	
 	private long id;
 	private String name;
 	private String player;
@@ -15,24 +37,12 @@ public class PFCharacter {
 	private String characterClass;
 	private boolean weapon_focus;
 	private boolean power_attack;
+	private boolean flurry_of_blows;
 	
 	private String size;
 	private String weapon_damage;
 	private int weapon_plus;
-	
-	public static String[] SIZES = {
-		"Tiny", "Medium", "Large"
-	};
-	
-	public static String[] TINY_WEAPON_DAMAGES = {
-		"1d2", "1d3", "1d4", "1d6", "1d8", "1d4", "1d8", "1d10", "2d6"
-	};
-	public static String[] MEDIUM_WEAPON_DAMAGES = {
-		"1d4", "1d6", "1d8", "1d10", "1d12", "2d4", "2d6", "2d8", "2d10"
-	};
-	public static String[] LARGE_WEAPON_DAMAGES = {
-		"1d6", "1d8", "2d6", "2d8", "3d6", "2d6", "3d6", "3d8", "4d8"
-	};
+	private boolean unarmed;
 	
 	public long getId() {
 		return id;
@@ -238,12 +248,13 @@ public class PFCharacter {
 	}
 	
 	public int getBAB() {
-		return this.level;
+		int[] progression = getBABProgression(); 
+		return progression[this.level];
 	}
 	
 	public String getAttacks() {
 		String ret = "";
-		int l = this.level;
+		int l = getBAB();
 		while (l > 0) {
 			if (!ret.equals("")) {
 				ret = ret.concat(" / ");
@@ -348,6 +359,29 @@ public class PFCharacter {
 	
 	public void setWeaponPlus(int weapon_plus) {
 		this.weapon_plus = weapon_plus;
+	}
+	
+	public int[] getBABProgression() {
+		if (this.characterClass.equals("Monk")) {
+			return PFCharacter.MEDIUM_BAB_PROGRESSION;
+		}
+		return PFCharacter.FAST_BAB_PROGRESSION;
+	}
+	
+	public boolean getFlurryOfBlows() {
+		return this.flurry_of_blows;
+	}
+	
+	public void setFlurryOfBlows(boolean b) {
+		this.flurry_of_blows = b;
+	}
+	
+	public boolean getUnarmed() {
+		return this.unarmed;
+	}
+	
+	public void setUnarmed(boolean b) {
+		this.unarmed = b;
 	}
 }
 

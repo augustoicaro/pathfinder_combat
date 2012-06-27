@@ -314,15 +314,18 @@
                             android:id="@+id/textView24"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
+                          	android:gravity="center|right"
+                            android:padding="3dp"
                             android:text="Weapon +"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <EditText
                             android:id="@+id/txtWeaponPlus"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="wrap_content"
-                            android:inputType="numberSigned" />
+                            android:ems="10"
+                            android:inputType="numberSigned"
+                            android:padding="3dp" />
 
                     </TableRow>
 
@@ -341,8 +344,10 @@
 
                         <Spinner
                             android:id="@+id/spinDamage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                           	android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:padding="3dp" />
 
                     </TableRow>
 
@@ -356,14 +361,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="bottom|center|center_vertical|right"
-                            android:text="Feats"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                        <CheckBox
-                            android:id="@+id/ckWeaponFocus"
+                        <ToggleButton
+                            android:id="@+id/btnWeaponFocus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Weapon Focus" />
+                            android:text="Weapon Focus"
+                            android:textOff="Weapon Focus"
+                            android:textOn="Weapon Focus" />
 
                     </TableRow>
 
@@ -377,6 +383,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <ToggleButton
+                            android:id="@+id/btnFlurryOfBlows"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Flurry of Blows"
+                            android:textOff="Flurry of Blows"
+                            android:textOn="Flurry of Blows" />
 
                     </TableRow>
 

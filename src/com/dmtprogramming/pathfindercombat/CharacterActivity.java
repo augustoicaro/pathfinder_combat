@@ -91,8 +91,13 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	populate(R.id.txtWeaponPlusDamage, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
     	populate(R.id.txtOtherPlusDamage, f, "plus_damage", String.valueOf(c.getPowerAttackDamage()));
     	
+    	// flurry of blows calcs
+    	ToggleButton flurryOfBlows = (ToggleButton) findViewById(R.id.btnFlurryOfBlows);
+    	flurryOfBlows.setChecked(_char.getFlurryOfBlows());
+    	
     	// weapon focus calcs
-    	CheckBox weaponFocus = (CheckBox) findViewById(R.id.ckWeaponFocus);
+    	ToggleButton weaponFocus = (ToggleButton) findViewById(R.id.btnWeaponFocus);
+    	weaponFocus.setChecked(_char.getWeaponFocus());
     	if (weaponFocus.isChecked()) {
     		TextView tv = (TextView) findViewById(R.id.txtWeaponFocusPlusAttack);
     		tv.setText("1");
@@ -301,10 +306,21 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	addToggle(R.id.btnEnlargePerson, enlargePerson);
     	addToggle(R.id.btnHaste, haste);
     	
-    	CheckBox weaponFocus = (CheckBox) findViewById(R.id.ckWeaponFocus);
+    	ToggleButton weaponFocus = (ToggleButton) findViewById(R.id.btnWeaponFocus);
     	weaponFocus.setOnClickListener(new OnClickListener() {
     		public void onClick(View v) {
-    			populateStats("");
+    			ToggleButton tb = (ToggleButton) v;
+    			_char.setWeaponFocus(tb.isChecked());
+    			updateCharacter("weapon_focus");
+    		}
+    	});
+    	
+    	ToggleButton flurryOfBlows = (ToggleButton) findViewById(R.id.btnFlurryOfBlows);
+    	flurryOfBlows.setOnClickListener(new OnClickListener() {
+    		public void onClick(View v) {
+    			ToggleButton tb = (ToggleButton) v;
+    			_char.setFlurryOfBlows(tb.isChecked());
+    			updateCharacter("flurry_of_blows");
     		}
     	});
     }
