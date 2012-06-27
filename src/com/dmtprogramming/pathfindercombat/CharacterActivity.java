@@ -263,6 +263,9 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	enlargePerson.str = 2;
     	enlargePerson.hit = -1;
     	
+    	CharacterModifier haste = new CharacterModifier();
+    	haste.hit = 1;
+    	
     	addToggle(R.id.btnPowerAttack, powerAttack);
     	addToggle(R.id.btnSmite, _smite);
     	addToggle(R.id.btnPlus2Str, plus2Str);
@@ -278,6 +281,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	addToggle(R.id.btnPlus2d6, plus2d6);
     	addToggle(R.id.btnCritical, crit);
     	addToggle(R.id.btnEnlargePerson, enlargePerson);
+    	addToggle(R.id.btnHaste, haste);
     	
     	CheckBox weaponFocus = (CheckBox) findViewById(R.id.ckWeaponFocus);
     	weaponFocus.setOnClickListener(new OnClickListener() {
