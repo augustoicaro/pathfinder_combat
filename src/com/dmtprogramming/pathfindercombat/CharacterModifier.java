@@ -11,6 +11,7 @@ public class CharacterModifier {
 	public int size;
 	public boolean enabled;
 	public boolean extraAttack;
+	public boolean flurry_of_blows;
 	
 	public CharacterModifier() {
 		enabled = false;
@@ -21,6 +22,7 @@ public class CharacterModifier {
 		hit = 0;
 		size = 0;		
 		extraAttack = false;
+		flurry_of_blows = false;
 	}
 	
 	public String apply(String field, String value) {
@@ -58,6 +60,14 @@ public class CharacterModifier {
 				return value;
 			}
 			if (this.extraAttack) {
+				return "true";
+			}
+			return "false";
+		} else if (field.equals("flurry_of_blows")) {
+			if (value.equals("true")) {
+				return value;
+			}
+			if (this.flurry_of_blows) {
 				return "true";
 			}
 			return "false";

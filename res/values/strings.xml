@@ -2,6 +2,13 @@
 <resources>
 
     <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">PathfinderCombat</string>
+    <string name="app_name">Pathfinder Combat</string>
+    <string name="attacks">ATTACKS</string>
+    <string name="delete">Delete</string>
+    <string name="really_delete">Really Delete?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="character_class">Class</string>
+    <string name="stats">STATS</string>
 
 </resources>

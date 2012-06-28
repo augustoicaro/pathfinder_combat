@@ -26,13 +26,7 @@ public class MainActivity extends ListActivity {
         datasource = new PFCharacterDataSource(this);
         datasource.open();
         
-        List<PFCharacter> values = datasource.getAllPFCharacters();
-        
-        ArrayAdapter<PFCharacter> adapter = new ArrayAdapter<PFCharacter>(this, android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);
-        
-        //PFCharacter ch1 = datasource.findCharacter(1);
-        //Log.v(TAG, ch1.getName());
+        populateList();
     }
     
 	// Will be called via the onClick attribute
@@ -66,9 +60,17 @@ public class MainActivity extends ListActivity {
 		startActivityForResult(myIntent, 0);
 	}
 	
+	protected void populateList() {
+        List<PFCharacter> values = datasource.getAllPFCharacters();
+        
+        ArrayAdapter<PFCharacter> adapter = new ArrayAdapter<PFCharacter>(this, android.R.layout.simple_list_item_1, values);
+        setListAdapter(adapter);		
+	}
+	
 	@Override
 	protected void onResume() {
 		datasource.open();
+		populateList();
 		super.onResume();
 	}
 

@@ -29,7 +29,15 @@ public class PFCharacterDataSource {
 			DatabaseHelper._c_characters_charisma,
 			DatabaseHelper._c_characters_weapon_focus,
 			DatabaseHelper._c_characters_power_attack,
-			DatabaseHelper._c_characters_weapon_finesse
+			DatabaseHelper._c_characters_weapon_finesse,
+			DatabaseHelper._c_characters_size,
+			DatabaseHelper._c_characters_weapon_damage,
+			DatabaseHelper._c_characters_weapon_plus,
+			DatabaseHelper._c_characters_unarmed,
+			DatabaseHelper._c_characters_flurry_of_blows,
+			DatabaseHelper._c_characters_daily_total,
+			DatabaseHelper._c_characters_daily_current,
+			DatabaseHelper._c_characters_daily_title,
 			};
 	
 	public PFCharacterDataSource(Context context) {
@@ -72,6 +80,14 @@ public class PFCharacterDataSource {
 		values.put(DatabaseHelper._c_characters_weapon_finesse, false);
 		values.put(DatabaseHelper._c_characters_power_attack, false);
 		values.put(DatabaseHelper._c_characters_weapon_focus, false);
+		values.put(DatabaseHelper._c_characters_size, "Medium");
+		values.put(DatabaseHelper._c_characters_weapon_damage, "1d6");
+		values.put(DatabaseHelper._c_characters_weapon_plus, 0);
+		values.put(DatabaseHelper._c_characters_unarmed, false);
+		values.put(DatabaseHelper._c_characters_flurry_of_blows, false);
+		values.put(DatabaseHelper._c_characters_daily_total, 0);
+		values.put(DatabaseHelper._c_characters_daily_current, 0);
+		values.put(DatabaseHelper._c_characters_daily_title, "Daily Power");
 		
 		long insertId = database.insert(DatabaseHelper._t_characters, null, values);
 		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, DatabaseHelper._c_characters_id + " = " + insertId, null, null, null, null);
@@ -99,6 +115,14 @@ public class PFCharacterDataSource {
 		values.put(DatabaseHelper._c_characters_weapon_finesse, false);
 		values.put(DatabaseHelper._c_characters_power_attack, cha.getPowerAttack());
 		values.put(DatabaseHelper._c_characters_weapon_focus, cha.getWeaponFocus());
+		values.put(DatabaseHelper._c_characters_size, cha.getSize());
+		values.put(DatabaseHelper._c_characters_weapon_damage, cha.getWeaponDamage());
+		values.put(DatabaseHelper._c_characters_weapon_plus, cha.getWeaponPlus());
+		values.put(DatabaseHelper._c_characters_unarmed, cha.getUnarmed());
+		values.put(DatabaseHelper._c_characters_flurry_of_blows, cha.getFlurryOfBlows());
+		values.put(DatabaseHelper._c_characters_daily_total, cha.getDailyTotal());
+		values.put(DatabaseHelper._c_characters_daily_current, cha.getDailyCurrent());
+		values.put(DatabaseHelper._c_characters_daily_title, cha.getDailyTitle());
 		
 		int num = database.update(DatabaseHelper._t_characters, values, DatabaseHelper._c_characters_id + " = " + cha.getId(), null);
 		
@@ -128,7 +152,16 @@ public class PFCharacterDataSource {
 		cha.setCha(cursor.getInt(11));
 		cha.setWeaponFocus(cursor.getInt(12) > 0);
 		cha.setPowerAttack(cursor.getInt(13) > 0);
-
+		//cha.setWeaponFinesse(cursor.getInt(14) > 0);
+		cha.setSize(cursor.getString(15));
+		cha.setWeaponDamage(cursor.getString(16));
+		cha.setWeaponPlus(cursor.getInt(17));
+		cha.setUnarmed(cursor.getInt(18) > 0);
+		cha.setFlurryOfBlows(cursor.getInt(19) > 0);
+		cha.setDailyTotal(cursor.getInt(20));
+		cha.setDailyCurrent(cursor.getInt(21));
+		cha.setDailyTitle(cursor.getString(22));
+		
 		return cha;
 	}
 

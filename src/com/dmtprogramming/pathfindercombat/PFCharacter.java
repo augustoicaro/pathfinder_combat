@@ -38,11 +38,13 @@ public class PFCharacter {
 	private boolean weapon_focus;
 	private boolean power_attack;
 	private boolean flurry_of_blows;
-	
 	private String size;
 	private String weapon_damage;
 	private int weapon_plus;
 	private boolean unarmed;
+	private int daily_total;
+	private int daily_current;
+	private String daily_title;
 	
 	public long getId() {
 		return id;
@@ -77,6 +79,9 @@ public class PFCharacter {
 	}
 	
 	public boolean setData(String field, String value) {
+		if (value.equals("")) {
+			return true;
+		}
 		if (field == "name") {
 			if (this.name.equals(value)) {
 				return false;
@@ -92,9 +97,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "str") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.str == i) {
 				return false;
@@ -103,9 +105,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "dex") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.dex == i) {
 				return false;
@@ -114,9 +113,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "con") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.con == i) {
 				return false;
@@ -125,9 +121,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "int") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.intel == i) {
 				return false;
@@ -136,9 +129,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "wis") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.wis == i) {
 				return false;
@@ -147,9 +137,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "cha") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.cha == i) {
 				return false;
@@ -158,9 +145,6 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "level") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.level == i) {
 				return false;
@@ -169,14 +153,34 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == "weapon_plus") {
-			if (value.equals("")) {
-				return true;
-			}
 			int i = Integer.parseInt(value);
 			if (this.weapon_plus == i) {
 				return false;
 			}
 			setWeaponPlus(i);
+			return true;
+		}
+		if (field == "daily_title") {
+			if (this.daily_title != null && this.daily_title.equals(value)) {
+				return false;
+			}
+			setDailyTitle(value);
+			return true;
+		}
+		if (field == "daily_total") {
+			int i = Integer.parseInt(value);
+			if (this.daily_total == i) {
+				return false;
+			}
+			setDailyTotal(i);
+			return true;
+		}
+		if (field == "daily_current") {
+			int i = Integer.parseInt(value);
+			if (this.daily_current == i) {
+				return false;
+			}
+			setDailyCurrent(i);
 			return true;
 		}
 
@@ -249,11 +253,14 @@ public class PFCharacter {
 	
 	public int getBAB() {
 		int[] progression = getBABProgression(); 
-		return progression[this.level];
+		return progression[this.level - 1];
 	}
 	
 	public String getAttacks() {
 		String ret = "";
+		if (this.flurry_of_blows) {
+			return PFCharacter.FLURRY_OF_BLOWS_ATTACKS[this.level - 1];
+		}
 		int l = getBAB();
 		while (l > 0) {
 			if (!ret.equals("")) {
@@ -337,8 +344,7 @@ public class PFCharacter {
 	}
 	
 	public String getSize() {
-		// return this.size;
-		return "Medium";
+		return this.size;
 	}
 	
 	public void setSize(String size) {
@@ -382,6 +388,30 @@ public class PFCharacter {
 	
 	public void setUnarmed(boolean b) {
 		this.unarmed = b;
+	}
+
+	public int getDailyTotal() {
+		return this.daily_total;
+	}
+	
+	public void setDailyTotal(int i) {
+		this.daily_total = i;
+	}
+	
+	public int getDailyCurrent() {
+		return this.daily_current;
+	}
+	
+	public void setDailyCurrent(int i) {
+		this.daily_current = i;
+	}
+	
+	public String getDailyTitle() {
+		return this.daily_title;
+	}
+	
+	public void setDailyTitle(String t) {
+		this.daily_title = t;
 	}
 }
 

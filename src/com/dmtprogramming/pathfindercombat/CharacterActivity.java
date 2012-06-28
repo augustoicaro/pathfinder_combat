@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
 	private List<CharacterModifier> _mods;
 	private CharacterModifier _smite;
 		
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,28 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
         	Log.d(TAG, "loaded character with id = " + _char.getId());
         }
     
+        Button btnDelete = (Button) findViewById(R.id.btnDelete);
+        final CharacterActivity t = this;
+        btnDelete.setOnClickListener(new OnClickListener() {
+        	public void onClick(View v) {
+        		new AlertDialog.Builder(t)
+        		.setIcon(android.R.drawable.ic_dialog_alert)
+        		.setTitle(R.string.delete)
+        		.setMessage(R.string.really_delete)
+        		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// TODO Auto-generated method stub
+						datasource.deletePFCharacter(_char);
+						finish();
+					}
+				})
+				.setNegativeButton(R.string.no, null)
+				.show();
+        	}
+        });
+        
         setupToggles();
         populateStats("");
 
@@ -79,6 +104,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	populate(R.id.txtIntMod, f, "intmod", String.valueOf(c.getIntMod()));
     	populate(R.id.txtWisMod, f, "wismod", String.valueOf(c.getWisMod()));
     	populate(R.id.txtChaMod, f, "chamod", String.valueOf(c.getChaMod()));
+    	populate(R.id.txtWeaponPlus, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
     	populate(R.id.txtWeaponDice, f, "weapon_damage", c.getWeaponDamage());
     	
     	populate(R.id.txtAttacks, f, "attacks", c.getAttacks());
@@ -91,9 +117,17 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	populate(R.id.txtWeaponPlusDamage, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
     	populate(R.id.txtOtherPlusDamage, f, "plus_damage", String.valueOf(c.getPowerAttackDamage()));
     	
+    	populate(R.id.txtDailyCurrent, f, "daily_current", String.valueOf(c.getDailyCurrent()));
+    	populate(R.id.txtDailyTotal, f, "daily_total", String.valueOf(c.getDailyTotal()));
+    	populate(R.id.txtDailyTitle, f, "daily_title", c.getDailyTitle());
+    	
     	// flurry of blows calcs
     	ToggleButton flurryOfBlows = (ToggleButton) findViewById(R.id.btnFlurryOfBlows);
     	flurryOfBlows.setChecked(_char.getFlurryOfBlows());
+    	
+    	// unarmed calcs
+    	ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
+    	unarmed.setChecked(_char.getUnarmed());
     	
     	// weapon focus calcs
     	ToggleButton weaponFocus = (ToggleButton) findViewById(R.id.btnWeaponFocus);
@@ -131,10 +165,16 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     		tv.setText(attacks);
     	}
     	
+    	EditText weaponPlus = (EditText) findViewById(R.id.txtWeaponPlus);
+    	TextView weaponPlusAttack = (TextView) findViewById(R.id.txtWeaponPlusAttack);
+    	TextView weaponPlusDamage = (TextView) findViewById(R.id.txtWeaponPlusDamage);
+    	weaponPlusAttack.setText(weaponPlus.getText());
+    	weaponPlusDamage.setText(weaponPlus.getText());
+    	
     	// plus to hit calcs
     	int plusHit = 0;
     	plusHit += parseIntField(R.id.txtStrModPlusAttack);
-    	plusHit += parseIntField(R.id.txtWeaponPlusAttack);
+    	plusHit += parseIntField(R.id.txtWeaponPlus);
     	plusHit += parseIntField(R.id.txtWeaponFocusPlusAttack);
     	plusHit += parseIntField(R.id.txtOtherPlusAttack);
     	String attacks = (String) ((TextView) findViewById(R.id.txtAttacks)).getText();
@@ -143,7 +183,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	// plus to damage calcs
     	int plusDamage = 0;
     	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
-    	plusDamage += parseIntField(R.id.txtWeaponPlusDamage);
+    	plusDamage += parseIntField(R.id.txtWeaponPlus);
     	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
     	calculateFinalPlusDamage(weapon_damage, plusDamage);
    }
@@ -223,7 +263,9 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
     	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
     	_char.setWeaponDamage(damageSpinner.getSelectedItem().toString());
-    	populateStats("");
+    	Spinner classSpinner = (Spinner) findViewById(R.id.spinClass);
+    	_char.setCharacterClass(classSpinner.getSelectedItem().toString());
+    	updateCharacter("");
     }
     
     // set up the events for the toggle buttons
@@ -233,8 +275,27 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PFCharacter.MEDIUM_WEAPON_DAMAGES);
     	adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     	damageSpinner.setAdapter(adapter);
-
     	damageSpinner.setOnItemSelectedListener(this);
+    	
+    	for (int i = 0; i < PFCharacter.MEDIUM_WEAPON_DAMAGES.length; i++) {
+    		String test = PFCharacter.MEDIUM_WEAPON_DAMAGES[i];
+    		if (test.equals(_char.getWeaponDamage())) {
+    			damageSpinner.setSelection(i);
+    		}
+    	}
+    	
+    	Spinner classSpinner = (Spinner) findViewById(R.id.spinClass);
+    	ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, PFCharacter.CHARACTER_CLASSES);
+    	adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	classSpinner.setAdapter(adapter2);
+    	classSpinner.setOnItemSelectedListener(this);
+    	
+    	for (int i = 0; i < PFCharacter.CHARACTER_CLASSES.length; i++) {
+    		String test = PFCharacter.CHARACTER_CLASSES[i];
+    		if (test.equals(_char.getCharacterClass())) {
+    			classSpinner.setSelection(i);
+    		}
+    	}
     	
     	_mods = new ArrayList<CharacterModifier>();
 
@@ -323,6 +384,15 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     			updateCharacter("flurry_of_blows");
     		}
     	});
+    	
+    	ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
+    	unarmed.setOnClickListener(new OnClickListener() {
+    		public void onClick(View v) {
+    			ToggleButton tb = (ToggleButton) v;
+    			_char.setUnarmed(tb.isChecked());
+    			updateCharacter("unarmed");
+    		}
+    	});
     }
     
     protected void addToggle(int id, CharacterModifier mod) {
@@ -343,6 +413,9 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	setupTrigger(R.id.txtWis, "wis");
     	setupTrigger(R.id.txtCha, "cha");
     	setupTrigger(R.id.txtWeaponPlus, "weapon_plus");
+    	setupTrigger(R.id.txtDailyTitle, "daily_title");
+    	setupTrigger(R.id.txtDailyCurrent, "daily_current");
+    	setupTrigger(R.id.txtDailyTotal, "daily_total");
     }
     
     protected void setupTrigger(int id, String field) {

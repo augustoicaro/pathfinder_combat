@@ -4,8 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dip"
-    android:showDividers="beginning" >
+    android:descendantFocusability="beforeDescendants"
+	android:focusableInTouchMode="true" >
 
+    <LinearLayout
+    	android:focusable="true" android:focusableInTouchMode="true"
+    	android:layout_width="0px" android:layout_height="0px"/>
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,12 +21,13 @@
             android:id="@+id/top_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3" >
+            android:layout_weight="0.8" >
 
             <LinearLayout
                 android:id="@+id/stats"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:background="@drawable/my_border"
                 android:orientation="vertical" >
 
                 <TextView
@@ -32,8 +38,9 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal|center_vertical"
                     android:height="40px"
-                    android:text="Stats"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:text="@string/stats"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/title_color" />
 
                 <TableLayout
                     android:layout_width="250dp"
@@ -62,7 +69,6 @@
                             android:ems="10"
                             android:padding="3dp" >
 
-                            <requestFocus />
                         </EditText>
                     </TableRow>
 
@@ -89,6 +95,30 @@
                     </TableRow>
 
                     <TableRow
+                        android:id="@+id/tableRow19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:padding="3dp"
+                            android:text="@string/character_class"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                        <Spinner
+                            android:id="@+id/spinClass"
+                           	android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:padding="3dp" />
+
+
+                    </TableRow>
+
+                    <TableRow
                         android:id="@+id/tableRow3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" >
@@ -98,7 +128,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
-                            android:height="65px"
                             android:padding="3dp"
                             android:text="Level"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -280,9 +309,9 @@
 
                         <TextView
                             android:id="@+id/textView11"
-                            android:layout_width="wrap_content"
+                         android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center|right"
+                            android:gravity="right"
                             android:padding="3dp"
                             android:text="Cha"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -299,10 +328,11 @@
                             android:id="@+id/txtChaMod"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
+                            android:layout_gravity="center_horizontal"
                             android:padding="3dp"
                             android:text="()"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
+
                     </TableRow>
 
                     <TableRow
@@ -363,14 +393,6 @@
                             android:layout_gravity="bottom|center|center_vertical|right"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                        <ToggleButton
-                            android:id="@+id/btnWeaponFocus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Weapon Focus"
-                            android:textOff="Weapon Focus"
-                            android:textOn="Weapon Focus" />
-
                     </TableRow>
 
                     <TableRow
@@ -384,14 +406,6 @@
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                        <ToggleButton
-                            android:id="@+id/btnFlurryOfBlows"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Flurry of Blows"
-                            android:textOff="Flurry of Blows"
-                            android:textOn="Flurry of Blows" />
-
                     </TableRow>
 
                 </TableLayout>
@@ -402,27 +416,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/my_border_right"
                 android:orientation="vertical"
                 android:padding="5dip" >
 
-                <TextView
-                    android:id="@+id/textView2"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="Paladin Formulas"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:layout_height="75dp" >
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:height="75dp"
-                    android:paddingLeft="15dp"
-                    android:text="ATTACK"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:height="75dp"
+                        android:paddingLeft="15dp"
+                        android:text="@string/attacks"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/title_color" />
+
+                    <Button
+                        android:id="@+id/btnDelete"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:text="@string/delete" />
+                </LinearLayout>
 
                 <TableLayout
                     android:id="@+id/attack_table"
@@ -491,7 +511,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="8 / 3"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
@@ -499,7 +518,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="4"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
@@ -507,7 +525,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="1"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
@@ -515,7 +532,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="1"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
@@ -523,7 +539,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="-2"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
@@ -539,7 +554,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text=" 14 / 9"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </TableRow>
                 </TableLayout>
@@ -549,11 +563,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:background="@drawable/my_border_top"
                     android:gravity="center_vertical"
                     android:height="75dp"
                     android:paddingLeft="15dp"
                     android:text="DAMAGE"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/title_color" />
 
                 <TableLayout
                     android:id="@+id/damage_table"
@@ -579,6 +595,7 @@
 
                         <TextView
                             android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:text="Str"
@@ -586,6 +603,7 @@
 
                         <TextView
                             android:id="@+id/textView21"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:text="Weapon"
@@ -593,10 +611,12 @@
 
                         <TextView
                             android:id="@+id/textView22"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:text="Other"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
+
                     </TableRow>
 
                     <TableRow
@@ -606,34 +626,35 @@
 
                         <TextView
                             android:id="@+id/txtWeaponDice"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="1d10"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
                             android:id="@+id/txtStrModPlusDamage"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="4"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
                             android:id="@+id/txtWeaponPlusDamage"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="1"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
                             android:id="@+id/txtOtherPlusDamage"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="4"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <TextView
                             android:id="@+id/textView30"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
                             android:text="="
@@ -641,10 +662,11 @@
 
                         <TextView
                             android:id="@+id/txtPlusDamage"
+                            android:layout_width="wrap_content"
                             android:layout_height="30dp"
                             android:gravity="center"
-                            android:text="1d10 + 9 + 2d6"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
+
                     </TableRow>
                 </TableLayout>
             </LinearLayout>
@@ -654,7 +676,7 @@
             android:id="@+id/bottom_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
             android:padding="5dip"
             android:stretchColumns="*" >
 
@@ -813,6 +835,67 @@
                     android:textOn="Critical" />
 
             </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/my_border_top"
+                android:paddingTop="4dp" >
+
+                <ToggleButton
+                    android:id="@+id/btnWeaponFocus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weapon Focus"
+                    android:textOff="Weapon Focus"
+                    android:textOn="Weapon Focus" />
+
+                <ToggleButton
+                    android:id="@+id/btnFlurryOfBlows"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Flurry of Blows"
+                    android:textOff="Flurry of Blows"
+                    android:textOn="Flurry of Blows" />
+
+                <ToggleButton
+                    android:id="@+id/btnUnarmed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unarmed Attacks"
+                    android:textOff="Unarmed Attacks"
+                    android:textOn="Unarmed Attacks" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <EditText
+                        android:id="@+id/txtDailyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8" >
+                    </EditText>
+
+                    <EditText
+                        android:id="@+id/txtDailyCurrent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:inputType="numberSigned" />
+
+                    <EditText
+                        android:id="@+id/txtDailyTotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:inputType="numberSigned" />
+
+                </LinearLayout>
+            </TableRow>
+
         </TableLayout>
     </LinearLayout>
 
