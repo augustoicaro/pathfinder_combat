@@ -24,24 +24,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delete" />
         
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_weight="0.8"
-                android:gravity="center_horizontal|center_vertical"
-                android:height="26dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingTop="8dp"
                 android:text="@string/stats"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/title_color" />
-
+            
             <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -51,7 +45,8 @@
                 <TableRow
                     android:id="@+id/tableRow1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" >
 
                     <TextView
                         android:id="@+id/textView3"
@@ -70,6 +65,7 @@
                         android:ems="10"
                         android:inputType="text"
                         android:padding="3dp" />
+
                 </TableRow>
 
                 <TableRow
@@ -83,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:padding="3dp"
-                        android:text="Character"
+                        android:text="@string/name"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
@@ -131,19 +127,20 @@
                         android:text="Level"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <EditText
-                        android:id="@+id/txtLevel"
-                        android:layout_width="100dp"
+                    <Spinner
+                        android:id="@+id/spinLevel"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="numberSigned"
                         android:padding="3dp" />
+
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/tableRow4"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_border_top"
+                    android:paddingTop="8dp" >
 
                     <TextView
                         android:id="@+id/textView6"
@@ -326,7 +323,7 @@
                         android:id="@+id/txtChaMod"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
+                        android:layout_gravity="center"
                         android:padding="3dp"
                         android:text="()"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -335,7 +332,9 @@
                 <TableRow
                     android:id="@+id/tableRow14"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/my_border_top"
+                    android:paddingTop="8dp" >
 
                     <TextView
                         android:id="@+id/textView24"
@@ -364,7 +363,8 @@
                         android:id="@+id/textView25"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="center|right"
+                        android:padding="3dp"
                         android:text="Damage"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -383,12 +383,11 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/my_border_top"
                 android:gravity="center_vertical"
-                android:paddingTop="4dp"
                 android:paddingLeft="5dp"
+                android:paddingTop="8dp"
                 android:text="@string/attacks"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/title_color" />
-
 
             <TableLayout
                 android:id="@+id/attack_table"
@@ -499,12 +498,11 @@
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.8"
+                android:layout_height="wrap_content"
                 android:background="@drawable/my_border_top"
-                android:paddingTop="4dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp"
+                android:paddingTop="8dp"
                 android:text="DAMAGE"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/title_color" />
@@ -512,8 +510,7 @@
             <TableLayout
                 android:id="@+id/damage_table"
                 android:layout_width="fill_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.8"
+                android:layout_height="wrap_content"
                 android:stretchColumns="*" >
 
                 <TableRow
@@ -604,8 +601,6 @@
                 android:id="@+id/bottom_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:padding="5dip"
                 android:stretchColumns="*" >
 
                 <TableRow
@@ -634,8 +629,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ToggleButton"
-                        android:textOff="Enlarge Person"
-                        android:textOn="Enlarge Person" />
+                        android:textOff="Enlarge"
+                        android:textOn="Enlarge" />
                 </TableRow>
 
                 <TableRow
@@ -660,12 +655,73 @@
                         android:textOn="+4 Str" />
 
                     <ToggleButton
+                        android:id="@+id/btnHaste"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="Haste"
+                        android:textOn="Haste" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <ToggleButton
                         android:id="@+id/btnPlus1d6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ToggleButton"
-                        android:textOff="+1d6 Damage"
-                        android:textOn="+1d6 Damage" />
+                        android:textOff="+1d6 Dmg"
+                        android:textOn="+1d6 Dmg" />
+
+                    <ToggleButton
+                        android:id="@+id/btnPlus2d6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="+2d6 Dmg"
+                        android:textOn="+2d6 Dmg" />
+
+                    <ToggleButton
+                        android:id="@+id/btnFlank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="Flank"
+                        android:textOn="Flank" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <ToggleButton
+                        android:id="@+id/btnPlus1Damage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="+1 Dmg"
+                        android:textOn="+1 Dmg" />
+
+                    <ToggleButton
+                        android:id="@+id/btnPlus2Damage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="+2 Dmg"
+                        android:textOn="+2 Dmg" />
+
+                    <ToggleButton
+                        android:id="@+id/btnFightDefensively"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ToggleButton"
+                        android:textOff="Defensive"
+                        android:textOn="Defensive" />
                 </TableRow>
 
                 <TableRow
@@ -699,95 +755,38 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/tableRow20"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <ToggleButton
-                        android:id="@+id/btnFlank"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="Flank"
-                        android:textOn="Flank" />
-
-                    <ToggleButton
-                        android:id="@+id/btnPlus2d6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="+2d6 Damage"
-                        android:textOn="+2d6 Damage" />
-
-                    <ToggleButton
-                        android:id="@+id/btnHaste"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="Haste"
-                        android:textOn="Haste" />
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <ToggleButton
-                        android:id="@+id/btnPlus1Damage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="+1 Damage"
-                        android:textOn="+1 Damage" />
-
-                    <ToggleButton
-                        android:id="@+id/btnPlus2Damage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="+2 Damage"
-                        android:textOn="+2 Damage" />
-
-                    <ToggleButton
-                        android:id="@+id/btnFightDefensively"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="ToggleButton"
-                        android:textOff="Fight Defensively"
-                        android:textOn="Fight Defensively (+2AC)" />
-                </TableRow>
-
-                <TableRow
                     android:id="@+id/tableRow18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/my_border_top"
-                    android:paddingTop="4dp" >
-
-                    <ToggleButton
-                        android:id="@+id/btnWeaponFocus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Weapon Focus"
-                        android:textOff="Weapon Focus"
-                        android:textOn="Weapon Focus" />
+                    android:paddingTop="8dp" >
 
                     <ToggleButton
                         android:id="@+id/btnFlurryOfBlows"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Flurry of Blows"
+                        android:textColor="@color/feats"
                         android:textOff="Flurry of Blows"
                         android:textOn="Flurry of Blows" />
+
+                    <ToggleButton
+                        android:id="@+id/btnWeaponFocus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weapon Focus"
+                        android:textColor="@color/feats"
+                        android:textOff="Wpn Focus"
+                        android:textOn="Wpn Focus" />
 
                     <ToggleButton
                         android:id="@+id/btnUnarmed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Unarmed Attacks"
-                        android:textOff="Unarmed Attacks"
-                        android:textOn="Unarmed Attacks" />
+                        android:text="Unarmed"
+                        android:textColor="@color/feats"
+                        android:textOff="Unarmed"
+                        android:textOn="Unarmed" />
                 </TableRow>
 
                 <TableRow

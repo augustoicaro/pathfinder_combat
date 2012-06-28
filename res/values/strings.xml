@@ -10,5 +10,6 @@
     <string name="yes">Yes</string>
     <string name="character_class">Class</string>
     <string name="stats">STATS</string>
+    <string name="name">Name</string>
 
 </resources>

@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -52,28 +54,6 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
         if (_char != null) {
         	Log.d(TAG, "loaded character with id = " + _char.getId());
         }
-    
-        Button btnDelete = (Button) findViewById(R.id.btnDelete);
-        final CharacterActivity t = this;
-        btnDelete.setOnClickListener(new OnClickListener() {
-        	public void onClick(View v) {
-        		new AlertDialog.Builder(t)
-        		.setIcon(android.R.drawable.ic_dialog_alert)
-        		.setTitle(R.string.delete)
-        		.setMessage(R.string.really_delete)
-        		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// TODO Auto-generated method stub
-						datasource.deletePFCharacter(_char);
-						finish();
-					}
-				})
-				.setNegativeButton(R.string.no, null)
-				.show();
-        	}
-        });
         
         setupToggles();
         populateStats("");
@@ -91,7 +71,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	
     	populate(R.id.txtCharacter, f, "name", c.getName());
     	populate(R.id.txtPlayer, f, "player", c.getPlayer());
-    	populate(R.id.txtLevel, f, "level", String.valueOf(c.getLevel()));
+    	//populate(R.id.txtLevel, f, "level", String.valueOf(c.getLevel()));
     	populate(R.id.txtStr, f, "str", String.valueOf(c.getStr()));
     	populate(R.id.txtDex, f, "dex", String.valueOf(c.getDex()));
     	populate(R.id.txtCon, f, "con", String.valueOf(c.getCon()));
@@ -267,12 +247,14 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	_smite.damage = _char.getLevel();
     }
     
-    // callback for the damage spinner
+    // callback for the damage and class spinners
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
     	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
     	_char.setWeaponDamage(damageSpinner.getSelectedItem().toString());
     	Spinner classSpinner = (Spinner) findViewById(R.id.spinClass);
     	_char.setCharacterClass(classSpinner.getSelectedItem().toString());
+    	Spinner levelSpinner = (Spinner) findViewById(R.id.spinLevel);
+    	_char.setLevel(Integer.parseInt(levelSpinner.getSelectedItem().toString()));
     	updateCharacter("");
     }
     
@@ -304,6 +286,14 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     			classSpinner.setSelection(i);
     		}
     	}
+    	
+    	Spinner levelSpinner = (Spinner) findViewById(R.id.spinLevel);
+    	String[] levels = { "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20" };
+    	ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, levels);
+    	adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    	levelSpinner.setAdapter(adapter3);
+    	levelSpinner.setOnItemSelectedListener(this);
+    	levelSpinner.setSelection(_char.getLevel() - 1);
     	
     	_mods = new ArrayList<CharacterModifier>();
 
@@ -413,7 +403,6 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     protected void setupTriggers() {
     	setupTrigger(R.id.txtCharacter, "name");
     	setupTrigger(R.id.txtPlayer, "player");
-    	setupTrigger(R.id.txtLevel, "level");
     	setupTrigger(R.id.txtStr, "str");
     	setupTrigger(R.id.txtDex, "dex");
     	setupTrigger(R.id.txtCon, "con");
@@ -460,7 +449,38 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
 		// TODO Auto-generated method stub
 		
 	}
-    
+	
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.character_menu, menu);
+        return true;
+    }
+ 
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	if (item.getItemId() == R.id.menuDelete) {
+	        showDeleteDialog();
+	        return true;	        
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+	private void showDeleteDialog() {
+		new AlertDialog.Builder(this)
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setTitle(R.string.delete)
+		.setMessage(R.string.really_delete)
+		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				datasource.deletePFCharacter(_char);
+				finish();
+			}
+		})
+		.setNegativeButton(R.string.no, null)
+		.show();		
+	}
 }
 
 // text watcher for the various text fields on the page
