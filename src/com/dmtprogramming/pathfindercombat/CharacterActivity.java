@@ -134,6 +134,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	weaponFocus.setChecked(_char.getWeaponFocus());
     	if (weaponFocus.isChecked()) {
     		TextView tv = (TextView) findViewById(R.id.txtWeaponFocusPlusAttack);
+    		tv.clearFocus();
     		tv.setText("1");
     	}
     	
@@ -162,13 +163,16 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     		TextView tv = (TextView) findViewById(R.id.txtAttacks);
     		String attacks = tv.getText().toString();
     		attacks = attacks.concat(" / " + _char.getBAB());
+    		tv.clearFocus();
     		tv.setText(attacks);
     	}
     	
     	EditText weaponPlus = (EditText) findViewById(R.id.txtWeaponPlus);
     	TextView weaponPlusAttack = (TextView) findViewById(R.id.txtWeaponPlusAttack);
     	TextView weaponPlusDamage = (TextView) findViewById(R.id.txtWeaponPlusDamage);
+    	weaponPlusAttack.clearFocus();
     	weaponPlusAttack.setText(weaponPlus.getText());
+    	weaponPlusDamage.clearFocus();
     	weaponPlusDamage.setText(weaponPlus.getText());
     	
     	// plus to hit calcs
@@ -213,6 +217,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     		}
     		finalPlusAttack = finalPlusAttack + String.valueOf(hit + plusHit);
     	}
+    	tv.clearFocus();
     	tv.setText(finalPlusAttack);
     }
     
@@ -226,6 +231,7 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     	if (crit.isChecked()) {
     		plusDamage *= 2;
     	}
+    	tv.clearFocus();
     	tv.setText(weaponDice + " + " + String.valueOf(plusDamage) + plusDamageDice);
     }
     
@@ -235,9 +241,11 @@ public class CharacterActivity extends Activity implements AdapterView.OnItemSel
     		String type = v.getClass().getName();
     		if (type.equals("android.widget.EditText")) {
     			EditText e = (EditText) v;
+    			e.clearFocus();
         		e.setText(value);
     		} else if (type.equals("android.widget.TextView")) {
     			TextView e = (TextView) v;
+    			e.clearFocus();
     			e.setText(applyToggles(field, value));
     		}
     	}
