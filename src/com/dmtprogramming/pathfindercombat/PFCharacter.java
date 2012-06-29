@@ -262,7 +262,7 @@ public class PFCharacter {
 			return PFCharacter.FLURRY_OF_BLOWS_ATTACKS[this.level - 1];
 		}
 		int l = getBAB();
-		while (l > 0) {
+		while (l >= 0) {
 			if (!ret.equals("")) {
 				ret = ret.concat(" / ");
 				ret = ret.concat(String.valueOf(l));

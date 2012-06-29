@@ -1,15 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">Pathfinder Combat</string>
+    
+    <!-- headers -->
     <string name="attacks">ATTACKS</string>
+    <string name="stats">STATS</string>
+    <string name="damage">DAMAGE</string>
+    
+    <!-- stats -->
+    <string name="player">Player</string>
+   	<string name="characterClass">Class</string>
+	<string name="level">Level</string>
+	<string name="name">Name</string>
+    <string name="str">Str</string>
+    <string name="dex">Dex</string>
+    <string name="con">Con</string>
+    <string name="intel">Int</string>
+    <string name="wis">Wis</string>
+    <string name="cha">Cha</string>
+    <string name="statmod">()</string>
+    <string name="weaponPlus">Weapon +</string>
+    <string name="weaponDamage">Damage</string>
+    
+    <!-- attacks and damage --> 
+    <string name="BAB">BAB</string>
+    <string name="wpn">Wpn</string>
+    <string name="feat">Feat</string>
+    <string name="other">Other</string>
+    <string name="dmg">Dmg</string>
+      
+    <!-- toggles -->
+    <string name="powerAttack">Power Attack</string>
+    <string name="smite">Smite</string>
+    <string name="enlarge">Enlarge</string>
+    <string name="plus2Str">+2 Str</string>
+    <string name="plus4Str">+4 Str</string>
+    <string name="haste">Haste</string>
+    <string name="plus1d6">+1d6 Dmg</string>
+    <string name="plus2d6">+2d6 Dmg</string>
+    <string name="flank">Flank</string>
+    <string name="plus1Damage">+1 Dmg</string>
+    <string name="plus2Damage">+2 Dmg</string>
+    <string name="defensive">Defensive</string>
+    <string name="plus1Hit">+1 Hit</string>
+    <string name="plus2Hit">+2 Hit</string>
+    <string name="plus4Hit">+4 Hit</string>
+    <string name="flurryOfBlows">Flurry of Blows</string>
+    <string name="wpnFocus">Wpn Focus</string>
+    <string name="unarmed">Unarmed</string>
+    <string name="critical">Critical</string>
+    <string name="dailyPower">Daily Power</string>    
+    
+    <!-- dialogs and buttons -->
     <string name="delete">Delete</string>
     <string name="really_delete">Really Delete?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="character_class">Class</string>
-    <string name="stats">STATS</string>
-    <string name="name">Name</string>
+    <string name="addNew">Add New</string>
 
 </resources>
