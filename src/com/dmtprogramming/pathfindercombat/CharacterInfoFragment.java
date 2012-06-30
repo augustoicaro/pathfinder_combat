@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 
 public class CharacterInfoFragment extends FragmentBase {
 	
@@ -14,6 +12,8 @@ public class CharacterInfoFragment extends FragmentBase {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_info, container, false);
+		
+		setupIntentFilter();
 		
         setupView();
         populateStats("");
@@ -45,22 +45,6 @@ public class CharacterInfoFragment extends FragmentBase {
     	populateField(R.id.txtWisMod, f, "wismod", String.valueOf(c.getWisMod()));
     	populateField(R.id.txtChaMod, f, "chamod", String.valueOf(c.getChaMod()));
     }
-    
-    // callback for the damage and class spinners
-    public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-    	if (v != _view) {
-    		return;
-    	}
-    	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
-    	getCharacter().setWeaponDamage(damageSpinner.getSelectedItem().toString());
-    	Spinner classSpinner = (Spinner) findViewById(R.id.spinClass);
-    	getCharacter().setCharacterClass(classSpinner.getSelectedItem().toString());
-    	Spinner levelSpinner = (Spinner) findViewById(R.id.spinLevel);
-    	getCharacter().setLevel(Integer.parseInt(levelSpinner.getSelectedItem().toString()));
-    	Spinner weaponPlusSpinner = (Spinner) findViewById(R.id.spinWeaponPlus);
-    	getCharacter().setWeaponPlus(Integer.parseInt(weaponPlusSpinner.getSelectedItem().toString()));
-    	updateCharacter("");
-    }
 
 	// set up the events for the toggle buttons
     private	 void setupView() {
@@ -71,14 +55,17 @@ public class CharacterInfoFragment extends FragmentBase {
 
     // set up the events for when text fields are updated by the user
     private void setupTriggers() {
-    	setupTrigger(R.id.txtCharacter, "name");
-    	setupTrigger(R.id.txtPlayer, "player");
-    	setupTrigger(R.id.txtStr, "str");
-    	setupTrigger(R.id.txtDex, "dex");
-    	setupTrigger(R.id.txtCon, "con");
-    	setupTrigger(R.id.txtInt, "int");
-    	setupTrigger(R.id.txtWis, "wis");
-    	setupTrigger(R.id.txtCha, "cha");
+    	setupEditTextTrigger(R.id.txtCharacter, "name");
+    	setupEditTextTrigger(R.id.txtPlayer, "player");
+    	setupEditTextTrigger(R.id.txtStr, "str");
+    	setupEditTextTrigger(R.id.txtDex, "dex");
+    	setupEditTextTrigger(R.id.txtCon, "con");
+    	setupEditTextTrigger(R.id.txtInt, "int");
+    	setupEditTextTrigger(R.id.txtWis, "wis");
+    	setupEditTextTrigger(R.id.txtCha, "cha");
+    	
+    	setupSpinnerTrigger(R.id.spinClass, DatabaseHelper._c_characters_character_class);
+    	setupSpinnerTrigger(R.id.spinLevel, DatabaseHelper._c_characters_level);
     }
     
     @Override
@@ -92,13 +79,7 @@ public class CharacterInfoFragment extends FragmentBase {
 	}
 
 	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void onAfterUpdateCharacter(String field) {
+	public void onAfterUpdateCharacter(String field) {
 		populateStats(field);
 	}
 }

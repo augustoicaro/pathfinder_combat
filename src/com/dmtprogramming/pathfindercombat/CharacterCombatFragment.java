@@ -18,7 +18,9 @@ public class CharacterCombatFragment extends FragmentBase {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_combat, container, false);
-        
+		
+		setupIntentFilter();
+		
         setupView();
         populateStats("");
 
@@ -27,9 +29,12 @@ public class CharacterCombatFragment extends FragmentBase {
 	}
 	
     private void setupTriggers() {
-    	setupTrigger(R.id.txtDailyTitle, "daily_title");
-    	setupTrigger(R.id.txtDailyCurrent, "daily_current");
-    	setupTrigger(R.id.txtDailyTotal, "daily_total");
+    	setupEditTextTrigger(R.id.txtDailyTitle, DatabaseHelper._c_characters_daily_title);
+    	setupEditTextTrigger(R.id.txtDailyCurrent, DatabaseHelper._c_characters_daily_current);
+    	setupEditTextTrigger(R.id.txtDailyTotal, DatabaseHelper._c_characters_daily_total);
+    	
+    	setupSpinnerTrigger(R.id.spinWeaponPlus, DatabaseHelper._c_characters_weapon_plus);
+    	setupSpinnerTrigger(R.id.spinDamage, DatabaseHelper._c_characters_weapon_damage);
 	}
 
 	protected void populateStats(String f) {
@@ -38,21 +43,21 @@ public class CharacterCombatFragment extends FragmentBase {
     	// save some typing
     	PFCharacter c = getCharacter();
 		
-    	populateField(R.id.txtWeaponDice, f, "weapon_damage", c.getWeaponDamage());
+    	populateField(R.id.txtWeaponDice, f, DatabaseHelper._c_characters_weapon_damage, c.getWeaponDamage());
     	
     	populateField(R.id.txtAttacks, f, "attacks", c.getAttacks());
     	populateField(R.id.txtStrModPlusAttack, f, "strmod", String.valueOf(c.getStrMod()));
-    	populateField(R.id.txtWeaponPlusAttack, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
+    	populateField(R.id.txtWeaponPlusAttack, f, DatabaseHelper._c_characters_weapon_plus, String.valueOf(c.getWeaponPlus()));
     	populateField(R.id.txtWeaponFocusPlusAttack, f, "weapon_focus_atk", String.valueOf(c.getWeaponFocusMod()));
     	populateField(R.id.txtOtherPlusAttack, f, "plus_hit", String.valueOf(0));
     	
     	populateField(R.id.txtStrModPlusDamage, f, "strmod", String.valueOf(c.getStrMod()));
-    	populateField(R.id.txtWeaponPlusDamage, f, "weapon_plus", String.valueOf(c.getWeaponPlus()));
+    	populateField(R.id.txtWeaponPlusDamage, f, DatabaseHelper._c_characters_weapon_plus, String.valueOf(c.getWeaponPlus()));
     	populateField(R.id.txtOtherPlusDamage, f, "plus_damage", String.valueOf(c.getPowerAttackDamage()));
     	
-    	populateField(R.id.txtDailyCurrent, f, "daily_current", String.valueOf(c.getDailyCurrent()));
-    	populateField(R.id.txtDailyTotal, f, "daily_total", String.valueOf(c.getDailyTotal()));
-    	populateField(R.id.txtDailyTitle, f, "daily_title", c.getDailyTitle());
+    	populateField(R.id.txtDailyCurrent, f, DatabaseHelper._c_characters_daily_current, String.valueOf(c.getDailyCurrent()));
+    	populateField(R.id.txtDailyTotal, f, DatabaseHelper._c_characters_daily_total, String.valueOf(c.getDailyTotal()));
+    	populateField(R.id.txtDailyTitle, f, DatabaseHelper._c_characters_daily_title, c.getDailyTitle());
     	
     	// flurry of blows calcs
     	ToggleButton flurryOfBlows = (ToggleButton) findViewById(R.id.btnFlurryOfBlows);
@@ -74,7 +79,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	// size modifier calcs
     	String weapon_damage = getCharacter().getWeaponDamage();
     	int sizeMod = 0;
-    	String sizeStr = applyToggles("size", "");
+    	String sizeStr = applyToggles(DatabaseHelper._c_characters_size, "");
     	if (!sizeStr.equals("")) {
     		sizeMod = Integer.parseInt(sizeStr);
     	}
@@ -262,7 +267,7 @@ public class CharacterCombatFragment extends FragmentBase {
     }
 
 	@Override
-	protected void onAfterUpdateCharacter(String field) {
+	public void onAfterUpdateCharacter(String field) {
 		updateSmite();
 		populateStats(field);
 	}

@@ -82,21 +82,21 @@ public class PFCharacter {
 		if (value.equals("")) {
 			return true;
 		}
-		if (field == "name") {
+		if (field == DatabaseHelper._c_characters_name) {
 			if (this.name.equals(value)) {
 				return false;
 			}
 			setName(value);
 			return true;
 		}
-		if (field == "player") {
+		if (field == DatabaseHelper._c_characters_player) {
 			if (this.player.equals(value)) {
 				return false;
 			}
 			setPlayer(value);
 			return true;
 		}
-		if (field == "str") {
+		if (field == DatabaseHelper._c_characters_strength) {
 			int i = Integer.parseInt(value);
 			if (this.str == i) {
 				return false;
@@ -104,7 +104,7 @@ public class PFCharacter {
 			setStr(i);
 			return true;
 		}
-		if (field == "dex") {
+		if (field == DatabaseHelper._c_characters_dexterity) {
 			int i = Integer.parseInt(value);
 			if (this.dex == i) {
 				return false;
@@ -112,7 +112,7 @@ public class PFCharacter {
 			setDex(i);
 			return true;
 		}
-		if (field == "con") {
+		if (field == DatabaseHelper._c_characters_constitution) {
 			int i = Integer.parseInt(value);
 			if (this.con == i) {
 				return false;
@@ -120,7 +120,7 @@ public class PFCharacter {
 			setCon(i);
 			return true;
 		}
-		if (field == "int") {
+		if (field == DatabaseHelper._c_characters_intelligence) {
 			int i = Integer.parseInt(value);
 			if (this.intel == i) {
 				return false;
@@ -128,7 +128,7 @@ public class PFCharacter {
 			setInt(i);
 			return true;
 		}
-		if (field == "wis") {
+		if (field == DatabaseHelper._c_characters_wisdom) {
 			int i = Integer.parseInt(value);
 			if (this.wis == i) {
 				return false;
@@ -136,7 +136,7 @@ public class PFCharacter {
 			setWis(i);
 			return true;
 		}
-		if (field == "cha") {
+		if (field == DatabaseHelper._c_characters_charisma) {
 			int i = Integer.parseInt(value);
 			if (this.cha == i) {
 				return false;
@@ -144,7 +144,7 @@ public class PFCharacter {
 			setCha(i);
 			return true;
 		}
-		if (field == "level") {
+		if (field == DatabaseHelper._c_characters_level) {
 			int i = Integer.parseInt(value);
 			if (this.level == i) {
 				return false;
@@ -152,7 +152,7 @@ public class PFCharacter {
 			setLevel(i);
 			return true;
 		}
-		if (field == "weapon_plus") {
+		if (field == DatabaseHelper._c_characters_weapon_plus) {
 			int i = Integer.parseInt(value);
 			if (this.weapon_plus == i) {
 				return false;
@@ -160,14 +160,28 @@ public class PFCharacter {
 			setWeaponPlus(i);
 			return true;
 		}
-		if (field == "daily_title") {
+		if (field == DatabaseHelper._c_characters_weapon_damage) {
+			if (this.weapon_damage != null && this.weapon_damage.equals(value)) {
+				return false;
+			}
+			setWeaponDamage(value);
+			return true;
+		}
+		if (field == DatabaseHelper._c_characters_character_class) {
+			if (this.characterClass != null && this.characterClass.equals(value)) {
+				return false;
+			}
+			setCharacterClass(value);
+			return true;
+		}
+		if (field == DatabaseHelper._c_characters_daily_title) {
 			if (this.daily_title != null && this.daily_title.equals(value)) {
 				return false;
 			}
 			setDailyTitle(value);
 			return true;
 		}
-		if (field == "daily_total") {
+		if (field == DatabaseHelper._c_characters_daily_total) {
 			int i = Integer.parseInt(value);
 			if (this.daily_total == i) {
 				return false;
@@ -175,7 +189,7 @@ public class PFCharacter {
 			setDailyTotal(i);
 			return true;
 		}
-		if (field == "daily_current") {
+		if (field == DatabaseHelper._c_characters_daily_current) {
 			int i = Integer.parseInt(value);
 			if (this.daily_current == i) {
 				return false;

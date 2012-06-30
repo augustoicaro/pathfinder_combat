@@ -5,37 +5,47 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public abstract class FragmentBase extends Fragment implements AdapterView.OnItemSelectedListener {
+public abstract class FragmentBase extends Fragment {
 
 	private static final String TAG = "PFCombat:FragmentBase";
 	
 	protected View _view;
 	protected List<CharacterModifier> _mods;
     
-    protected abstract void onAfterUpdateCharacter(String field);
+    public abstract void onAfterUpdateCharacter(String field);
     protected abstract void populateStats(String field);
 	
     public FragmentBase() {
      	_mods = new ArrayList<CharacterModifier>();
     }
     
+    public void setupIntentFilter() {
+     	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+     	getActivity().registerReceiver(new CharacterUpdateReceiver(this), filter);
+    }
+    
     // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
 		Log.d(TAG, "updateCharacter()");
 		getDatasource().updatePFCharacter(getCharacter());
-		onAfterUpdateCharacter(field);
+		
+		Intent intent = new Intent();
+		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.putExtra("field", field);
+		getActivity().sendBroadcast(intent);
 	}
 	
 	public PFCharacter getCharacter() {
@@ -48,9 +58,14 @@ public abstract class FragmentBase extends Fragment implements AdapterView.OnIte
 		return view.getDatasource();
 	}
 	
-    protected void setupTrigger(int id, String field) {
+    protected void setupEditTextTrigger(int id, String field) {
     	EditText e = (EditText) findViewById(id);
     	e.addTextChangedListener(new CustomTextWatcher(e, field, this));
+    }
+    
+    protected void setupSpinnerTrigger(int id, String field) {
+    	Spinner e = (Spinner) findViewById(id);
+		e.setOnItemSelectedListener(new CustomSpinnerWatcher(e, field, this));
     }
 	
 	protected void populateField(int id, String ignore, String field, String value) {
@@ -74,7 +89,6 @@ public abstract class FragmentBase extends Fragment implements AdapterView.OnIte
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, options);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
-		spinner.setOnItemSelectedListener(this);
 		
 		for (int i = 0; i < options.length; i++) {
 			String test = options[i];
@@ -111,19 +125,6 @@ public abstract class FragmentBase extends Fragment implements AdapterView.OnIte
 		}
 		return i;
     }
-    
-	@Override
-	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
-			long arg3) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 		
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getActivity().getMenuInflater();
