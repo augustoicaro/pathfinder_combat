@@ -48,6 +48,9 @@ public class CharacterInfoFragment extends FragmentBase {
     
     // callback for the damage and class spinners
     public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
+    	if (v != _view) {
+    		return;
+    	}
     	Spinner damageSpinner = (Spinner) findViewById(R.id.spinDamage);
     	getCharacter().setWeaponDamage(damageSpinner.getSelectedItem().toString());
     	Spinner classSpinner = (Spinner) findViewById(R.id.spinClass);
