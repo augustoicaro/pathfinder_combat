@@ -31,8 +31,6 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
         _datasource = new PFCharacterDataSource(this);
         _datasource.open();
         _char = null;
-		
-        _char = null;
         
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

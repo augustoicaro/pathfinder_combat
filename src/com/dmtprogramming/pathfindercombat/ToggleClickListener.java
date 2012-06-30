@@ -6,9 +6,7 @@ import android.widget.ToggleButton;
 
 
 //events for the toggle buttons
-class ToggleClickListener implements OnClickListener {
-	//private static final String TAG = "PFCombat:ToggleClickListener";
-	
+class ToggleClickListener implements OnClickListener {	
 	private ToggleButton _toggle;
 	private CharacterModifier _mod;
 	private FragmentBase _fragment;

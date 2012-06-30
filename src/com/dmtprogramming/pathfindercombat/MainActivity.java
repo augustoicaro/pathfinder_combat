@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,9 +57,23 @@ public class MainActivity extends ListActivity {
 		PFCharacter cha = (PFCharacter) getListAdapter().getItem(position);
 		Log.d(TAG, "character selected with id = " + cha.getId());
 		
-		Intent myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);
+		Intent myIntent = null;
+		
+		int layout = getResources().getConfiguration().screenLayout;
+		Log.d(TAG, "screen layout = " + layout);
+		if (isScreenSize(Configuration.SCREENLAYOUT_SIZE_LARGE) || isScreenSize(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
+			myIntent = new Intent(v.getContext(), TabletFragmentActivity.class);
+		} else {
+			myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);	
+		}
+
 		myIntent.putExtra("CHARACTER_ID", cha.getId());
 		startActivityForResult(myIntent, 0);
+	}
+	
+	private boolean isScreenSize(int test_size) {
+		int size = getResources().getConfiguration().screenLayout;
+		return (size & test_size) == test_size;
 	}
 	
 	protected void populateList() {

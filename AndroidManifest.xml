@@ -10,5 +10,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ViewPagerFragmentActivity"></activity>
+        <activity android:name=".TabletFragmentActivity"></activity>
     </application>
 </manifest>
