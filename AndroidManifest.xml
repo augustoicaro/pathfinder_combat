@@ -9,6 +9,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CharacterActivity"></activity>
+        <activity android:name=".ViewPagerFragmentActivity"></activity>
     </application>
 </manifest>

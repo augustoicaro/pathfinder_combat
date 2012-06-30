@@ -16,12 +16,11 @@
                     android:text="@string/weaponPlus"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <EditText
-                    android:id="@+id/txtWeaponPlus"
+                <Spinner
+                    android:id="@+id/spinWeaponPlus"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="numberSigned"
                     android:padding="3dp" />
                 
                 <TextView

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.dmtprogramming.pathfindercombat.ViewPagerFragmentActivity;
 
 public class MainActivity extends ListActivity {
 	
@@ -55,7 +56,7 @@ public class MainActivity extends ListActivity {
 		PFCharacter cha = (PFCharacter) getListAdapter().getItem(position);
 		Log.d(TAG, "character selected with id = " + cha.getId());
 		
-		Intent myIntent = new Intent(v.getContext(), CharacterActivity.class);
+		Intent myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);
 		myIntent.putExtra("CHARACTER_ID", cha.getId());
 		startActivityForResult(myIntent, 0);
 	}

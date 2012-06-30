@@ -1,51 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
+
     <TableRow
-                    android:id="@+id/tableRow14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/my_border_top"
-                    android:paddingTop="8dp" >
+        android:id="@+id/tableRow14"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/my_border_top"
+        android:paddingTop="8dp" >
 
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center|right"
-                        android:padding="3dp"
-                        android:text="@string/weaponPlus"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center|right"
+            android:padding="3dp"
+            android:text="@string/weaponPlus"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <EditText
-                        android:id="@+id/txtWeaponPlus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="numberSigned"
-                        android:padding="3dp" />
-                </TableRow>
-<TableRow
-                    android:id="@+id/tableRow15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+        <Spinner
+            android:id="@+id/spinWeaponPlus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:ems="10"
+            android:padding="3dp" />
+    </TableRow>
 
-                    <TextView
-                        android:id="@+id/textView25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|right"
-                        android:padding="3dp"
-                        android:text="@string/weaponDamage"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TableRow
+        android:id="@+id/tableRow15"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
 
-                    <Spinner
-                        android:id="@+id/spinDamage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:padding="3dp" />
-                </TableRow>
+        <TextView
+            android:id="@+id/textView2455"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center|right"
+            android:padding="3dp"
+            android:text="@string/weaponDamage"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/spinDamage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:ems="10"
+            android:padding="3dp" />
+    </TableRow>
 
 </TableLayout>
