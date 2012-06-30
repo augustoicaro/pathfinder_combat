@@ -26,24 +26,19 @@
             android:orientation="vertical" >
 
            <include
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               layout="@layout/stats" />
-
-           <include
                android:layout_width="fill_parent"
                android:layout_height="wrap_content"
-               layout="@layout/weapon_stats_vertical" />
+               layout="@layout/_weapon_stats_vertical" />
 
            <include
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               layout="@layout/attacks_and_damage" />
+               layout="@layout/_attacks_and_damage" />
 
            <include
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               layout="@layout/attacks_and_damage_toggles" />
+               layout="@layout/_attacks_and_damage_toggles" />
 
         </LinearLayout>
 

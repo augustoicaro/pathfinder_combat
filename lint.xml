@@ -3,4 +3,5 @@
     <issue id="HardcodedText">
         <ignore path="res/layout-normal/character.xml" />
     </issue>
+    <issue id="ParserError" severity="ignore" />
 </lint>
