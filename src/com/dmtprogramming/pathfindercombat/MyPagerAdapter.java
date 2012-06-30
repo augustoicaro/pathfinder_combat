@@ -28,4 +28,14 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 	public int getCount() {
 		return this.fragments.size();
 	}
+	
+	public CharSequence getPageTitle(int pos) {
+		if (pos == 0) {
+			return "Character Info";
+		}
+		if (pos == 1) {
+			return "Combat";
+		}
+		return "Other";
+	}
 }

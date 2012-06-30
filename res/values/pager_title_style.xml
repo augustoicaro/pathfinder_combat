@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="PagerTitleStrip">
+	    <item name="android:textAppearance">@style/PagerTitleStripTextAppearance</item>
+	</style>
+	
+	<style name="PagerTitleStripTextAppearance">
+	    <item name="android:textColor">#879eff</item>
+	    <item name="android:textSize">16sp</item>
+	</style>
+</resources>
