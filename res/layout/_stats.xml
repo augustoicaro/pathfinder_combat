@@ -64,8 +64,10 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="text"
-                        android:padding="3dp" />
+                        android:inputType="textCapWords"
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
+
                 </TableRow>
 
                 <TableRow
@@ -134,7 +136,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned"
-                        android:padding="3dp" />
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
 
                     <TextView
                         android:id="@+id/txtStrMod"
@@ -166,7 +169,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned"
-                        android:padding="3dp" />
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
 
                     <TextView
                         android:id="@+id/txtDexMod"
@@ -198,7 +202,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned"
-                        android:padding="3dp" />
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
 
                     <TextView
                         android:id="@+id/txtConMod"
@@ -230,7 +235,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned"
-                        android:padding="3dp" />
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
 
                     <TextView
                         android:id="@+id/txtIntMod"
@@ -262,7 +268,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned"
-                        android:padding="3dp" />
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
 
                     <TextView
                         android:id="@+id/txtWisMod"
@@ -294,7 +301,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="numberSigned"
-                        android:padding="3dp" />
+                        android:padding="3dp"
+                        android:selectAllOnFocus="true" />
 
                     <TextView
                         android:id="@+id/txtChaMod"

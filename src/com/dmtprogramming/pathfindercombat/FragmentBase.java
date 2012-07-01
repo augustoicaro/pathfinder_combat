@@ -3,15 +3,10 @@ package com.dmtprogramming.pathfindercombat;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -125,36 +120,4 @@ public abstract class FragmentBase extends Fragment {
 		}
 		return i;
     }
-		
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.character_menu, menu);
-        return true;
-    }
- 
-    public boolean onOptionsItemSelected(MenuItem item) {
-    	if (item.getItemId() == R.id.menuDelete) {
-	        showDeleteDialog();
-	        return true;	        
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-	private void showDeleteDialog() {
-		new AlertDialog.Builder(getActivity())
-		.setIcon(android.R.drawable.ic_dialog_alert)
-		.setTitle(R.string.delete)
-		.setMessage(R.string.really_delete)
-		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
-				getDatasource().deletePFCharacter(getCharacter());
-				getActivity().finish();
-			}
-		})
-		.setNegativeButton(R.string.no, null)
-		.show();		
-	}
 }

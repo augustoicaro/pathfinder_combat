@@ -1,10 +1,10 @@
 package com.dmtprogramming.pathfindercombat;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-public class TabletFragmentActivity extends Activity {
+public class TabletFragmentActivity extends FragmentActivity {
 	private static final String TAG = "PFCombat:ViewPagerFragmentActivity";
 	
 	private PFCharacterDataSource _datasource;

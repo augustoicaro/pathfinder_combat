@@ -57,14 +57,14 @@ public class MainActivity extends ListActivity {
 		PFCharacter cha = (PFCharacter) getListAdapter().getItem(position);
 		Log.d(TAG, "character selected with id = " + cha.getId());
 		
-		Intent myIntent = null;
+		Intent myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);;
 		
 		int layout = getResources().getConfiguration().screenLayout;
 		Log.d(TAG, "screen layout = " + layout);
 		if (isScreenSize(Configuration.SCREENLAYOUT_SIZE_LARGE) || isScreenSize(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
-			myIntent = new Intent(v.getContext(), TabletFragmentActivity.class);
+			myIntent.putExtra("TABLET", true);
 		} else {
-			myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);	
+			myIntent.putExtra("TABLET", false);
 		}
 
 		myIntent.putExtra("CHARACTER_ID", cha.getId());

@@ -3,17 +3,21 @@ package com.dmtprogramming.pathfindercombat;
 import java.util.List;
 import java.util.Vector;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.dmtprogramming.pathfindercombat.R;
 import com.dmtprogramming.pathfindercombat.CharacterInfoFragment;
 import com.dmtprogramming.pathfindercombat.CharacterCombatFragment;
-//import com.dmtprogramming.pathfindercombat.TestFragment;
 
 public class ViewPagerFragmentActivity extends FragmentActivity {
 
@@ -26,25 +30,35 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.setContentView(R.layout.viewpager_layout);
-
+		
+        Bundle extras = getIntent().getExtras();
+        boolean loadTablet = false;
+        long char_id = -1;
+        if (extras != null) {
+        	loadTablet = extras.getBoolean("TABLET");
+        	char_id = extras.getLong("CHARACTER_ID");
+        }
+        
         _datasource = new PFCharacterDataSource(this);
         _datasource.open();
         _char = null;
-        
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-        	long _id = extras.getLong("CHARACTER_ID");
-        	if (_id > 0) {
-        		_char = getDatasource().findCharacter(_id);
-        	}
-        }
+
+    	if (char_id > 0) {
+    		_char = getDatasource().findCharacter(char_id);
+    	}
         
         if (_char != null) {
         	Log.d(TAG, "loaded character with id = " + _char.getId());
+        } else {
+        	Log.d(TAG, "CHARACTER IS NULL!!!!!!!");
         }
-        
-		this.initialisePaging();
+            
+        if (loadTablet) {
+    		super.setContentView(R.layout.tablet_layout);
+        } else {
+        	super.setContentView(R.layout.viewpager_layout);
+    		this.initialisePaging();
+        }
 	}
 
 	private void initialisePaging() {
@@ -54,7 +68,7 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		fragments.add(Fragment.instantiate(this, CharacterCombatFragment.class.getName()));
 		//fragments.add(Fragment.instantiate(this, TestFragment.class.getName()));
 		this.mPagerAdapter  = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
-		//
+
 		ViewPager pager = (ViewPager)super.findViewById(R.id.viewpager);
 		pager.setAdapter(this.mPagerAdapter);
 	}
@@ -77,5 +91,37 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 	public void onPause() {
 		_datasource.close();
 		super.onPause();
+	}
+	
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.character_menu, menu);
+        return true;
+    }
+ 
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	if (item.getItemId() == R.id.menuDelete) {
+	        showDeleteDialog();
+	        return true;	        
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+	private void showDeleteDialog() {
+		new AlertDialog.Builder(this)
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setTitle(R.string.delete)
+		.setMessage(R.string.really_delete)
+		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				getDatasource().deletePFCharacter(getCharacter());
+				finish();
+			}
+		})
+		.setNegativeButton(R.string.no, null)
+		.show();		
 	}
 }
