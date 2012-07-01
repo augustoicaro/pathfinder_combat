@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/bottom_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,28 +180,25 @@
                         android:textOff="@string/wpnFocus"
                         android:textOn="@string/wpnFocus" />
 
-                    <ToggleButton
+                    <!-- <ToggleButton
                         android:id="@+id/btnUnarmed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/unarmed"
                         android:textColor="@color/feats"
                         android:textOff="@string/unarmed"
-                        android:textOn="@string/unarmed" />
-                </TableRow>
-
-                <TableRow
-                    android:id="@+id/tableRow21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <ToggleButton
+                        android:textOn="@string/unarmed" /> -->
+                        
+                                            <ToggleButton
                         android:id="@+id/btnCritical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/critical"
                         android:textOff="@string/critical"
                         android:textOn="@string/critical" />
+                </TableRow>
+
+
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -232,5 +228,5 @@
                             android:inputType="numberSigned"
                             android:selectAllOnFocus="true" />
                     </LinearLayout>
-                </TableRow>
+
             </TableLayout>

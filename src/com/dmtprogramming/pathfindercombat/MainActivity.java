@@ -42,13 +42,6 @@ public class MainActivity extends ListActivity {
 			cha = datasource.createPFCharacter("character");
 			adapter.add(cha);
 			break;
-	/*	case R.id.delete:
-			if (getListAdapter().getCount() > 0) {
-				cha = (PFCharacter) getListAdapter().getItem(0);
-				datasource.deletePFCharacter(cha);
-				adapter.remove(cha);
-			}
-			break;*/
 		}
 		adapter.notifyDataSetChanged();
 	}

@@ -21,6 +21,7 @@
     <string name="statmod">()</string>
     <string name="weaponPlus">Weapon +</string>
     <string name="weaponDamage">Damage</string>
+    <string name="weaponCritical">Critical</string>
     
     <!-- attacks and damage --> 
     <string name="BAB">BAB</string>

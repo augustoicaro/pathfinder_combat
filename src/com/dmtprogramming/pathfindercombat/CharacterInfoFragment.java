@@ -38,19 +38,19 @@ public class CharacterInfoFragment extends FragmentBase {
     	populateField(R.id.txtInt, f, "int", String.valueOf(c.getInt()));
     	populateField(R.id.txtWis, f, "wis", String.valueOf(c.getWis()));
     	populateField(R.id.txtCha, f, "cha", String.valueOf(c.getCha()));
-    	populateField(R.id.txtStrMod, f, "strmod", String.valueOf(c.getStrMod()));
-    	populateField(R.id.txtDexMod, f, "dexmod", String.valueOf(c.getDexMod()));
-    	populateField(R.id.txtConMod, f, "conmod", String.valueOf(c.getConMod()));
-    	populateField(R.id.txtIntMod, f, "intmod", String.valueOf(c.getIntMod()));
-    	populateField(R.id.txtWisMod, f, "wismod", String.valueOf(c.getWisMod()));
-    	populateField(R.id.txtChaMod, f, "chamod", String.valueOf(c.getChaMod()));
+    	populateField(R.id.txtStrMod, f, "strmod", String.valueOf(c.getStrModDisplay()));
+    	populateField(R.id.txtDexMod, f, "dexmod", String.valueOf(c.getDexModDisplay()));
+    	populateField(R.id.txtConMod, f, "conmod", String.valueOf(c.getConModDisplay()));
+    	populateField(R.id.txtIntMod, f, "intmod", String.valueOf(c.getIntModDisplay()));
+    	populateField(R.id.txtWisMod, f, "wismod", String.valueOf(c.getWisModDisplay()));
+    	populateField(R.id.txtChaMod, f, "chamod", String.valueOf(c.getChaModDisplay()));
     }
 
 	// set up the events for the toggle buttons
     private	 void setupView() {
     	String[] levels = { "1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20" };
-    	populateSpinner(R.id.spinClass, getCharacter().getCharacterClass(), PFCharacter.CHARACTER_CLASSES);
-    	populateSpinner(R.id.spinLevel, String.valueOf(getCharacter().getLevel() - 1), levels);
+    	populateSpinner(R.id.spinClass, getCharacter().getCharacterClass(), PFCharacter.CHARACTER_CLASS_NAMES);
+    	populateSpinner(R.id.spinLevel, String.valueOf(getCharacter().getLevel()), levels);
     }
 
     // set up the events for when text fields are updated by the user

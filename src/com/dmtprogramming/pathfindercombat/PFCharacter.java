@@ -3,13 +3,16 @@ package com.dmtprogramming.pathfindercombat;
 public class PFCharacter {
 	
 	public static String[] SIZES = {"Tiny", "Medium", "Large"};
+	public static String MEDIUM = "Medium";
 	
 	public static String[] FLURRY_OF_BLOWS_ATTACKS = { "-1 / -1", "0 / 0", "1 / 1", "2 / 2", "3 / 3", "4 / 4 / -1", "5 / 5 / 0", "6 / 6 / 1 / 1",
 		"7 / 7 / 2 / 2", "8 / 8 / 3 / 3", "9 / 9 / 4 / 4 / -1", "10 / 10 / 5 / 5 / 0", "11 / 11 / 6 / 6 / 1", "12 / 12 / 7 / 7 / 2", "13 / 13 / 8 / 8 / 3 / 3",
 		"14 / 14 / 9 / 9 / 4 / 4 / -1", "15 / 15 / 10 / 10 / 5 / 5 / 0", "16 / 16 / 11 / 11 / 6 / 6 / 1", "17 / 17 / 12 / 12 / 7 / 7 / 2", 
 		"18 / 18 / 13 / 13 / 8 / 8 / 3"};
 	
-	public static String[] CHARACTER_CLASSES = { "Paladin", "Monk" };
+	public static String[] CHARACTER_CLASS_NAMES = { "Barbarian", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue" };
+	public static String[] FAST_BAB_CLASSES = { "Barbarian", "Fighter", "Paladin", "Ranger" };
+	public static String[] MEDIUM_BAB_CLASSES = { "Cleric", "Druid", "Monk", "Rogue" };
 	
 	public static int[] FAST_BAB_PROGRESSION = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 	public static int[] MEDIUM_BAB_PROGRESSION = { 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 13, 14, 15 };
@@ -23,6 +26,8 @@ public class PFCharacter {
 	public static String[] MEDIUM_MONK_DAMAGES = { "1d6", "1d8", "1d10", "2d6", "2d8", "2d10" };
 	public static String[] LARGE_MONK_DAMAGES = { "1d8", "2d6", "2d8", "3d6", "3d8", "4d8" };
 	
+	public static String[] CRITICAL_MULIPLIERS = { "x2", "x3", "x4", "x5" };
+	
 	private long id;
 	private String name;
 	private String player;
@@ -34,7 +39,7 @@ public class PFCharacter {
 	private int cha;
 	private int level;
 	private int monk_level;
-	private String characterClass;
+	private String character_class;
 	private boolean weapon_focus;
 	private boolean power_attack;
 	private boolean flurry_of_blows;
@@ -45,6 +50,7 @@ public class PFCharacter {
 	private int daily_total;
 	private int daily_current;
 	private String daily_title;
+	private String critical_multiplier;
 	
 	public long getId() {
 		return id;
@@ -55,11 +61,11 @@ public class PFCharacter {
 	}
 	
 	public String getCharacterClass() {
-		return this.characterClass;
+		return this.character_class;
 	}
 	
 	public void setCharacterClass(String c) {
-		this.characterClass = c;
+		this.character_class = c;
 	}
 	
 	public String getName() {
@@ -168,7 +174,7 @@ public class PFCharacter {
 			return true;
 		}
 		if (field == DatabaseHelper._c_characters_character_class) {
-			if (this.characterClass != null && this.characterClass.equals(value)) {
+			if (this.character_class != null && this.character_class.equals(value)) {
 				return false;
 			}
 			setCharacterClass(value);
@@ -197,12 +203,19 @@ public class PFCharacter {
 			setDailyCurrent(i);
 			return true;
 		}
+		if (field == DatabaseHelper._c_characters_critical_multiplier) {
+			if (this.critical_multiplier != null && this.critical_multiplier.equals(value)) {
+				return false;
+			}
+			setCriticalMultiplier(value);
+			return true;
+		}
 
 		return false;
 	}
 	
 	public String toString() {
-		return this.name + " (Level " + this.level + " " + this.characterClass + ")";
+		return this.name + " (Level " + this.level + " " + this.character_class + ")";
 	}
 
 	public int getStr() {
@@ -257,6 +270,37 @@ public class PFCharacter {
 		return (int) Math.floor((stat - 10) / 2);
 	}
 
+	public String getStrModDisplay() {
+		return statModDisplay(getStrMod());
+	}
+
+	public String getDexModDisplay() {
+		return statModDisplay(getDexMod());
+	}
+	
+	public String getConModDisplay() {
+		return statModDisplay(getConMod());
+	}
+	
+	public String getIntModDisplay() {
+		return statModDisplay(getIntMod());
+	}
+	
+	public String getWisModDisplay() {
+		return statModDisplay(getWisMod());
+	}
+	
+	public String getChaModDisplay() {
+		return statModDisplay(getChaMod());
+	}
+	
+	public String statModDisplay(int mod) {
+		if (mod >= 0) {
+			return "+" + String.valueOf(mod);
+		}
+		return String.valueOf(mod);
+	}
+	
 	public int getLevel() {
 		return this.level;
 	}
@@ -276,13 +320,11 @@ public class PFCharacter {
 			return PFCharacter.FLURRY_OF_BLOWS_ATTACKS[this.level - 1];
 		}
 		int l = getBAB();
-		while (l >= 0) {
-			if (!ret.equals("")) {
-				ret = ret.concat(" / ");
-				ret = ret.concat(String.valueOf(l));
-			} else {
-				ret = String.valueOf(l);
-			}
+		ret = String.valueOf(l);
+		l -= 5;
+		while (l > 0) {
+			ret = ret.concat(" / ");
+			ret = ret.concat(String.valueOf(l));
 			l -= 5;
 		}
 		return ret;
@@ -369,6 +411,44 @@ public class PFCharacter {
 		return this.weapon_damage;
 	}
 	
+	public String getEnlargedWeaponDamage() {
+		int ind = -1;
+		String[] damages = PFCharacter.MEDIUM_WEAPON_DAMAGES;
+		String[] enlargeDamages = PFCharacter.LARGE_WEAPON_DAMAGES;
+		if (this.flurry_of_blows) {
+			damages = PFCharacter.MEDIUM_MONK_DAMAGES;
+			enlargeDamages = PFCharacter.LARGE_MONK_DAMAGES;
+		}
+		for (int i = 0; i < damages.length; i++) {
+			if (damages[i].equals(this.weapon_damage)) {
+				ind = i;
+			}
+		}
+		if (ind != -1) {
+			return enlargeDamages[ind];
+		}
+		return this.weapon_damage;
+	}
+	
+	public String getReducedWeaponDamage() {
+		int ind = -1;
+		String[] damages = PFCharacter.MEDIUM_WEAPON_DAMAGES;
+		String[] reduceDamages = PFCharacter.TINY_WEAPON_DAMAGES;
+		if (this.flurry_of_blows) {
+			damages = PFCharacter.MEDIUM_MONK_DAMAGES;
+			reduceDamages = PFCharacter.TINY_MONK_DAMAGES;
+		}
+		for (int i = 0; i < damages.length; i++) {
+			if (damages[i].equals(this.weapon_damage)) {
+				ind = i;
+			}
+		}
+		if (ind != -1) {
+			return reduceDamages[ind];
+		}
+		return this.weapon_damage;
+	}
+	
 	public void setWeaponDamage(String weapon_damage) {
 		this.weapon_damage = weapon_damage;
 	}
@@ -382,8 +462,15 @@ public class PFCharacter {
 	}
 	
 	public int[] getBABProgression() {
-		if (this.characterClass.equals("Monk")) {
-			return PFCharacter.MEDIUM_BAB_PROGRESSION;
+		for (int i = 0; i < PFCharacter.FAST_BAB_CLASSES.length; i++) {
+			if (getCharacterClass().equals(PFCharacter.FAST_BAB_CLASSES[i])) {
+				return PFCharacter.FAST_BAB_PROGRESSION;
+			}
+		}
+		for (int i = 0; i < PFCharacter.MEDIUM_BAB_CLASSES.length; i++) {
+			if (getCharacterClass().equals(PFCharacter.MEDIUM_BAB_CLASSES[i])) {
+				return PFCharacter.MEDIUM_BAB_PROGRESSION;
+			}
 		}
 		return PFCharacter.FAST_BAB_PROGRESSION;
 	}
@@ -426,6 +513,28 @@ public class PFCharacter {
 	
 	public void setDailyTitle(String t) {
 		this.daily_title = t;
+	}
+	
+	public String getCriticalMultiplier() {
+		return this.critical_multiplier;
+	}
+	
+	public void setCriticalMultiplier(String s) {
+		this.critical_multiplier = s;
+	}
+	
+	public int getCriticalMultiplierInt() {
+		return Integer.parseInt(getCriticalMultiplier().substring(1));
+	}
+
+	public String applyWeaponDiceCritical(String weaponDice) {
+		String[] parts = weaponDice.split("d");
+		parts[0] = String.valueOf(Integer.parseInt(parts[0]) * getCriticalMultiplierInt());
+		return parts[0] + "d" + parts[1];
+	}
+	
+	public int applyWeaponPlusCritical(int plus) {
+		return plus * getCriticalMultiplierInt();
 	}
 }
 

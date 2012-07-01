@@ -55,4 +55,29 @@
             android:padding="3dp" />
     </TableRow>
 
+        <TableRow
+        android:id="@+id/tableRow1a5"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" >
+        
+                    <TextView
+            android:id="@+id/textView2s455"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center|right"
+            android:padding="3dp"
+            android:text="@string/weaponCritical"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                <Spinner
+                    android:id="@+id/spinCriticalMultiplier"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+                    android:ems="10"
+                    android:padding="3dp" />
+        </TableRow>
 </TableLayout>

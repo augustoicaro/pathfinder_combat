@@ -6,10 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-/**
- * The <code>PagerAdapter</code> serves the fragments when paging.
- * @author mwho
- */
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
 	private List<Fragment> fragments;
@@ -31,10 +27,10 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 	
 	public CharSequence getPageTitle(int pos) {
 		if (pos == 0) {
-			return "Character Info";
+			return "Character";
 		}
 		if (pos == 1) {
-			return "Combat";
+			return "Melee";
 		}
 		return "Other";
 	}

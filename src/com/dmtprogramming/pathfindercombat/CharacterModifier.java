@@ -47,6 +47,9 @@ public class CharacterModifier {
 			i += this.damage;
 			return String.valueOf(i);	
 		} else if (field.equals("damage_dice")) {
+			if (this.damageDice.equals("")) {
+				return value;
+			}
 			if (!value.equals("")) {
 				value = value.concat(" + ");
 			}

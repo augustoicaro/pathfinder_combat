@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DBVERSION = 5;
+	private static final int DBVERSION = 6;
 	
 	private static final String TAG = "PFCombat:DatabaseHelper";
 	
@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String _c_characters_daily_total = "daily_total";
 	public static final String _c_characters_daily_current = "daily_current";
 	public static final String _c_characters_daily_title = "daily_title";
+	public static final String _c_characters_critical_multiplier = "critical_multiplier";
 	
 	public DatabaseHelper(Context context) {
 		super(context, _dbName, null, DBVERSION);
@@ -49,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.v(TAG, "onCreate()");
-		String create_character_table = String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s BOOLEAN, %s BOOLEAN, %s BOOLEAN, %s TEXT, %s TEXT, %s INTEGER, %s BOOLEAN, %s BOOLEAN, %s INTEGER, %s INTEGER, %s TEXT)",
+		String create_character_table = String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s INTEGER, %s BOOLEAN, %s BOOLEAN, %s BOOLEAN, %s TEXT, %s TEXT, %s INTEGER, %s BOOLEAN, %s BOOLEAN, %s INTEGER, %s INTEGER, %s TEXT, %s INTEGER)",
 				_t_characters,
 				_c_characters_id,
 				_c_characters_name,
@@ -73,7 +74,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				_c_characters_flurry_of_blows,
 				_c_characters_daily_total,
 				_c_characters_daily_current,
-				_c_characters_daily_title
+				_c_characters_daily_title,
+				_c_characters_critical_multiplier
 		);
 		Log.v(TAG, String.format("SQL: %s", create_character_table));
 		db.execSQL(create_character_table);
@@ -99,6 +101,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			addFlurryOfBlowsColumn(db);
 		} else if (oldVersion == 4) {
 			addDailyColumns(db);
+		} else if (oldVersion == 5) {
+			addCriticalMultiplerColumn(db);
 		} else {
 			Log.v(TAG, String.format("unknown upgrade to db from version %d", oldVersion));
 		}
@@ -136,5 +140,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(upgrade_sql);
 		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s TEXT", _t_characters, _c_characters_daily_title);
 		db.execSQL(upgrade_sql);		
+	}
+
+	private void addCriticalMultiplerColumn(SQLiteDatabase db) {
+		String upgrade_sql;
+		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s INTEGER", _t_characters, _c_characters_critical_multiplier);
+		db.execSQL(upgrade_sql);
 	}
 }

@@ -35,6 +35,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	
     	setupSpinnerTrigger(R.id.spinWeaponPlus, DatabaseHelper._c_characters_weapon_plus);
     	setupSpinnerTrigger(R.id.spinDamage, DatabaseHelper._c_characters_weapon_damage);
+    	setupSpinnerTrigger(R.id.spinCriticalMultiplier, DatabaseHelper._c_characters_critical_multiplier);
 	}
 
 	protected void populateStats(String f) {
@@ -64,8 +65,8 @@ public class CharacterCombatFragment extends FragmentBase {
     	flurryOfBlows.setChecked(getCharacter().getFlurryOfBlows());
     	
     	// unarmed calcs
-    	ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
-    	unarmed.setChecked(getCharacter().getUnarmed());
+    	//ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
+    	//unarmed.setChecked(getCharacter().getUnarmed());
     	
     	// weapon focus calcs
     	ToggleButton weaponFocus = (ToggleButton) findViewById(R.id.btnWeaponFocus);
@@ -77,23 +78,20 @@ public class CharacterCombatFragment extends FragmentBase {
     	}
     	
     	// size modifier calcs
-    	String weapon_damage = getCharacter().getWeaponDamage();
+    	String weaponDice = getCharacter().getWeaponDamage();
     	int sizeMod = 0;
     	String sizeStr = applyToggles(DatabaseHelper._c_characters_size, "");
     	if (!sizeStr.equals("")) {
     		sizeMod = Integer.parseInt(sizeStr);
     	}
     	if (sizeMod > 0) {
-    		int ind = -1;
-    		for (int i = 0; i < PFCharacter.MEDIUM_WEAPON_DAMAGES.length; i++) {
-    			if (PFCharacter.MEDIUM_WEAPON_DAMAGES[i].equals(weapon_damage)) {
-    				ind = i;
-    			}
-    		}
-    		if (ind != -1) {
-    			weapon_damage = PFCharacter.LARGE_WEAPON_DAMAGES[ind];
-    		}
+    		weaponDice = getCharacter().getEnlargedWeaponDamage();
+    	} else if (sizeMod < 0) {
+    		weaponDice = getCharacter().getReducedWeaponDamage();
     	}
+    	
+    	TextView weaponDiceText = (TextView) findViewById(R.id.txtWeaponDice);
+    	weaponDiceText.setText(weaponDice);
     	
     	// extra attack calc
     	String extraAttack = applyToggles("extra_attack", "false");
@@ -127,13 +125,14 @@ public class CharacterCombatFragment extends FragmentBase {
     	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
     	plusDamage += parseIntField(R.id.spinWeaponPlus);
     	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
-    	calculateFinalPlusDamage(weapon_damage, plusDamage);
+    	calculateFinalPlusDamage(weaponDice, plusDamage);
 	}
 
 	private void setupView() {
-    	String[] weaponPlus = { "1", "2", "3", "4", "5", "6", "7", "8" };
+    	String[] weaponPlus = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
     	populateSpinner(R.id.spinDamage, getCharacter().getWeaponDamage(), PFCharacter.MEDIUM_WEAPON_DAMAGES);
     	populateSpinner(R.id.spinWeaponPlus, String.valueOf(getCharacter().getWeaponPlus()), weaponPlus);
+    	populateSpinner(R.id.spinCriticalMultiplier, getCharacter().getCriticalMultiplier(), PFCharacter.CRITICAL_MULIPLIERS);
 
     	CharacterModifier powerAttack = new CharacterModifier();
     	powerAttack.hit = -2;
@@ -221,14 +220,14 @@ public class CharacterCombatFragment extends FragmentBase {
     		}
     	});
     	
-    	ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
+    	/*ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
     	unarmed.setOnClickListener(new OnClickListener() {
     		public void onClick(View v) {
     			ToggleButton tb = (ToggleButton) v;
     			getCharacter().setUnarmed(tb.isChecked());
     			updateCharacter("unarmed");
     		}
-    	});
+    	});*/
 	}
 	
     private void calculateFinalPlusHit(String attacks_str, int plusHit) {
@@ -254,7 +253,8 @@ public class CharacterCombatFragment extends FragmentBase {
     	}
     	ToggleButton crit = (ToggleButton) findViewById(R.id.btnCritical);
     	if (crit.isChecked()) {
-    		plusDamage *= 2;
+    		weaponDice = getCharacter().applyWeaponDiceCritical(weaponDice);
+    		plusDamage = getCharacter().applyWeaponPlusCritical(plusDamage);
     	}
     	tv.clearFocus();
     	tv.setText(weaponDice + " + " + String.valueOf(plusDamage) + plusDamageDice);

@@ -38,6 +38,7 @@ public class PFCharacterDataSource {
 			DatabaseHelper._c_characters_daily_total,
 			DatabaseHelper._c_characters_daily_current,
 			DatabaseHelper._c_characters_daily_title,
+			DatabaseHelper._c_characters_critical_multiplier
 			};
 	
 	public PFCharacterDataSource(Context context) {
@@ -88,6 +89,7 @@ public class PFCharacterDataSource {
 		values.put(DatabaseHelper._c_characters_daily_total, 0);
 		values.put(DatabaseHelper._c_characters_daily_current, 0);
 		values.put(DatabaseHelper._c_characters_daily_title, "Daily Power");
+		values.put(DatabaseHelper._c_characters_critical_multiplier, "x2");
 		
 		long insertId = database.insert(DatabaseHelper._t_characters, null, values);
 		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, DatabaseHelper._c_characters_id + " = " + insertId, null, null, null, null);
@@ -123,6 +125,7 @@ public class PFCharacterDataSource {
 		values.put(DatabaseHelper._c_characters_daily_total, cha.getDailyTotal());
 		values.put(DatabaseHelper._c_characters_daily_current, cha.getDailyCurrent());
 		values.put(DatabaseHelper._c_characters_daily_title, cha.getDailyTitle());
+		values.put(DatabaseHelper._c_characters_critical_multiplier, cha.getCriticalMultiplier());
 		
 		int num = database.update(DatabaseHelper._t_characters, values, DatabaseHelper._c_characters_id + " = " + cha.getId(), null);
 		
@@ -161,6 +164,7 @@ public class PFCharacterDataSource {
 		cha.setDailyTotal(cursor.getInt(20));
 		cha.setDailyCurrent(cursor.getInt(21));
 		cha.setDailyTitle(cursor.getString(22));
+		cha.setCriticalMultiplier(cursor.getString(23));
 		
 		return cha;
 	}

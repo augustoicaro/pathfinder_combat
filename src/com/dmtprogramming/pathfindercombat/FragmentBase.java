@@ -117,6 +117,9 @@ public abstract class FragmentBase extends Fragment {
 		} else if (type.equals("android.widget.TextView")) {
 			TextView tv = (TextView) v;
 			i = Integer.parseInt(tv.getText().toString());
+		} else if (type.equals("android.widget.Spinner")) {
+			Spinner sp = (Spinner) v;
+			i = Integer.parseInt(sp.getSelectedItem().toString());
 		}
 		return i;
     }
