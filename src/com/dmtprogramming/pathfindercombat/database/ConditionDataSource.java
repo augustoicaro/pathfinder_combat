@@ -93,7 +93,7 @@ public class ConditionDataSource {
 		updateCharacter(character);
 	}
 	
-	private void updateCharacter(PFCharacter character) {
+	public void updateCharacter(PFCharacter character) {
 		PFCombatApplication app = (PFCombatApplication) context.getApplicationContext();
 		app.getCharacterDataSource().reloadPFCharacter(character);		
 	}

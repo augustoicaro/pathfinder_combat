@@ -55,6 +55,15 @@ public class PFCombatApplication extends Application {
 		return _conditions;
 	}
 	
+	public String getConditionDescription(String conditionName) {
+		for (int i = 0; i < _conditions.size(); i++) {
+			if (_conditions.get(i).getName().equals(conditionName)) {
+				return _conditions.get(i).getDescription();
+			}
+		}
+		return "";
+	}
+	
 	public List<String> getSortedConditionNames() {
 		List<String> ret = new ArrayList<String>();
 		for (int i = 0; i < _conditions.size(); i++) {

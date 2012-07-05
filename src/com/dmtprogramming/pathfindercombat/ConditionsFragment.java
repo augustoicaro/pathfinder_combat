@@ -96,7 +96,6 @@ public class ConditionsFragment extends FragmentBase {
 						}
 						getConditionDataSource().createCondition(getCharacter(), name, duration);
 						
-						_listAdapter.notifyDataSetInvalidated();
 						populateList();
 						dialog.cancel();
 					}
@@ -124,13 +123,12 @@ public class ConditionsFragment extends FragmentBase {
 					Condition condition = conditions.get(i);
 					condition.setDuration(condition.getDuration() - 1);
 					if (condition.getDuration() == 0) {
-						conditions.remove(condition);
 						getConditionDataSource().deleteCondition(getCharacter(), condition);
 					} else {
 						getConditionDataSource().updateCondition(getCharacter(), condition);		
 					}
 				}
-				_listAdapter.notifyDataSetInvalidated();
+				
 				populateList();
 			}
 		});
@@ -158,6 +156,9 @@ public class ConditionsFragment extends FragmentBase {
 	}
 	
 	protected void populateList() {
+		if (_listAdapter != null) {
+			_listAdapter.notifyDataSetInvalidated();
+		}
         ListView lv = (ListView) findViewById(R.id.listConditions);
         
         conditions = getCharacter().getConditions();
@@ -186,19 +187,8 @@ public class ConditionsFragment extends FragmentBase {
 		TextView textView;
 		CheckBox checkBox;
 		Condition condition;
-		
-		public ConditionViewHolder(TextView text, CheckBox check) {
-			textView = text;
-			checkBox = check;
-		}
-		
-		public TextView getTextView() {
-			return textView;
-		}
-		
-		public CheckBox getCheckBox() {
-			return checkBox;
-		}
+		TextView description;
+		RelativeLayout row;
 	}
 	
 	private static class ConditionArrayAdapter extends ArrayAdapter<Condition> {
@@ -236,7 +226,7 @@ public class ConditionsFragment extends FragmentBase {
 				boolean otherChecked = false;
 				for (int i = 0; i < holders.size(); i++) {
 					ConditionViewHolder holder = holders.get(i);
-					if (holder != activeHolder && holder.getCheckBox().isChecked()) {
+					if (holder != activeHolder && holder.checkBox.isChecked()) {
 						otherChecked = true;
 					}
 				}
@@ -251,15 +241,23 @@ public class ConditionsFragment extends FragmentBase {
 			
 			TextView textView;
 			CheckBox checkBox;
+			final TextView description;
+			RelativeLayout row;
 			
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.condition_row, null);
+				convertView = inflater.inflate(R.layout.condition_row, null, false);
 				
 				textView = (TextView) convertView.findViewById(R.id.rowTextView);
 				checkBox = (CheckBox) convertView.findViewById(R.id.rowCheckBox);
+				description = (TextView) convertView.findViewById(R.id.rowTextDescription);
+				row = (RelativeLayout) convertView.findViewById(R.id.layoutConditionRow);
 				
-				final ConditionViewHolder holder = new ConditionViewHolder(textView, checkBox);
+				final ConditionViewHolder holder = new ConditionViewHolder();
+				holder.textView = textView;
+				holder.checkBox = checkBox;
+				holder.description = description;
 				holder.condition = condition;
+				holder.row = row;
 				
 				checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -271,6 +269,18 @@ public class ConditionsFragment extends FragmentBase {
 					
 				});
 				
+				row.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if (description.getVisibility() == View.GONE) {
+							description.setVisibility(View.VISIBLE);
+						} else {
+							description.setVisibility(View.GONE);
+						}
+					}
+				});
+				
 				if (holders.size() == position) {
 					holders.add(holder);
 				} else {
@@ -279,12 +289,16 @@ public class ConditionsFragment extends FragmentBase {
 				convertView.setTag(holder);
 			} else {
 				ConditionViewHolder viewHolder = (ConditionViewHolder) convertView.getTag();
-				textView = viewHolder.getTextView();
-				checkBox = viewHolder.getCheckBox();
+				textView = viewHolder.textView;
+				checkBox = viewHolder.checkBox;
+				description = viewHolder.description;
+				row = viewHolder.row;
 			}
 			
 			checkBox.setText(condition.getName());
 			textView.setText("(" + condition.getDuration() + ")");
+			PFCombatApplication app = (PFCombatApplication) fragment.getActivity().getApplication();
+			description.setText(app.getConditionDescription(condition.getName()));
 			return convertView;
 		}
 	}
