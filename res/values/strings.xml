@@ -6,6 +6,7 @@
     <string name="attacks">ATTACKS</string>
     <string name="stats">STATS</string>
     <string name="damage">DAMAGE</string>
+    <string name="conditions">CONDITIONS</string>
     
     <!-- stats -->
     <string name="player">Player</string>
@@ -57,6 +58,13 @@
     <string name="really_delete">Really Delete?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
-    <string name="addNew">Add New</string>
+    <string name="addNew">Add</string>
+    <string name="new_condition">New Condition</string>
+    <string name="add_round">Next Round</string>
+    <string name="submit">Submit</string>
+    <string name="rounds">Rounds</string>
+    <string name="condition">Condition</string>
+    <string name="cancel">Cancel</string>
+    <string name="remove_conditions">Remove</string>
 
 </resources>

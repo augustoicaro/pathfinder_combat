@@ -3,6 +3,10 @@ package com.dmtprogramming.pathfindercombat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dmtprogramming.pathfindercombat.database.CharacterDataSource;
+import com.dmtprogramming.pathfindercombat.database.ConditionDataSource;
+import com.dmtprogramming.pathfindercombat.models.*;
+
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.app.Fragment;
@@ -19,6 +23,7 @@ public abstract class FragmentBase extends Fragment {
 	
 	protected View _view;
 	protected List<CharacterModifier> _mods;
+	private CharacterUpdateReceiver _receiver;
     
     public abstract void onAfterUpdateCharacter(String field);
     protected abstract void populateStats(String field);
@@ -29,13 +34,14 @@ public abstract class FragmentBase extends Fragment {
     
     public void setupIntentFilter() {
      	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
-     	getActivity().registerReceiver(new CharacterUpdateReceiver(this), filter);
+     	_receiver = new CharacterUpdateReceiver(this);
+     	getActivity().registerReceiver(_receiver, filter);
     }
     
     // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
 		Log.d(TAG, "updateCharacter()");
-		getDatasource().updatePFCharacter(getCharacter());
+		getCharacterDataSource().updatePFCharacter(getCharacter());
 		
 		Intent intent = new Intent();
 		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
@@ -48,9 +54,14 @@ public abstract class FragmentBase extends Fragment {
 		return view.getCharacter();
 	}
 	
-	public PFCharacterDataSource getDatasource() {
+	public CharacterDataSource getCharacterDataSource() {
 		ViewPagerFragmentActivity view = (ViewPagerFragmentActivity) getActivity();
-		return view.getDatasource();
+		return view.getCharacterDataSource();
+	}
+	
+	public ConditionDataSource getConditionDataSource() {
+		ViewPagerFragmentActivity view = (ViewPagerFragmentActivity) getActivity();
+		return view.getConditionDataSource();
 	}
 	
     protected void setupEditTextTrigger(int id, String field) {
@@ -123,4 +134,17 @@ public abstract class FragmentBase extends Fragment {
 		}
 		return i;
     }
+    
+    @Override
+	public void onResume() {
+     	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+    	getActivity().registerReceiver(_receiver, filter);
+		super.onResume();
+	}
+
+	@Override
+	public void onPause() {
+		getActivity().unregisterReceiver(_receiver);
+		super.onPause();
+	}
 }

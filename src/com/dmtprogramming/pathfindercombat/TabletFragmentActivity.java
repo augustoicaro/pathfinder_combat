@@ -3,11 +3,12 @@ package com.dmtprogramming.pathfindercombat;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import com.dmtprogramming.pathfindercombat.models.*;
 
 public class TabletFragmentActivity extends FragmentActivity {
 	private static final String TAG = "PFCombat:ViewPagerFragmentActivity";
 	
-	private PFCharacterDataSource _datasource;
+	private PFCombatApplication _app;
 	private PFCharacter _char;
 	
 	@Override
@@ -15,15 +16,15 @@ public class TabletFragmentActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.tablet_layout);
 
-        _datasource = new PFCharacterDataSource(this);
-        _datasource.open();
+        _app = (PFCombatApplication)this.getApplication();
+        _app.openDataSources();
         _char = null;
         
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	long _id = extras.getLong("CHARACTER_ID");
         	if (_id > 0) {
-        		_char = _datasource.findCharacter(_id);
+        		_char = _app.getCharacterDataSource().findCharacter(_id);
         	}
         }
         
@@ -31,4 +32,16 @@ public class TabletFragmentActivity extends FragmentActivity {
         	Log.d(TAG, "loaded character with id = " + _char.getId());
         }
 	}   
+	
+	@Override
+	protected void onResume() {
+		_app.openDataSources();
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		_app.closeDataSources();
+		super.onPause();
+	}
 }

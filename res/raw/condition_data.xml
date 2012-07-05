@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item name="conditions">
+    <condition name="Bleed" description="DC 15 Heal check or magical healing"></condition>
+    <condition name="Blinded" description="-2 AC, no DEX bonus to AC"></condition>
+    <condition name="Confused" description="Act Randomly"></condition>
+    <condition name="Cowering" description="No actions, -2 AC, no DEX bonus to AC"></condition>
+    <condition name="Dazed" description="No Actions"></condition>
+    <condition name="Dazzled" description="-1 Attack rolls and sight-based Perception"></condition>
+    <condition name="Deafened" description="-4 INIT, 20% spell failure"></condition>
+    <condition name="Disabled" description="Single action"></condition>
+    <condition name="Dying" description=""></condition>
+    <condition name="Entangled" description="Half speed, -2 ATTACK, -4 DEX"></condition>
+    <condition name="Fascinated" description="No actions, -4 Perception"></condition>
+    <condition name="Frightened" description="-2 ATTACK / Saves / Skills / Abilities, Flee or fight"></condition>
+    <condition name="Helpless" description="0 DEX, +4 from melee attacks"></condition>
+    <condition name="Invisible" description="+2 ATTACK vs sighted, ignore DEX"></condition>
+    <condition name="Nauseated" description="Only single move action"></condition>
+    <condition name="Panicked" description="Must flee, -2 Saves / Skills / Abilities"></condition>
+    <condition name="Paralyzed" description="0 DEX, 0 STR, No actions"></condition>
+    <condition name="Pinned" description="No movement, flat-footed, -4 AC"></condition>
+    <condition name="Shaken" description="-2 ATTACK / Saves / Skills / Abilities"></condition>
+    <condition name="Sickened" description="-2 ATTACK / Damage / Saves / Skills / Abilities"></condition>
+    <condition name="Staggered" description="Single move or standard action"></condition>
+    <condition name="Stunned" description="-2 AC, No DEX to AC, No Actions"></condition>
+</item>

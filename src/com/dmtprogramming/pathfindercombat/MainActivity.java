@@ -11,11 +11,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.dmtprogramming.pathfindercombat.ViewPagerFragmentActivity;
+import com.dmtprogramming.pathfindercombat.models.*;
 
 public class MainActivity extends ListActivity {
 	
 	private static final String TAG = "PFCombat:MainActivity";
-	private PFCharacterDataSource datasource;
+	private PFCombatApplication _app;
 	
 	
     /** Called when the activity is first created. */
@@ -25,8 +26,8 @@ public class MainActivity extends ListActivity {
         Log.v(TAG, String.format("test"));
         setContentView(R.layout.main);
         
-        datasource = new PFCharacterDataSource(this);
-        datasource.open();
+        _app = (PFCombatApplication)this.getApplication();
+        _app.openDataSources();
         
         populateList();
     }
@@ -39,7 +40,7 @@ public class MainActivity extends ListActivity {
 		PFCharacter cha = null;
 		switch (view.getId()) {
 		case R.id.add:
-			cha = datasource.createPFCharacter("character");
+			cha = _app.getCharacterDataSource().createPFCharacter("character");
 			adapter.add(cha);
 			break;
 		}
@@ -70,7 +71,7 @@ public class MainActivity extends ListActivity {
 	}
 	
 	protected void populateList() {
-        List<PFCharacter> values = datasource.getAllPFCharacters();
+        List<PFCharacter> values = _app.getCharacterDataSource().getAllPFCharacters();
         
         ArrayAdapter<PFCharacter> adapter = new ArrayAdapter<PFCharacter>(this, android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);		
@@ -78,14 +79,14 @@ public class MainActivity extends ListActivity {
 	
 	@Override
 	protected void onResume() {
-		datasource.open();
+		_app.openDataSources();
 		populateList();
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		datasource.close();
+		_app.closeDataSources();
 		super.onPause();
 	}
 }

@@ -32,6 +32,9 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 		if (pos == 1) {
 			return "Melee";
 		}
+		if (pos == 2) {
+			return "Conditions";
+		}
 		return "Other";
 	}
 }

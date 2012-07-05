@@ -10,6 +10,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
+import com.dmtprogramming.pathfindercombat.models.*;
+
 public class CharacterCombatFragment extends FragmentBase {
 
 	private static final String TAG = "PFCombat:CharacterCombatFragment";
@@ -17,7 +20,7 @@ public class CharacterCombatFragment extends FragmentBase {
 	private CharacterModifier _smite;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		_view = inflater.inflate(R.layout.character_combat, container, false);
+		_view = inflater.inflate(R.layout.character_combat_fragment, container, false);
 		
 		setupIntentFilter();
 		

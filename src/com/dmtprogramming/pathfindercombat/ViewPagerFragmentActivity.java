@@ -18,13 +18,17 @@ import android.view.MenuItem;
 import com.dmtprogramming.pathfindercombat.R;
 import com.dmtprogramming.pathfindercombat.CharacterInfoFragment;
 import com.dmtprogramming.pathfindercombat.CharacterCombatFragment;
+import com.dmtprogramming.pathfindercombat.ConditionsFragment;
+import com.dmtprogramming.pathfindercombat.database.CharacterDataSource;
+import com.dmtprogramming.pathfindercombat.database.ConditionDataSource;
+import com.dmtprogramming.pathfindercombat.models.PFCharacter;
 
 public class ViewPagerFragmentActivity extends FragmentActivity {
 
 	private static final String TAG = "PFCombat:ViewPagerFragmentActivity";
 	
 	private PagerAdapter mPagerAdapter;
-	private PFCharacterDataSource _datasource;
+	private PFCombatApplication _app;
 	private PFCharacter _char;
 
 	@Override
@@ -39,12 +43,12 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
         	char_id = extras.getLong("CHARACTER_ID");
         }
         
-        _datasource = new PFCharacterDataSource(this);
-        _datasource.open();
+        _app = (PFCombatApplication)this.getApplication();
+        _app.openDataSources();
         _char = null;
 
     	if (char_id > 0) {
-    		_char = getDatasource().findCharacter(char_id);
+    		_char = getCharacterDataSource().findCharacter(char_id);
     	}
         
         if (_char != null) {
@@ -66,15 +70,15 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		List<Fragment> fragments = new Vector<Fragment>();
 		fragments.add(Fragment.instantiate(this, CharacterInfoFragment.class.getName()));
 		fragments.add(Fragment.instantiate(this, CharacterCombatFragment.class.getName()));
-		//fragments.add(Fragment.instantiate(this, TestFragment.class.getName()));
+		fragments.add(Fragment.instantiate(this, ConditionsFragment.class.getName()));
 		this.mPagerAdapter  = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
 
 		ViewPager pager = (ViewPager)super.findViewById(R.id.viewpager);
 		pager.setAdapter(this.mPagerAdapter);
 	}
 	
-	public PFCharacterDataSource getDatasource() {
-		return _datasource;
+	public CharacterDataSource getCharacterDataSource() {
+		return _app.getCharacterDataSource();
 	}
 	
 	public PFCharacter getCharacter() {
@@ -83,13 +87,13 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 	
     @Override
 	public void onResume() {
-		_datasource.open();
+		_app.openDataSources();
 		super.onResume();
 	}
 
 	@Override
 	public void onPause() {
-		_datasource.close();
+		_app.closeDataSources();
 		super.onPause();
 	}
 	
@@ -117,11 +121,15 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				getDatasource().deletePFCharacter(getCharacter());
+				getCharacterDataSource().deletePFCharacter(getCharacter());
 				finish();
 			}
 		})
 		.setNegativeButton(R.string.no, null)
 		.show();		
+	}
+
+	public ConditionDataSource getConditionDataSource() {
+		return _app.getConditionDataSource();
 	}
 }

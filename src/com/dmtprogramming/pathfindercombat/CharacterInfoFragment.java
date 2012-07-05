@@ -1,5 +1,8 @@
 package com.dmtprogramming.pathfindercombat;
 
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
+import com.dmtprogramming.pathfindercombat.models.*;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +14,7 @@ public class CharacterInfoFragment extends FragmentBase {
 	private static final String TAG = "PFCombat:CharacterInfoFragment";
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		_view = inflater.inflate(R.layout.character_info, container, false);
+		_view = inflater.inflate(R.layout.character_info_fragment, container, false);
 		
 		setupIntentFilter();
 		

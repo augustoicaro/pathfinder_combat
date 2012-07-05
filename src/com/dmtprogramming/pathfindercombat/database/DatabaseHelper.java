@@ -1,4 +1,4 @@
-package com.dmtprogramming.pathfindercombat;
+package com.dmtprogramming.pathfindercombat.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-	private static final int DBVERSION = 6;
+	private static final int DBVERSION = 7;
 	
 	private static final String TAG = "PFCombat:DatabaseHelper";
 	
@@ -41,6 +41,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public static final String _c_characters_daily_current = "daily_current";
 	public static final String _c_characters_daily_title = "daily_title";
 	public static final String _c_characters_critical_multiplier = "critical_multiplier";
+	
+	public static final String _t_conditions = "conditions";
+	public static final String _c_conditions_id = "_id";
+	public static final String _c_conditions_character_id = "character_id";
+	public static final String _c_conditions_name = "name";
+	public static final String _c_conditions_duration = "duration";
 	
 	public DatabaseHelper(Context context) {
 		super(context, _dbName, null, DBVERSION);
@@ -79,6 +85,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		);
 		Log.v(TAG, String.format("SQL: %s", create_character_table));
 		db.execSQL(create_character_table);
+		
+		String create_condition_table = String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY, %s INTEGER, %s TEXT, %s INTEGER)",
+				_t_conditions,
+				_c_conditions_id,
+				_c_conditions_character_id,
+				_c_conditions_name,
+				_c_conditions_duration
+		);
+		Log.v(TAG, String.format("SQL: %s", create_condition_table));
+		db.execSQL(create_condition_table);
 	}
 
 	@Override
@@ -103,6 +119,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			addDailyColumns(db);
 		} else if (oldVersion == 5) {
 			addCriticalMultiplerColumn(db);
+		} else if (oldVersion == 6) {
+			addConditionsTable(db);
 		} else {
 			Log.v(TAG, String.format("unknown upgrade to db from version %d", oldVersion));
 		}
@@ -146,5 +164,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		String upgrade_sql;
 		upgrade_sql = String.format("ALTER TABLE %s ADD COLUMN %s INTEGER", _t_characters, _c_characters_critical_multiplier);
 		db.execSQL(upgrade_sql);
+	}
+	
+
+	private void addConditionsTable(SQLiteDatabase db) {
+		String create_condition_table = String.format("CREATE TABLE %s ( %s INTEGER PRIMARY KEY, %s INTEGER, %s TEXT, %s INTEGER)",
+				_t_conditions,
+				_c_conditions_id,
+				_c_conditions_character_id,
+				_c_conditions_name,
+				_c_conditions_duration
+		);
+		Log.v(TAG, String.format("SQL: %s", create_condition_table));
+		db.execSQL(create_condition_table);
 	}
 }

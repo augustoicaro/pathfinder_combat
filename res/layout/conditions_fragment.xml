@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/new_condition" >
+
+    <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"
+                android:paddingTop="8dp"
+                android:text="@string/conditions"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/title_color"
+                android:background="@drawable/my_border_top"
+                android:layout_alignParentTop="true" />
+        
+        <Button
+            android:id="@+id/btnNewCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_condition"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView1" />
+
+        <Button
+            android:id="@+id/btnNextRound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_round"
+            android:layout_alignParentRight="true"
+    		android:layout_marginRight="6sp"
+    		android:layout_below="@+id/textView1" />
+        
+	<ListView
+	    android:id="@+id/listConditions"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/btnNewCondition"
+	    android:layout_marginBottom="50dp" >
+	</ListView>
+	
+	<RelativeLayout 
+	    android:id="@+id/layoutConditionsMenu"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true">
+	    
+	            <Button
+            android:id="@+id/btnRemoveConditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_conditions"
+            android:layout_alignParentRight="true"
+    		android:layout_marginRight="6sp" />
+	    
+	</RelativeLayout>
+
+</RelativeLayout>

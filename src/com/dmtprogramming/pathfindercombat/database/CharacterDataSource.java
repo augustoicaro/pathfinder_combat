@@ -1,19 +1,24 @@
-package com.dmtprogramming.pathfindercombat;
+package com.dmtprogramming.pathfindercombat.database;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
+import com.dmtprogramming.pathfindercombat.PFCombatApplication;
+import com.dmtprogramming.pathfindercombat.models.PFCharacter;
+
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import com.dmtprogramming.pathfindercombat.*;
 
-public class PFCharacterDataSource {
+public class CharacterDataSource {
 	private static final String TAG = "PFCombat:PFCharacterDataSource";
 	
 	private SQLiteDatabase database;
 	private DatabaseHelper dbHelper;
+	private PFCombatApplication _app;
 	
 	private String[] allColumns = { DatabaseHelper._c_characters_id,
 			DatabaseHelper._c_characters_name,
@@ -41,8 +46,9 @@ public class PFCharacterDataSource {
 			DatabaseHelper._c_characters_critical_multiplier
 			};
 	
-	public PFCharacterDataSource(Context context) {
-		dbHelper = new DatabaseHelper(context);
+	public CharacterDataSource(PFCombatApplication app) {
+		dbHelper = new DatabaseHelper(app);
+		_app = app;
 	}
 	
 	public void open() throws SQLException {
@@ -138,8 +144,18 @@ public class PFCharacterDataSource {
 		database.delete(DatabaseHelper._t_characters, DatabaseHelper._c_characters_id + " = " + id, null);
 	}
 	
-	private PFCharacter cursorToPFCharacter(Cursor cursor) {
-		PFCharacter cha = new PFCharacter();
+	public void reloadPFCharacter(PFCharacter cha) {
+		Cursor cursor = database.query(DatabaseHelper._t_characters, allColumns, DatabaseHelper._c_characters_id + " = " + cha.getId(), null, null, null, null);
+		cursor.moveToFirst();
+		if (cursor.getCount() == 1) {
+			Log.d(TAG, "PFCharacter found with id = " + cha.getId());
+			cha = loadCursorToPFCharacter(cursor, cha);
+		} else {
+			Log.d(TAG, "PFCharacter not found with id = " + cha.getId());
+		}
+	}
+	
+	private PFCharacter loadCursorToPFCharacter(Cursor cursor, PFCharacter cha) {
 		
 		cha.setId(cursor.getLong(0));
 		cha.setName(cursor.getString(1));
@@ -166,7 +182,14 @@ public class PFCharacterDataSource {
 		cha.setDailyTitle(cursor.getString(22));
 		cha.setCriticalMultiplier(cursor.getString(23));
 		
+		cha.setConditions(_app.getConditionDataSource().getConditionsForCharacter(cha.getId()));
+		
 		return cha;
+	}
+	
+	private PFCharacter cursorToPFCharacter(Cursor cursor) {
+		PFCharacter cha = new PFCharacter();
+		return loadCursorToPFCharacter(cursor, cha);
 	}
 
 	public List<PFCharacter> getAllPFCharacters() {

@@ -1,4 +1,8 @@
-package com.dmtprogramming.pathfindercombat;
+package com.dmtprogramming.pathfindercombat.models;
+
+import java.util.List;
+
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 
 public class PFCharacter {
 	
@@ -51,7 +55,16 @@ public class PFCharacter {
 	private int daily_current;
 	private String daily_title;
 	private String critical_multiplier;
+	private List<Condition> conditions;
 	
+	public List<Condition> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(List<Condition> conditions) {
+		this.conditions = conditions;
+	}
+
 	public long getId() {
 		return id;
 	}
