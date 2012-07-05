@@ -65,12 +65,13 @@ public class ConditionDataSource {
 		Condition condition = cursorToCondition(cursor);
 		cursor.close();
 		Log.d(TAG, "Condition created with id = " + insertId + " and name = " + name);
-		PFCombatApplication app = (PFCombatApplication) context.getApplicationContext();
-		app.getCharacterDataSource().reloadPFCharacter(character);
+		
+		updateCharacter(character);
+		
 		return condition;
 	}
 	
-	public void updateCondition(Condition condition) {
+	public void updateCondition(PFCharacter character, Condition condition) {
 		ContentValues values = new ContentValues();
 		
 		values.put(DatabaseHelper._c_conditions_character_id, condition.getCharacterId());
@@ -80,6 +81,8 @@ public class ConditionDataSource {
 		int num = database.update(DatabaseHelper._t_conditions, values, DatabaseHelper._c_conditions_id + " = " + condition.getId(), null);
 		
 		Log.d(TAG, "updated Condition id = " + condition.getId() + " rows affected = " + num);
+		
+		updateCharacter(character);
 	}
 	
 	public void deleteCondition(PFCharacter character, Condition condition) {
@@ -87,8 +90,12 @@ public class ConditionDataSource {
 		Log.d(TAG, "Condition deleted with id = " + id);
 		database.delete(DatabaseHelper._t_conditions, DatabaseHelper._c_conditions_id + " = " + id, null);
 		
+		updateCharacter(character);
+	}
+	
+	private void updateCharacter(PFCharacter character) {
 		PFCombatApplication app = (PFCombatApplication) context.getApplicationContext();
-		app.getCharacterDataSource().reloadPFCharacter(character);
+		app.getCharacterDataSource().reloadPFCharacter(character);		
 	}
 	
 	private Condition cursorToCondition(Cursor cursor) {

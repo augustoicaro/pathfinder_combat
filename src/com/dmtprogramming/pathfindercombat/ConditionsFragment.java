@@ -127,11 +127,11 @@ public class ConditionsFragment extends FragmentBase {
 						conditions.remove(condition);
 						getConditionDataSource().deleteCondition(getCharacter(), condition);
 					} else {
-						getConditionDataSource().updateCondition(condition);		
+						getConditionDataSource().updateCondition(getCharacter(), condition);		
 					}
 				}
-				_listAdapter.notifyDataSetChanged();
-				//populateList();
+				_listAdapter.notifyDataSetInvalidated();
+				populateList();
 			}
 		});
 		
