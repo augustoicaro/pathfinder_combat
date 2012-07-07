@@ -7,6 +7,7 @@
     <string name="stats">STATS</string>
     <string name="damage">DAMAGE</string>
     <string name="conditions">CONDITIONS</string>
+    <string name="weapon">WEAPON</string>
     
     <!-- stats -->
     <string name="player">Player</string>
@@ -65,6 +66,6 @@
     <string name="rounds">Rounds</string>
     <string name="condition">Condition</string>
     <string name="cancel">Cancel</string>
-    <string name="remove_conditions">Remove</string>
+    <string name="remove_conditions">Remove Selected</string>
 
 </resources>

@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="@string/addNew" />
-        
     </LinearLayout>
 
     <ListView

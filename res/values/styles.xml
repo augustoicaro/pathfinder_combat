@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="PaperTheme" parent="android:Theme.Light">
+        <item name="android:windowBackground">@drawable/background_repeat</item>
+        <item name="android:editTextStyle">@style/edit_text_style</item>
+        <item name="android:spinnerStyle">@style/spinner_style</item>
+    </style>
+
+    <style name="horizontal_break">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:background">@drawable/horizontal_break</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    
+    <style name="thin_horizontal_break">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@drawable/horizontal_break</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    
+    <style name="section_header">
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/dark_brown</item>
+        <item name="android:background">@color/transparent_dark_brown</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+    
+    <style name="fake_link">
+        <item name="android:textColor">@color/link_blue</item>
+    </style>
+    
+    <style name="important_text">
+<!--         <item name="android:textColor">@color/important_text_color</item>
+        <item name="android:background">@color/important_text_background</item> -->
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:padding">5dp</item>
+    </style>
+</resources>

@@ -3,12 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
+    <View style="@style/horizontal_break" />
+    
     <TableRow
         android:id="@+id/tableRow14"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/my_border_top"
         android:paddingTop="8dp" >
 
         <TextView
@@ -55,13 +56,13 @@
             android:padding="3dp" />
     </TableRow>
 
-        <TableRow
+    <TableRow
         android:id="@+id/tableRow1a5"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" >
-        
-                    <TextView
+
+        <TextView
             android:id="@+id/textView2s455"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,13 +72,13 @@
             android:text="@string/weaponCritical"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
-                <Spinner
-                    android:id="@+id/spinCriticalMultiplier"
+        <Spinner
+            android:id="@+id/spinCriticalMultiplier"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-                    android:ems="10"
-                    android:padding="3dp" />
-        </TableRow>
+            android:ems="10"
+            android:padding="3dp" />
+    </TableRow>
+
 </TableLayout>

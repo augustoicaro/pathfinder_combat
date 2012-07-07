@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:overScrollMode="always"
-    android:padding="5dip" xmlns:tools="http://schemas.android.com/tools">
+    android:padding="5dip" >
 
     <LinearLayout
         android:layout_width="0px"
@@ -20,29 +21,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-       <LinearLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-           <include
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               layout="@layout/_weapon_stats_vertical" />
+            <include
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/_weapon_stats_vertical" />
 
-           <include
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               layout="@layout/_attacks_and_damage" />
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/_attacks_and_damage" />
 
-           <include
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               layout="@layout/_attacks_and_damage_toggles" />
-
+            <include
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                layout="@layout/_attacks_and_damage_toggles" />
         </LinearLayout>
-
-
     </ScrollView>
 
 </LinearLayout>

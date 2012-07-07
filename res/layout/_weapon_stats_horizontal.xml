@@ -1,56 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/my_border_top"
-    android:paddingTop="8dp" >
+    android:orientation="vertical" >
+
+    <View style="@style/horizontal_break" />
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/section_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/weapon" />
+
+            <View 
+        android:layout_width="fill_parent"
+        android:layout_height="3dp" />
     
-       <TextView
-                    android:id="@+id/textView24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|right"
-                    android:padding="3dp"
-                    android:text="@string/weaponPlus"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
-                <Spinner
-                    android:id="@+id/spinWeaponPlus"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:padding="3dp" />
-                
-                <TextView
-                    android:id="@+id/textView25"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp"
-                    android:text="@string/weaponDamage"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TextView
+            android:id="@+id/textView24"
+            style="@style/weapon_stat_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weaponPlus"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <Spinner
-                    android:id="@+id/spinDamage"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:padding="3dp" />
-                
-               	<TextView
-                    android:id="@+id/textView2ss5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="3dp"
-                    android:text="@string/weaponCritical"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+        <Spinner
+            android:id="@+id/spinWeaponPlus"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
 
-                <Spinner
-                    android:id="@+id/spinCriticalMultiplier"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:padding="3dp" />
-    
+        <TextView
+            android:id="@+id/textView25"
+            style="@style/weapon_stat_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weaponDamage"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/spinDamage"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView2ss5"
+            style="@style/weapon_stat_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weaponCritical"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/spinCriticalMultiplier"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>

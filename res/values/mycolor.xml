@@ -2,5 +2,11 @@
 <resources>
     <color name="title_color">#888</color>
     <color name="feats">#4e8868</color>
-    
+    <color name="important_text_color">#bfea10</color>
+    <color name="important_text_background">#7f6862</color>
+    <color name="blue">#2cb7ea</color>
+    <color name="transparent_dark_brown">#664e4446</color>
+    <color name="dark_brown">#4e4446</color>
+    <color name="transparent_white">#66ffffff</color>
+    <color name="link_blue">#0000ff</color>
 </resources>

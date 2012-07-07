@@ -8,6 +8,7 @@ import com.dmtprogramming.pathfindercombat.models.Condition;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -185,6 +186,7 @@ public class ConditionsFragment extends FragmentBase {
 	
 	private static class ConditionViewHolder {
 		TextView textView;
+		TextView textName;
 		CheckBox checkBox;
 		Condition condition;
 		TextView description;
@@ -240,6 +242,7 @@ public class ConditionsFragment extends FragmentBase {
 			Condition condition = (Condition) this.getItem(position);
 			
 			TextView textView;
+			TextView textName;
 			CheckBox checkBox;
 			final TextView description;
 			RelativeLayout row;
@@ -248,6 +251,7 @@ public class ConditionsFragment extends FragmentBase {
 				convertView = inflater.inflate(R.layout.condition_row, null, false);
 				
 				textView = (TextView) convertView.findViewById(R.id.rowTextView);
+				textName = (TextView) convertView.findViewById(R.id.rowName);
 				checkBox = (CheckBox) convertView.findViewById(R.id.rowCheckBox);
 				description = (TextView) convertView.findViewById(R.id.rowTextDescription);
 				row = (RelativeLayout) convertView.findViewById(R.id.layoutConditionRow);
@@ -257,6 +261,7 @@ public class ConditionsFragment extends FragmentBase {
 				holder.checkBox = checkBox;
 				holder.description = description;
 				holder.condition = condition;
+				holder.textName = textName;
 				holder.row = row;
 				
 				checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -281,24 +286,22 @@ public class ConditionsFragment extends FragmentBase {
 					}
 				});
 				
-				if (holders.size() == position) {
-					holders.add(holder);
-				} else {
-					holders.set(position, holder);
-				}
+				holders.add(holder);
 				convertView.setTag(holder);
 			} else {
 				ConditionViewHolder viewHolder = (ConditionViewHolder) convertView.getTag();
 				textView = viewHolder.textView;
 				checkBox = viewHolder.checkBox;
 				description = viewHolder.description;
+				textName = viewHolder.textName;
 				row = viewHolder.row;
 			}
 			
-			checkBox.setText(condition.getName());
+			checkBox.setText("");
 			textView.setText("(" + condition.getDuration() + ")");
 			PFCombatApplication app = (PFCombatApplication) fragment.getActivity().getApplication();
-			description.setText(app.getConditionDescription(condition.getName()));
+			description.setText(Html.fromHtml(app.getConditionShortDescription(condition.getName())));
+			textName.setText(Html.fromHtml("<u>" + condition.getName() + "</u>"));
 			return convertView;
 		}
 	}

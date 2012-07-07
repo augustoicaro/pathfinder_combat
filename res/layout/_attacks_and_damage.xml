@@ -3,222 +3,216 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <View style="@style/horizontal_break" />
     
     <TextView
-    android:id="@+id/textView18"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/my_border_top"
-    android:gravity="center_vertical"
-    android:paddingLeft="15dp"
-    android:paddingTop="8dp"
-    android:text="@string/attacks"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textColor="@color/title_color" />
-    
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/attacks"
+        style="@style/section_header" />
+
     <TableLayout
-                android:id="@+id/attack_table"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.8"
-                android:padding="5dip"
-                android:stretchColumns="*" >
+        android:id="@+id/attack_table"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:padding="5dip"
+        android:stretchColumns="*" >
 
-                <TableRow
-                    android:id="@+id/attack_header"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:baselineAligned="true" >
+        <TableRow
+            android:id="@+id/attack_header"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="true" >
 
-                    <TextView
-                        android:id="@+id/textView13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/BAB"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/BAB"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/textView144"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/str"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView144"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/str"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/wpn"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/wpn"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/feat"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/feat"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/other"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </TableRow>
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/other"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+    	<View style="@style/thin_horizontal_break" />
+        <TableRow
+            android:id="@+id/attack_calcs"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-                <TableRow
-                    android:id="@+id/attack_calcs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" >
-
-                    <TextView
-                        android:id="@+id/txtAttacks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/txtStrModPlusAttack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/txtWeaponPlusAttack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/txtWeaponFocusPlusAttack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
-                        android:id="@+id/txtOtherPlusAttack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </TableRow>
-            </TableLayout>
-<TextView
-                android:id="@+id/txtPlusAttack"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtAttacks"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-<TextView
-    android:id="@+id/textView1888"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/my_border_top"
-    android:gravity="center_vertical"
-    android:paddingLeft="15dp"
-    android:paddingTop="8dp"
-    android:text="@string/damage"
-    android:textAppearance="?android:attr/textAppearanceLarge"
-    android:textColor="@color/title_color" />
+            <TextView
+                android:id="@+id/txtStrModPlusAttack"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-<TableLayout
-                android:id="@+id/damage_table"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*" >
+            <TextView
+                android:id="@+id/txtWeaponPlusAttack"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <TableRow
-                    android:id="@+id/damage_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" >
+            <TextView
+                android:id="@+id/txtWeaponFocusPlusAttack"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/dmg"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/txtOtherPlusAttack"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+    </TableLayout>
 
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/str"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TextView
+        android:id="@+id/txtPlusAttack"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        style="@style/important_text" />
+    
+    <View style="@style/horizontal_break" />
+    
+    <TextView
+        android:id="@+id/textView1888"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/damage"
+        style="@style/section_header" />
 
-                    <TextView
-                        android:id="@+id/textView21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/wpn"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <TableLayout
+        android:id="@+id/damage_table"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*" >
 
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:text="@string/other"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </TableRow>
+        <TableRow
+            android:id="@+id/damage_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" >
 
-                <TableRow
-                    android:id="@+id/damage_calcs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent" >
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/dmg"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/txtWeaponDice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/str"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/txtStrModPlusDamage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/wpn"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                    <TextView
-                        android:id="@+id/txtWeaponPlusDamage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="@string/other"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+<View style="@style/thin_horizontal_break" />
+        <TableRow
+            android:id="@+id/damage_calcs"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent" >
 
-                    <TextView
-                        android:id="@+id/txtOtherPlusDamage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-                </TableRow>
+            <TextView
+                android:id="@+id/txtWeaponDice"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <TextView
-                    android:id="@+id/txtPlusDamage"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/txtStrModPlusDamage"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            </TableLayout>
+            <TextView
+                android:id="@+id/txtWeaponPlusDamage"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/txtOtherPlusDamage"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TextView
+            android:id="@+id/txtPlusDamage"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            style="@style/important_text" />
+    </TableLayout>
 
 </LinearLayout>

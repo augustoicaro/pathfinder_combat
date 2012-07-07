@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="edit_text_style" parent="@android:style/Widget.EditText">
+        <item name="android:paddingLeft">13dp</item>
+    </style>
+    
+    <style name="spinner_style" parent="@android:style/Widget.Spinner">
+        <item name="android:paddingLeft">13dp</item>
+    </style>    
+</resources>

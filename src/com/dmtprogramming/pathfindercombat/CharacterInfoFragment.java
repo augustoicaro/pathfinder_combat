@@ -34,7 +34,7 @@ public class CharacterInfoFragment extends FragmentBase {
     	PFCharacter c = getCharacter();
     	
     	populateField(R.id.txtCharacter, f, "name", c.getName());
-    	populateField(R.id.txtPlayer, f, "player", c.getPlayer());
+    	//populateField(R.id.txtPlayer, f, "player", c.getPlayer());
     	populateField(R.id.txtStr, f, "str", String.valueOf(c.getStr()));
     	populateField(R.id.txtDex, f, "dex", String.valueOf(c.getDex()));
     	populateField(R.id.txtCon, f, "con", String.valueOf(c.getCon()));
@@ -59,7 +59,7 @@ public class CharacterInfoFragment extends FragmentBase {
     // set up the events for when text fields are updated by the user
     private void setupTriggers() {
     	setupEditTextTrigger(R.id.txtCharacter, "name");
-    	setupEditTextTrigger(R.id.txtPlayer, "player");
+    	//setupEditTextTrigger(R.id.txtPlayer, "player");
     	setupEditTextTrigger(R.id.txtStr, "str");
     	setupEditTextTrigger(R.id.txtDex, "dex");
     	setupEditTextTrigger(R.id.txtCon, "con");

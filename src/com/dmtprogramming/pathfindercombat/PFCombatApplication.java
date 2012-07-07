@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.database.*;
-import com.dmtprogramming.pathfindercombat.models.Condition;
+import com.dmtprogramming.pathfindercombat.models.ConditionData;
 
 import android.app.Application;
 import android.util.Log;
@@ -16,7 +16,7 @@ public class PFCombatApplication extends Application {
 	private static final String TAG = "PFCombat:PFCombatApplication";
 	private CharacterDataSource _character_db = null;
 	private ConditionDataSource _condition_db = null;
-	private List<Condition> _conditions;
+	private List<ConditionData> _conditionData;
 	
 	@Override
 	public void onCreate() {
@@ -30,7 +30,7 @@ public class PFCombatApplication extends Application {
 	}
 	
 	public void setup() {	
-		_conditions = Condition.loadConditions(getResources().openRawResource(R.raw.condition_data));		
+		_conditionData = ConditionData.loadConditions(getResources().openRawResource(R.raw.condition_data));		
 	}
 
 	public CharacterDataSource getCharacterDataSource() {
@@ -50,15 +50,20 @@ public class PFCombatApplication extends Application {
 		_character_db.close();
 		_condition_db.close();
 	}
-
-	public List<Condition> getConditions() {
-		return _conditions;
+	
+	public String getConditionShortDescription(String conditionName) {
+		for (int i = 0; i < _conditionData.size(); i++) {
+			if (_conditionData.get(i).getName().equals(conditionName)) {
+				return _conditionData.get(i).getShortDescription();
+			}
+		}
+		return "";
 	}
 	
-	public String getConditionDescription(String conditionName) {
-		for (int i = 0; i < _conditions.size(); i++) {
-			if (_conditions.get(i).getName().equals(conditionName)) {
-				return _conditions.get(i).getDescription();
+	public String getConditionLongDescription(String conditionName) {
+		for (int i = 0; i < _conditionData.size(); i++) {
+			if (_conditionData.get(i).getName().equals(conditionName)) {
+				return _conditionData.get(i).getLongDescription();
 			}
 		}
 		return "";
@@ -66,8 +71,8 @@ public class PFCombatApplication extends Application {
 	
 	public List<String> getSortedConditionNames() {
 		List<String> ret = new ArrayList<String>();
-		for (int i = 0; i < _conditions.size(); i++) {
-			Condition condition = _conditions.get(i);
+		for (int i = 0; i < _conditionData.size(); i++) {
+			ConditionData condition = _conditionData.get(i);
 			ret.add(condition.getName());
 		}
 		Collections.sort(ret, new Comparator<String>() {

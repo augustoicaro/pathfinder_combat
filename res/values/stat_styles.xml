@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="stat_label">
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:gravity">center|right</item>
+    </style>    
+    
+    <style name="stat_edit_text">
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:layout_width">60dp</item>
+    </style>
+</resources>
