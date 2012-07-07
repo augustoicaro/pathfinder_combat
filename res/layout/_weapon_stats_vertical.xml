@@ -3,22 +3,31 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content" >
 
-    <View style="@style/horizontal_break" />
+        <View style="@style/horizontal_break" />
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/section_header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/weapon" />
+
+            <View 
+        android:layout_width="fill_parent"
+        android:layout_height="3dp" />
+    
     
     <TableRow
         android:id="@+id/tableRow14"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:paddingTop="8dp" >
+        android:layout_weight="1" >
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:gravity="center|right"
-            android:padding="3dp"
             android:text="@string/weaponPlus"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -26,9 +35,7 @@
             android:id="@+id/spinWeaponPlus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:ems="10"
-            android:padding="3dp" />
+            android:layout_weight="0.5" />
     </TableRow>
 
     <TableRow
@@ -42,8 +49,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:gravity="center|right"
-            android:padding="3dp"
             android:text="@string/weaponDamage"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -51,9 +56,7 @@
             android:id="@+id/spinDamage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:ems="10"
-            android:padding="3dp" />
+            android:layout_weight="0.5" />
     </TableRow>
 
     <TableRow
@@ -67,8 +70,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:gravity="center|right"
-            android:padding="3dp"
             android:text="@string/weaponCritical"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -76,9 +77,7 @@
             android:id="@+id/spinCriticalMultiplier"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:ems="10"
-            android:padding="3dp" />
+            android:layout_weight="0.5" />
     </TableRow>
 
 </TableLayout>

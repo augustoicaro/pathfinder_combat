@@ -6,78 +6,10 @@
 
     <View style="@style/horizontal_break" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:paddingTop="0dp" >
-
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
+        <include
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="0dp" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/stats"
-                android:layout_span="2"
-				style="@style/section_header" />
-
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/stat_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/name"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/txtCharacter"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textCapWords"
-                android:selectAllOnFocus="true"
-                android:layout_span="2" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/textView14"
-                style="@style/stat_label"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:text="@string/characterClass"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/spinClass"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:ems="10" />
-
-            <TextView
-                android:id="@+id/textView5"
-                style="@style/stat_label"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
-                android:text="@string/level"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/spinLevel"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-        </TableRow>
-    </TableLayout>
+            layout="@layout/_character_info" />
 
     <View style="@style/thin_horizontal_break" />
 

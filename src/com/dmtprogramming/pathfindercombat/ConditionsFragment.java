@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -28,9 +29,16 @@ public class ConditionsFragment extends FragmentBase {
 	private static final String TAG = "PFCombat:ConditionsFragment";
 	private ConditionArrayAdapter _listAdapter;
 	private List<Condition> conditions;
+	private LayoutInflater inflater;
+	private List<ConditionViewHolder> holders;
+	private List<Condition> checked;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		this.inflater = inflater;
 		_view = inflater.inflate(R.layout.conditions_fragment, container, false);
+		
+		holders = new ArrayList<ConditionViewHolder>();
+		checked = new ArrayList<Condition>();
 		
 		setupIntentFilter();
 		
@@ -43,20 +51,22 @@ public class ConditionsFragment extends FragmentBase {
 	
 	private void hideConditionMenu() {
 		ListView lv = (ListView) findViewById(R.id.listConditions);
-		ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) lv.getLayoutParams();
-		params.setMargins(0, 0, 0, 0);
-		
+		if (lv != null) {
+			ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) lv.getLayoutParams();
+			params.setMargins(0, 0, 0, 0);
+		}
 		RelativeLayout layout = (RelativeLayout) findViewById(R.id.layoutConditionsMenu);
 		layout.setVisibility(View.GONE);
 	}
 	
 	private void showConditionMenu() {
 		ListView lv = (ListView) findViewById(R.id.listConditions);
-		ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) lv.getLayoutParams();
-		params.setMargins(0, 0, 0, 50);
-		
+		if (lv != null) {
+			ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) lv.getLayoutParams();
+			params.setMargins(0, 0, 0, 50);
+		}
 		RelativeLayout layout = (RelativeLayout) findViewById(R.id.layoutConditionsMenu);
-		layout.setVisibility(View.VISIBLE);		
+		layout.setVisibility(View.VISIBLE);	
 	}
 	
 	private void setupView() {
@@ -137,10 +147,17 @@ public class ConditionsFragment extends FragmentBase {
 		Button removeConditions = (Button) findViewById(R.id.btnRemoveConditions);
 		removeConditions.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				List<Condition> deleters = _listAdapter.checked();
+		        ListView lv = (ListView) findViewById(R.id.listConditions);
+	        	List<Condition> deleters;
+		        if (lv == null) {
+		        	deleters = checked;
+		        } else {
+		        	deleters = _listAdapter.checked();
+		        }
 				for (int i = 0; i < deleters.size(); i++) {
 					getConditionDataSource().deleteCondition(getCharacter(), deleters.get(i));
 				}
+
 				populateList();
 				hideConditionMenu();
 			}
@@ -156,18 +173,83 @@ public class ConditionsFragment extends FragmentBase {
 	protected void populateStats(String field) {
 	}
 	
+	// hides or shows the condition menu based on check boxes checked
+	private void hideShowConditionMenu(boolean checked, ConditionViewHolder activeHolder) {
+		if (checked) {
+			this.checked.add(activeHolder.condition);
+			Log.d(TAG, "list checkbox added, showing the menu");
+			showConditionMenu();
+		} else {
+			this.checked.remove(activeHolder.condition);
+			if (this.checked.size() == 0) {
+				hideConditionMenu();
+			}
+			Log.d(TAG, "list checkbox removed");
+		}
+	}
+	
 	protected void populateList() {
 		if (_listAdapter != null) {
 			_listAdapter.notifyDataSetInvalidated();
 		}
-        ListView lv = (ListView) findViewById(R.id.listConditions);
-        
+
+		holders.clear();
+		checked.clear();
+		
         conditions = getCharacter().getConditions();
         _listAdapter = new ConditionArrayAdapter(getActivity(), conditions, this);
-        lv.setAdapter(_listAdapter);
-        lv.forceLayout();
-        _listAdapter.notifyDataSetChanged();
         
+        ListView lv = (ListView) findViewById(R.id.listConditions);
+        if (lv == null) {
+        	LinearLayout list = (LinearLayout) findViewById(R.id.listConditionsList);
+        	list.removeAllViews();
+        	for (int i = 0; i < conditions.size(); i++) {
+        		Condition condition = conditions.get(i);
+        		View vi = inflater.inflate(R.layout.condition_row, null);
+				final ConditionViewHolder holder = new ConditionViewHolder();
+
+				holder.textView = (TextView) vi.findViewById(R.id.rowTextView);
+				holder.textName = (TextView) vi.findViewById(R.id.rowName);
+				holder.checkBox = (CheckBox) vi.findViewById(R.id.rowCheckBox);
+				holder.description = (TextView) vi.findViewById(R.id.rowTextDescription);
+				holder.row = (RelativeLayout) vi.findViewById(R.id.layoutConditionRow);
+				holder.condition = condition;
+				
+				holder.checkBox.setText("");
+				holder.textView.setText("(" + condition.getDuration() + ")");
+				PFCombatApplication app = (PFCombatApplication) getActivity().getApplication();
+				holder.description.setText(Html.fromHtml(app.getConditionShortDescription(condition.getName())));
+				holder.textName.setText(Html.fromHtml("<u>" + condition.getName() + "</u>"));
+        		
+				holder.checkBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView,
+							boolean isChecked) {
+						hideShowConditionMenu(isChecked, holder);
+					}
+					
+				});
+				
+				holder.row.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if (holder.description.getVisibility() == View.GONE) {
+							holder.description.setVisibility(View.VISIBLE);
+						} else {
+							holder.description.setVisibility(View.GONE);
+						}
+					}
+				});
+				
+				list.addView(vi);
+        	}
+        } else {
+	        lv.setAdapter(_listAdapter);
+	        lv.forceLayout();
+	        _listAdapter.notifyDataSetChanged();
+        }
         Log.d(TAG, "populating list, count = " + conditions.size());
         for(int i = 0; i < conditions.size(); i++) {
         	Log.d(TAG, "     id = " + conditions.get(i).getId());        	

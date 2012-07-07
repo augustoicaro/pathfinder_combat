@@ -60,6 +60,7 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="addNew">Add</string>
+    <string name="new_character">New Character</string>
     <string name="new_condition">New Condition</string>
     <string name="add_round">Next Round</string>
     <string name="submit">Submit</string>

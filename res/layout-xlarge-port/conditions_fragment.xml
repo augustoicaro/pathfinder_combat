@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:contentDescription="@string/new_condition"
+    android:orientation="vertical"
+    android:paddingTop="5dp" >
+
+    <View
+        android:id="@+id/viewBreak1"
+        style="@style/horizontal_break" />
+
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/section_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/conditions" />
+
+    <View
+        android:id="@+id/spacer1"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnNewCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/new_condition" />
+
+        <Button
+            android:id="@+id/btnNextRound"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginRight="6sp"
+            android:layout_alignParentRight="true"
+            android:text="@string/add_round" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/listConditionsList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    <RelativeLayout
+        android:id="@+id/layoutConditionsMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/transparent_white" >
+
+        <Button
+            android:id="@+id/btnRemoveConditions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="3dp"
+            android:text="@string/remove_conditions" />
+    </RelativeLayout>
+
+</LinearLayout>
