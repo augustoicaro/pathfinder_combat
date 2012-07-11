@@ -33,6 +33,8 @@
     	    character. Blind creatures must make a DC 10 Acrobatics skill check to move faster than half speed. Creatures that fail this check fall prone. 
     	    Characters who remain blinded for a long time grow accustomed to these drawbacks and can overcome some of them.
         </long_description>
+        <mod type="ac" value="-2" />
+        <mod type="dex_ac" value="0" />
     </condition>
     <condition
         name="Confused">
@@ -77,6 +79,9 @@ d%	Behavior
         <long_description>
             The character is frozen in fear and can take no actions. A cowering character takes a –2 penalty to Armor Class and loses his Dexterity bonus (if any).
         </long_description>
+        <mod type="actions" value="none" />
+        <mod type="ac" value="-2" />
+        <mod type="dex_ac" value="0" />
     </condition>
     <condition
         name="Dazed">
@@ -92,6 +97,7 @@ d%	Behavior
 
 			A dazed condition typically lasts 1 round.
         </long_description>
+        <mod type="actions" value="none" />
     </condition>
     <condition
         name="Dazzled">
@@ -106,6 +112,7 @@ d%	Behavior
             The creature is unable to see well because of overstimulation of the eyes. A dazzled creature takes a –1 penalty on attack rolls and sight-based 
             Perception checks.
         </long_description>
+        <mod type="attacks" value="-1" />
     </condition>
     <condition
         name="Deafened">
@@ -124,6 +131,7 @@ d%	Behavior
             on opposed Perception checks, and has a 20% chance of spell failure when casting spells with verbal components. Characters who remain deafened for a 
             long time grow accustomed to these drawbacks and can overcome some of them.
         </long_description>
+        <mod type="init" value="-4" />
     </condition>
     <condition
         name="Disabled">
@@ -148,6 +156,9 @@ d%	Behavior
 			 negative hit point total. Failing this check causes the character to lose 1 hit point, but this does not cause the character to become unconscious. 
 			 Once a character makes this check, he continues to heal naturally and is no longer in danger of losing hit points naturally.
         </long_description>
+        
+        <mod type="actions" value="single" />
+        <mod type="speed" value="half" />
     </condition>
     <condition
         name="Dying">
@@ -167,6 +178,7 @@ d%	Behavior
             is stable does not need to make this check. A natural 20 on this check is an automatic success. If the character fails this check, he loses 1 hit point. 
             If a dying creature has an amount of negative hit points equal to its Constitution score, it dies.
         </long_description>
+        <mod type="actions" value="none" />
     </condition>
     <condition
         name="Entangled">
@@ -184,6 +196,9 @@ d%	Behavior
             tethered by an opposing force. An entangled creature moves at half speed, cannot run or charge, and takes a –2 penalty on all attack rolls and a –4 
             penalty to Dexterity. An entangled character who attempts to cast a spell must make a concentration check (DC 15 + spell level) or lose the spell.
         </long_description>
+        <mod type="speed" value="half" />
+        <mod type="attacks" value="-2" />
+        <mod type="dex" value="-4" />
     </condition>
     <condition
         name="Fascinated">
@@ -203,6 +218,7 @@ d%	Behavior
             Any obvious threat, such as someone drawing a weapon, casting a spell, or aiming a ranged weapon at the fascinated creature, automatically breaks the 
             effect. A fascinated creature's ally may shake it free of the spell as a standard action.
         </long_description>
+        <mod type="actions" value="none" />
     </condition>
     <condition
         name="Frightened">
@@ -221,6 +237,10 @@ d%	Behavior
 
 			Frightened is like shaken, except that the creature must flee if possible. Panicked is a more extreme state of fear.
         </long_description>
+        <mod type="attacks" value="-2" />
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />
     </condition>
     <condition
         name="Helpless">
@@ -243,6 +263,7 @@ d%	Behavior
 
 			Creatures that are immune to critical hits do not take critical damage, nor do they need to make Fortitude saves to avoid being killed by a coup de grace.
         </long_description>
+        <mod type="dex" value="0" />
     </condition>
     <condition
         name="Invisible">
@@ -271,6 +292,7 @@ d%	Behavior
             Creatures with the nauseated condition experience stomach distress. Nauseated creatures are unable to attack, cast spells, concentrate on spells, 
             or do anything else requiring attention. The only action such a character can take is a single move actions per turn.
         </long_description>
+        <mod type="actions" value="move" />
     </condition>
     <condition
         name="Panicked">
@@ -291,6 +313,9 @@ d%	Behavior
 
 			Panicked is a more extreme state of fear than shaken or frightened.
         </long_description>
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />        
     </condition>
     <condition
         name="Paralyzed">
@@ -307,6 +332,9 @@ d%	Behavior
             falls. A paralyzed swimmer can't swim and may drown. A creature can move through a space occupied by a paralyzed creature—ally or not. Each square 
             occupied by a paralyzed creature, however, counts as 2 squares to move through.
         </long_description>
+        <mod type="dex" value="0" />
+        <mod type="str" value="0" />
+        <mod type="actions" value="none" />
     </condition>
     <condition
         name="Pinned">
@@ -326,6 +354,9 @@ d%	Behavior
             make a concentration check (DC 10 + grappler's CMB + spell level) or lose the spell. Pinned is a more severe version of grappled, and their effects do 
             not stack.
         </long_description>
+        <mod type="ac" value="-4" />
+        <mod type="dex_ac" value="0" />
+        <mod type="actions" value="standard" />
     </condition>
     <condition
         name="Shaken">
@@ -339,6 +370,10 @@ d%	Behavior
             A shaken character takes a –2 penalty on attack rolls, saving throws, skill checks, and ability checks. Shaken is a less severe state of fear than 
             frightened or panicked.
         </long_description>
+        <mod type="attacks" value="-2" />
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />
     </condition>
     <condition
         name="Sickened">
@@ -351,6 +386,11 @@ d%	Behavior
         <long_description>
             The character takes a –2 penalty on all attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks.
         </long_description>
+        <mod type="damage" value="-2" />
+        <mod type="attacks" value="-2" />
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />
     </condition>
     <condition
         name="Staggered">
@@ -365,6 +405,7 @@ d%	Behavior
             creature can still take free, swift and immediate actions. A creature with nonlethal damage exactly equal to its current hit points gains the 
             staggered condition.
         </long_description>
+        <mod type="actions" value="single" />
     </condition>
     <condition
         name="Stunned">
@@ -380,6 +421,9 @@ d%	Behavior
         <long_description>
             A stunned creature drops everything held, can't take actions, takes a –2 penalty to AC, and loses its Dexterity bonus to AC (if any).
         </long_description>
+        <mod type="actions" value="none" />
+        <mod type="dex_ac" value="0" />
+        <mod type="ac" value="-2" />
     </condition>
 
 </item>
