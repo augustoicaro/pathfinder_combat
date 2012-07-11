@@ -51,7 +51,10 @@ public abstract class FragmentBase extends Fragment {
 	
 	public PFCharacter getCharacter() {
 		ViewPagerFragmentActivity view = (ViewPagerFragmentActivity) getActivity();
-		return view.getCharacter();
+		if (view != null) {
+			return view.getCharacter();
+		}
+		return null;
 	}
 	
 	public CharacterDataSource getCharacterDataSource() {
