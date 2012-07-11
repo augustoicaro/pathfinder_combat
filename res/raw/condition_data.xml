@@ -4,9 +4,9 @@
     <condition name="Bleed" >
         <short_description>
 <![CDATA[
-    	    &#8226; take damage at beginning of turn<br/>
-    	    &#8226; stopped by DC 15 Heal check or magical healing<br/>
-    	    &#8226; do not stack unless they deal different kinds of damage<br/>
+    	    &#8226; Take damage at beginning of turn<br/>
+    	    &#8226; Stopped by DC 15 Heal check or magical healing<br/>
+    	    &#8226; Do not stack unless they deal different kinds of damage<br/>
 		]]>
         </short_description>
 
@@ -21,7 +21,7 @@
         <short_description>
 <![CDATA[
     	    &#8226; -2 AC<br/>
-    	    &#8226; no DEX bonus to AC<br/>
+    	    &#8226; No DEX bonus to AC<br/>
     	    &#8226; -4 on most STR and DEX skills and Perception<br/>
     	    &#8226; DC 20 Acrobatics to move faster than half speed]]>
         </short_description>
@@ -38,8 +38,8 @@
         name="Confused">
         <short_description>
 <![CDATA[
-    	    &#8226; treat all creatures as enemies<br/>
-    	    &#8226; roll to see what to do<br/>
+    	    &#8226; Treat all creatures as enemies<br/>
+    	    &#8226; Roll to see happens on turn<br/>
     	    &#8226; 01-25 Act Normally<br/>
     	    &#8226; 26-50 Do nothing<br/>
     	    &#8226; 51-75 Deal 1d8 + Str mod damage to self<br/>
@@ -111,7 +111,7 @@ d%	Behavior
         name="Deafened">
         <short_description>
 <![CDATA[
-    	    &#8226; Can no hear<br/>
+    	    &#8226; Can not hear<br/>
     	    &#8226; -4 on initiative<br/>
     	    &#8226; Fail Perception based on sound<br/>
     	    &#8226; -4 on opposed Perception checks<br/>
