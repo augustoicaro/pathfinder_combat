@@ -55,7 +55,7 @@ public class MainActivity extends ListActivity {
 		
 		int layout = getResources().getConfiguration().screenLayout;
 		Log.d(TAG, "screen layout = " + layout);
-		if (isScreenSize(Configuration.SCREENLAYOUT_SIZE_LARGE) || isScreenSize(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
+		if (isScreenSize(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
 			myIntent.putExtra("TABLET", true);
 		} else {
 			myIntent.putExtra("TABLET", false);
