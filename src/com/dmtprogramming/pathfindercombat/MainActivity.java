@@ -62,6 +62,7 @@ public class MainActivity extends ListActivity {
 		}
 
 		myIntent.putExtra("CHARACTER_ID", cha.getId());
+		_app.setCurrentCharacter(cha);
 		startActivityForResult(myIntent, 0);
 	}
 	

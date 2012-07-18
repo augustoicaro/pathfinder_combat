@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toggles>
+    <toggle name="PowerAttack" />
+    <toggle name="Smite" />
+    <toggle name="Enlarge" />
+    <toggle name="Plus2Str" />
+    <toggle name="Plus4Str" />
+    <toggle name="Haste" />
+    <toggle name="Plus1d6Damage" />
+    <toggle name="Plus2d6Damage" />
+    <toggle name="Flank" />
+    <toggle name="Plus1Damage" />
+    <toggle name="Plus2Damage" />
+    <toggle name="Defensive" />
+    <toggle name="Plus1Hit" />
+    <toggle name="Plus2Hit" />
+    <toggle name="Plus4Hit" />
+    <toggle name="FlurryOfBlows" />
+</toggles>

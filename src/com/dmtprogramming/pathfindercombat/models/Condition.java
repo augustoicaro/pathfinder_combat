@@ -2,7 +2,6 @@ package com.dmtprogramming.pathfindercombat.models;
 
 public class Condition {	
 
-	
 	private long id;
 	private long character_id;
 	private String name;

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conditions>
+    <condition name="Bleed" />
+    <condition name="Blinded" />
+    <condition name="Confused" />
+    <condition name="Cowering" />
+    <condition name="Dazed" />
+    <condition name="Dazzled" />
+    <condition name="Deafened" />
+    <condition name="Disabled" />
+    <condition name="Dying" />
+    <condition name="Entangled" />
+    <condition name="Fascinated" />
+    <condition name="Frightened" />
+    <condition name="Helpless" />
+    <condition name="Invisible" />
+    <condition name="Nauseated" />
+    <condition name="Panicked" />
+    <condition name="Paralyzed" />
+    <condition name="Pinned" />
+    <condition name="Shaken" />
+    <condition name="Sickened" />
+    <condition name="Staggered" />
+</conditions>

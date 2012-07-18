@@ -112,7 +112,7 @@ d%	Behavior
             The creature is unable to see well because of overstimulation of the eyes. A dazzled creature takes a –1 penalty on attack rolls and sight-based 
             Perception checks.
         </long_description>
-        <mod type="attacks" value="-1" />
+        <mod type="hit" value="-1" />
     </condition>
     <condition
         name="Deafened">
@@ -197,7 +197,7 @@ d%	Behavior
             penalty to Dexterity. An entangled character who attempts to cast a spell must make a concentration check (DC 15 + spell level) or lose the spell.
         </long_description>
         <mod type="speed" value="half" />
-        <mod type="attacks" value="-2" />
+        <mod type="hit" value="-2" />
         <mod type="dex" value="-4" />
     </condition>
     <condition
@@ -237,7 +237,7 @@ d%	Behavior
 
 			Frightened is like shaken, except that the creature must flee if possible. Panicked is a more extreme state of fear.
         </long_description>
-        <mod type="attacks" value="-2" />
+        <mod type="hit" value="-2" />
         <mod type="saves" value="-2" />
         <mod type="skill_checks" value="-2" />
         <mod type="ability_checks" value="-2" />
@@ -263,7 +263,7 @@ d%	Behavior
 
 			Creatures that are immune to critical hits do not take critical damage, nor do they need to make Fortitude saves to avoid being killed by a coup de grace.
         </long_description>
-        <mod type="dex" value="0" />
+        <mod type="dex" value="-999" />
     </condition>
     <condition
         name="Invisible">
@@ -332,8 +332,8 @@ d%	Behavior
             falls. A paralyzed swimmer can't swim and may drown. A creature can move through a space occupied by a paralyzed creature—ally or not. Each square 
             occupied by a paralyzed creature, however, counts as 2 squares to move through.
         </long_description>
-        <mod type="dex" value="0" />
-        <mod type="str" value="0" />
+        <mod type="dex" value="-999" />
+        <mod type="str" value="-999" />
         <mod type="actions" value="none" />
     </condition>
     <condition
@@ -370,7 +370,7 @@ d%	Behavior
             A shaken character takes a –2 penalty on attack rolls, saving throws, skill checks, and ability checks. Shaken is a less severe state of fear than 
             frightened or panicked.
         </long_description>
-        <mod type="attacks" value="-2" />
+        <mod type="hit" value="-2" />
         <mod type="saves" value="-2" />
         <mod type="skill_checks" value="-2" />
         <mod type="ability_checks" value="-2" />
@@ -387,7 +387,7 @@ d%	Behavior
             The character takes a –2 penalty on all attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks.
         </long_description>
         <mod type="damage" value="-2" />
-        <mod type="attacks" value="-2" />
+        <mod type="hit" value="-2" />
         <mod type="saves" value="-2" />
         <mod type="skill_checks" value="-2" />
         <mod type="ability_checks" value="-2" />

@@ -14,9 +14,10 @@ public class PFCharacter {
 		"14 / 14 / 9 / 9 / 4 / 4 / -1", "15 / 15 / 10 / 10 / 5 / 5 / 0", "16 / 16 / 11 / 11 / 6 / 6 / 1", "17 / 17 / 12 / 12 / 7 / 7 / 2", 
 		"18 / 18 / 13 / 13 / 8 / 8 / 3"};
 	
-	public static String[] CHARACTER_CLASS_NAMES = { "Barbarian", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue" };
+	public static String[] CHARACTER_CLASS_NAMES = { "Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk", "Paladin", "Ranger", "Rogue", "Sorcerer", "Wizard" };
 	public static String[] FAST_BAB_CLASSES = { "Barbarian", "Fighter", "Paladin", "Ranger" };
-	public static String[] MEDIUM_BAB_CLASSES = { "Cleric", "Druid", "Monk", "Rogue" };
+	public static String[] MEDIUM_BAB_CLASSES = { "Bard", "Cleric", "Druid", "Monk", "Rogue" };
+	public static String[] SLOW_BAB_CLASSES = { "Sorcerer", "Wizard" };
 	
 	public static int[] FAST_BAB_PROGRESSION = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 	public static int[] MEDIUM_BAB_PROGRESSION = { 0, 1, 2, 3, 3, 4, 5, 6, 6, 7, 8, 9, 9, 10, 11, 12, 12, 13, 14, 15 };
@@ -483,6 +484,11 @@ public class PFCharacter {
 		for (int i = 0; i < PFCharacter.MEDIUM_BAB_CLASSES.length; i++) {
 			if (getCharacterClass().equals(PFCharacter.MEDIUM_BAB_CLASSES[i])) {
 				return PFCharacter.MEDIUM_BAB_PROGRESSION;
+			}
+		}
+		for (int i = 0; i < PFCharacter.SLOW_BAB_CLASSES.length; i++) {
+			if (getCharacterClass().equals(PFCharacter.SLOW_BAB_CLASSES[i])) {
+				return PFCharacter.SLOW_BAB_PROGRESSION;
 			}
 		}
 		return PFCharacter.FAST_BAB_PROGRESSION;
