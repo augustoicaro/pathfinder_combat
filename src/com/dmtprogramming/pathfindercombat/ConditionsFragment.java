@@ -2,10 +2,12 @@ package com.dmtprogramming.pathfindercombat;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.models.Condition;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.ForeignCollection;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -30,7 +32,7 @@ public class ConditionsFragment extends FragmentBase {
 	
 	private static final String TAG = "PFCombat:ConditionsFragment";
 	private ConditionArrayAdapter _listAdapter;
-	private List<Condition> conditions;
+	private ForeignCollection<Condition> conditions;
 	private LayoutInflater inflater;
 	private List<ConditionViewHolder> holders;
 	private List<Condition> checked;
@@ -143,8 +145,9 @@ public class ConditionsFragment extends FragmentBase {
 		Button nextRound = (Button) findViewById(R.id.btnNextRound);
 		nextRound.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				for (int i = 0; i < conditions.size(); i++) {
-					Condition condition = conditions.get(i);
+	            Iterator<Condition> i = conditions.iterator();
+	            while (i.hasNext()) {
+	            	Condition condition = i.next();
 					condition.setDuration(condition.getDuration() - 1);
 					Dao<Condition, Integer> dao;
 					try {
@@ -230,8 +233,9 @@ public class ConditionsFragment extends FragmentBase {
         if (lv == null) {
         	LinearLayout list = (LinearLayout) findViewById(R.id.listConditionsList);
         	list.removeAllViews();
-        	for (int i = 0; i < conditions.size(); i++) {
-        		Condition condition = conditions.get(i);
+            Iterator<Condition> i = conditions.iterator();
+            while (i.hasNext()) {
+            	Condition condition = i.next();
         		View vi = inflater.inflate(R.layout.condition_row, null);
 				final ConditionViewHolder holder = new ConditionViewHolder();
 
@@ -278,8 +282,10 @@ public class ConditionsFragment extends FragmentBase {
 	        _listAdapter.notifyDataSetChanged();
         }
         Log.d(TAG, "populating list, count = " + conditions.size());
-        for(int i = 0; i < conditions.size(); i++) {
-        	Log.d(TAG, "     id = " + conditions.get(i).getId());        	
+        Iterator<Condition> i = conditions.iterator();
+        while (i.hasNext()) {
+        	Condition cond = i.next();
+        	Log.d(TAG, "     id = " + cond.getId());
         }
 	}
 	
@@ -310,8 +316,8 @@ public class ConditionsFragment extends FragmentBase {
 		private List<ConditionViewHolder> holders;
 		private List<Condition> checked;
 		
-		public ConditionArrayAdapter(Context context, List<Condition> conditionList, ConditionsFragment frag) {
-			super(context, R.layout.condition_row, R.id.rowTextView, conditionList);
+		public ConditionArrayAdapter(Context context, ForeignCollection<Condition> conditions, ConditionsFragment frag) {
+			super(context, R.layout.condition_row, R.id.rowTextView, conditions.toArray(new Condition[0]));
 			holders = new ArrayList<ConditionViewHolder>();
 			checked = new ArrayList<Condition>();
 			fragment = frag;;

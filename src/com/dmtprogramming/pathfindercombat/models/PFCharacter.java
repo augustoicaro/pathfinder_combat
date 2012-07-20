@@ -1,7 +1,8 @@
 package com.dmtprogramming.pathfindercombat.models;
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
-import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 
@@ -87,13 +88,14 @@ public class PFCharacter {
 	@DatabaseField
 	private String critical_multiplier;
 	
-	private List<Condition> conditions;
+	@ForeignCollectionField(eager = false)
+	private ForeignCollection<Condition> conditions;
 	
-	public List<Condition> getConditions() {
+	public ForeignCollection<Condition> getConditions() {
 		return conditions;
 	}
 
-	public void setConditions(List<Condition> conditions) {
+	public void setConditions(ForeignCollection<Condition> conditions) {
 		this.conditions = conditions;
 	}
 
@@ -585,6 +587,14 @@ public class PFCharacter {
 	
 	public int applyWeaponPlusCritical(int plus) {
 		return plus * getCriticalMultiplierInt();
+	}
+
+	public void setWeaponFinesse(boolean weapon_finesse) {
+		this.weapon_finesse = weapon_finesse;
+	}
+
+	public boolean getWeaponFinesse() {
+		return weapon_finesse;
 	}
 }
 

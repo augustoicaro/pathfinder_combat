@@ -57,6 +57,12 @@ public class MainActivity extends ListActivity {
 		}
 		adapter.notifyDataSetChanged();
 	}
+	
+	@Override
+	public void onResume() {
+		populateList();
+		super.onResume();
+	}
 
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		PFCharacter cha = (PFCharacter) getListAdapter().getItem(position);
@@ -86,7 +92,7 @@ public class MainActivity extends ListActivity {
 		Dao<PFCharacter, Integer> dao;
 		try {
 			dao = getHelper().getCharacterDao();
-	        List<PFCharacter> values = dao.queryForAll();  
+	        List<PFCharacter> values = dao.queryForAll();
 	        ArrayAdapter<PFCharacter> adapter = new ArrayAdapter<PFCharacter>(this, android.R.layout.simple_list_item_1, values);
 	        setListAdapter(adapter);	
 		} catch (SQLException e) {
