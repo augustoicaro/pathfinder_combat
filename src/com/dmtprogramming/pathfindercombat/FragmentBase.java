@@ -1,11 +1,13 @@
 package com.dmtprogramming.pathfindercombat;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dmtprogramming.pathfindercombat.database.CharacterDataSource;
-import com.dmtprogramming.pathfindercombat.database.ConditionDataSource;
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.*;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -28,6 +30,8 @@ public abstract class FragmentBase extends Fragment {
     public abstract void onAfterUpdateCharacter(String field);
     protected abstract void populateStats(String field);
 	
+	private DatabaseHelper databaseHelper = null;
+    
     public FragmentBase() {
      	_mods = new ArrayList<CharacterModifier>();
     }
@@ -38,11 +42,26 @@ public abstract class FragmentBase extends Fragment {
      	getActivity().registerReceiver(_receiver, filter);
     }
     
+	protected DatabaseHelper getHelper() {
+	    if (databaseHelper == null) {
+	        databaseHelper =
+	            OpenHelperManager.getHelper(getActivity(), DatabaseHelper.class);
+	    }
+	    return databaseHelper;
+	}
+    
     // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
 		Log.d(TAG, "updateCharacter()");
-		getCharacterDataSource().updatePFCharacter(getCharacter());
-		
+		Dao<PFCharacter, Integer> dao;
+		try {
+			dao = getHelper().getCharacterDao();
+			dao.update(getCharacter());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 		Intent intent = new Intent();
 		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", field);
@@ -55,16 +74,6 @@ public abstract class FragmentBase extends Fragment {
 			return view.getCharacter();
 		}
 		return null;
-	}
-	
-	public CharacterDataSource getCharacterDataSource() {
-		ViewPagerFragmentActivity view = (ViewPagerFragmentActivity) getActivity();
-		return view.getCharacterDataSource();
-	}
-	
-	public ConditionDataSource getConditionDataSource() {
-		ViewPagerFragmentActivity view = (ViewPagerFragmentActivity) getActivity();
-		return view.getConditionDataSource();
 	}
 	
     protected void setupEditTextTrigger(int id, String field) {
@@ -149,5 +158,14 @@ public abstract class FragmentBase extends Fragment {
 	public void onPause() {
 		getActivity().unregisterReceiver(_receiver);
 		super.onPause();
+	}
+	
+	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    if (databaseHelper != null) {
+	        OpenHelperManager.releaseHelper();
+	        databaseHelper = null;
+	    }
 	}
 }

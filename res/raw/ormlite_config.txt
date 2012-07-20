@@ -1,0 +1,106 @@
+#
+# generated on 2012/07/20 11:19:47
+#
+# --table-start--
+dataClass=com.dmtprogramming.pathfindercombat.models.PFCharacter
+tableName=characters
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=character_class
+# --field-end--
+# --field-start--
+fieldName=player
+# --field-end--
+# --field-start--
+fieldName=level
+# --field-end--
+# --field-start--
+fieldName=monk_level
+# --field-end--
+# --field-start--
+fieldName=str
+# --field-end--
+# --field-start--
+fieldName=dex
+# --field-end--
+# --field-start--
+fieldName=con
+# --field-end--
+# --field-start--
+fieldName=intel
+# --field-end--
+# --field-start--
+fieldName=wis
+# --field-end--
+# --field-start--
+fieldName=cha
+# --field-end--
+# --field-start--
+fieldName=weapon_focus
+# --field-end--
+# --field-start--
+fieldName=power_attack
+# --field-end--
+# --field-start--
+fieldName=weapon_finesse
+# --field-end--
+# --field-start--
+fieldName=size
+# --field-end--
+# --field-start--
+fieldName=weapon_damage
+# --field-end--
+# --field-start--
+fieldName=weapon_plus
+# --field-end--
+# --field-start--
+fieldName=unarmed
+# --field-end--
+# --field-start--
+fieldName=flurry_of_blows
+# --field-end--
+# --field-start--
+fieldName=daily_total
+# --field-end--
+# --field-start--
+fieldName=daily_current
+# --field-end--
+# --field-start--
+fieldName=daily_title
+# --field-end--
+# --field-start--
+fieldName=critical_multiplier
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.dmtprogramming.pathfindercombat.models.Condition
+tableName=conditions
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=character
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=duration
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

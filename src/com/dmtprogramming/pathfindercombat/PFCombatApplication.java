@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.dmtprogramming.pathfindercombat.database.*;
 import com.dmtprogramming.pathfindercombat.models.ConditionData;
 import com.dmtprogramming.pathfindercombat.models.PFCharacter;
 import com.dmtprogramming.pathfindercombat.models.Toggles;
@@ -17,8 +16,7 @@ import android.util.Log;
 public class PFCombatApplication extends Application {
 	
 	private static final String TAG = "PFCombat:PFCombatApplication";
-	private CharacterDataSource _character_db = null;
-	private ConditionDataSource _condition_db = null;
+
 	private PFCharacter _current_character = null;
 	private List<ConditionData> _conditionData;
 	private List<ModifierBase> _toggles;
@@ -29,8 +27,6 @@ public class PFCombatApplication extends Application {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		Log.v(TAG, "onCreate()");
-		_character_db = new CharacterDataSource(this);
-		_condition_db = new ConditionDataSource(this);
 
 		_app = this;
 		setup();
@@ -43,24 +39,6 @@ public class PFCombatApplication extends Application {
 	public void setup() {	
 		_conditionData = ConditionData.loadConditions(getResources().openRawResource(R.raw.condition_data));	
 		_toggles = Toggles.loadToggles(getResources().openRawResource(R.raw.toggles));
-	}
-
-	public CharacterDataSource getCharacterDataSource() {
-		return _character_db;
-	}
-	
-	public ConditionDataSource getConditionDataSource() {
-		return _condition_db;
-	}
-	
-	public void openDataSources() {
-		_character_db.open();
-		_condition_db.open();
-	}
-	
-	public void closeDataSources() {
-		_character_db.close();
-		_condition_db.close();
 	}
 	
 	public String getConditionShortDescription(String conditionName) {

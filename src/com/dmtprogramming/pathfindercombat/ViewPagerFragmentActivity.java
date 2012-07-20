@@ -1,5 +1,6 @@
 package com.dmtprogramming.pathfindercombat;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,17 +20,18 @@ import com.dmtprogramming.pathfindercombat.R;
 import com.dmtprogramming.pathfindercombat.CharacterInfoFragment;
 import com.dmtprogramming.pathfindercombat.CharacterCombatFragment;
 import com.dmtprogramming.pathfindercombat.ConditionsFragment;
-import com.dmtprogramming.pathfindercombat.database.CharacterDataSource;
-import com.dmtprogramming.pathfindercombat.database.ConditionDataSource;
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.PFCharacter;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 
 public class ViewPagerFragmentActivity extends FragmentActivity {
 
 	private static final String TAG = "PFCombat:ViewPagerFragmentActivity";
 	
 	private PagerAdapter mPagerAdapter;
-	private PFCombatApplication _app;
 	private PFCharacter _char;
+	private DatabaseHelper databaseHelper = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +39,24 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		
         Bundle extras = getIntent().getExtras();
         boolean loadTablet = false;
-        long char_id = -1;
+        long _id = -1;
         if (extras != null) {
         	loadTablet = extras.getBoolean("TABLET");
-        	char_id = extras.getLong("CHARACTER_ID");
+        	_id = extras.getLong("CHARACTER_ID");
         }
         
-        _app = (PFCombatApplication)this.getApplication();
-        _app.openDataSources();
         _char = null;
 
-    	if (char_id > 0) {
-    		_char = getCharacterDataSource().findCharacter(char_id);
-    	}
+        if (extras != null) {
+        	if (_id > 0) {
+        		try {
+            		Dao<PFCharacter, Integer> dao = getHelper().getCharacterDao();
+					_char = dao.queryForId((int) _id);
+				} catch (SQLException e) {
+					_char = null;
+				}
+        	}
+        }
         
         if (_char != null) {
         	Log.d(TAG, "loaded character with id = " + _char.getId());
@@ -77,24 +84,8 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 		pager.setAdapter(this.mPagerAdapter);
 	}
 	
-	public CharacterDataSource getCharacterDataSource() {
-		return _app.getCharacterDataSource();
-	}
-	
 	public PFCharacter getCharacter() {
 		return _char;
-	}
-	
-    @Override
-	public void onResume() {
-		_app.openDataSources();
-		super.onResume();
-	}
-
-	@Override
-	public void onPause() {
-		_app.closeDataSources();
-		super.onPause();
 	}
 	
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -121,15 +112,34 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				getCharacterDataSource().deletePFCharacter(getCharacter());
+        		try {
+            		Dao<PFCharacter, Integer> dao = getHelper().getCharacterDao();
+					dao.delete(getCharacter());
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				finish();
 			}
 		})
 		.setNegativeButton(R.string.no, null)
 		.show();		
 	}
-
-	public ConditionDataSource getConditionDataSource() {
-		return _app.getConditionDataSource();
+ 
+	protected DatabaseHelper getHelper() {
+	    if (databaseHelper == null) {
+	        databaseHelper =
+	            OpenHelperManager.getHelper(this, DatabaseHelper.class);
+	    }
+	    return databaseHelper;
+	}
+	
+	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    if (databaseHelper != null) {
+	        OpenHelperManager.releaseHelper();
+	        databaseHelper = null;
+	    }
 	}
 }

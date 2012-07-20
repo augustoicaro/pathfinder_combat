@@ -1,10 +1,17 @@
 package com.dmtprogramming.pathfindercombat.models;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
-public class Condition {	
-
+@DatabaseTable(tableName = "conditions")
+public class Condition {
+	
+	@DatabaseField(generatedId = true, columnName = "_id")
 	private long id;
-	private long character_id;
+	@DatabaseField(canBeNull = true, foreign = true)
+	private PFCharacter character;
+	@DatabaseField
 	private String name;
+	@DatabaseField
 	private long duration;
 
 	public String getName() {
@@ -25,10 +32,10 @@ public class Condition {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public long getCharacterId() {
-		return character_id;
+	public PFCharacter getCharacter() {
+		return character;
 	}
-	public void setCharacterId(long character_id) {
-		this.character_id = character_id;
+	public void setCharacter(PFCharacter cha) {
+		this.character = cha;
 	}
 }

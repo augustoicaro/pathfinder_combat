@@ -1,9 +1,11 @@
 package com.dmtprogramming.pathfindercombat;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.models.Condition;
+import com.j256.ormlite.dao.Dao;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -105,7 +107,18 @@ public class ConditionsFragment extends FragmentBase {
 						if (!durationStr.equals("")) {
 							duration = Integer.parseInt(durationStr);
 						}
-						getConditionDataSource().createCondition(getCharacter(), name, duration);
+						Condition cond = new Condition();
+						cond.setName(name);
+						cond.setDuration(duration);
+						cond.setCharacter(getCharacter());
+	            		Dao<Condition, Integer> dao;
+						try {
+							dao = getHelper().getConditionDao();
+							dao.create(cond);
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 						populateList();
 						dialog.cancel();
@@ -133,10 +146,17 @@ public class ConditionsFragment extends FragmentBase {
 				for (int i = 0; i < conditions.size(); i++) {
 					Condition condition = conditions.get(i);
 					condition.setDuration(condition.getDuration() - 1);
-					if (condition.getDuration() == 0) {
-						getConditionDataSource().deleteCondition(getCharacter(), condition);
-					} else {
-						getConditionDataSource().updateCondition(getCharacter(), condition);		
+					Dao<Condition, Integer> dao;
+					try {
+						dao = getHelper().getConditionDao();
+						if (condition.getDuration() == 0) {
+							dao.delete(condition);
+						} else {
+							dao.update(condition);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				
@@ -155,7 +175,14 @@ public class ConditionsFragment extends FragmentBase {
 		        	deleters = _listAdapter.checked();
 		        }
 				for (int i = 0; i < deleters.size(); i++) {
-					getConditionDataSource().deleteCondition(getCharacter(), deleters.get(i));
+					Dao<Condition, Integer> dao;
+					try {
+						dao = getHelper().getConditionDao();
+						dao.delete(deleters.get(i));
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 
 				populateList();

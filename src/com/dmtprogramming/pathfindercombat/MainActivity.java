@@ -1,5 +1,6 @@
 package com.dmtprogramming.pathfindercombat;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -11,14 +12,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import com.dmtprogramming.pathfindercombat.ViewPagerFragmentActivity;
+import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.*;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.j256.ormlite.dao.Dao;
 
 public class MainActivity extends ListActivity {
 	
 	private static final String TAG = "PFCombat:MainActivity";
 	private PFCombatApplication _app;
 	
-	
+	private DatabaseHelper databaseHelper = null;
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,6 @@ public class MainActivity extends ListActivity {
         setContentView(R.layout.main);
         
         _app = (PFCombatApplication)this.getApplication();
-        _app.openDataSources();
         
         populateList();
     }
@@ -40,7 +44,14 @@ public class MainActivity extends ListActivity {
 		PFCharacter cha = null;
 		switch (view.getId()) {
 		case R.id.add:
-			cha = _app.getCharacterDataSource().createPFCharacter("character");
+    		try {
+        		Dao<PFCharacter, Integer> dao = getHelper().getCharacterDao();
+        		cha = new PFCharacter();
+        		cha.setName("character");
+        		dao.create(cha);
+			} catch (SQLException e) {
+				cha = null;
+			}
 			adapter.add(cha);
 			break;
 		}
@@ -72,22 +83,32 @@ public class MainActivity extends ListActivity {
 	}
 	
 	protected void populateList() {
-        List<PFCharacter> values = _app.getCharacterDataSource().getAllPFCharacters();
-        
-        ArrayAdapter<PFCharacter> adapter = new ArrayAdapter<PFCharacter>(this, android.R.layout.simple_list_item_1, values);
-        setListAdapter(adapter);		
+		Dao<PFCharacter, Integer> dao;
+		try {
+			dao = getHelper().getCharacterDao();
+	        List<PFCharacter> values = dao.queryForAll();  
+	        ArrayAdapter<PFCharacter> adapter = new ArrayAdapter<PFCharacter>(this, android.R.layout.simple_list_item_1, values);
+	        setListAdapter(adapter);	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	 
+	protected DatabaseHelper getHelper() {
+	    if (databaseHelper == null) {
+	        databaseHelper =
+	            OpenHelperManager.getHelper(this, DatabaseHelper.class);
+	    }
+	    return databaseHelper;
 	}
 	
 	@Override
-	protected void onResume() {
-		_app.openDataSources();
-		populateList();
-		super.onResume();
-	}
-
-	@Override
-	protected void onPause() {
-		_app.closeDataSources();
-		super.onPause();
+	public void onDestroy() {
+	    super.onDestroy();
+	    if (databaseHelper != null) {
+	        OpenHelperManager.releaseHelper();
+	        databaseHelper = null;
+	    }
 	}
 }

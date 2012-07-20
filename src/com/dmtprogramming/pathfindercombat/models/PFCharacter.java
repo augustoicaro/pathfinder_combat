@@ -1,9 +1,11 @@
 package com.dmtprogramming.pathfindercombat.models;
-
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 
+@DatabaseTable(tableName = "characters")
 public class PFCharacter {
 	
 	public static String[] SIZES = {"Tiny", "Medium", "Large"};
@@ -33,29 +35,58 @@ public class PFCharacter {
 	
 	public static String[] CRITICAL_MULIPLIERS = { "x2", "x3", "x4", "x5" };
 	
+	@DatabaseField(generatedId = true, columnName = "_id")
 	private long id;
+	@DatabaseField
 	private String name;
-	private String player;
-	private int str;
-	private int dex;
-	private int con;
-	private int intel;
-	private int wis;
-	private int cha;
-	private int level;
-	private int monk_level;
+	@DatabaseField
 	private String character_class;
+	@DatabaseField
+	private String player;
+	@DatabaseField
+	private int level;
+	@DatabaseField
+	private int monk_level;
+	
+	@DatabaseField
+	private int str;
+	@DatabaseField
+	private int dex;
+	@DatabaseField
+	private int con;
+	@DatabaseField
+	private int intel;
+	@DatabaseField
+	private int wis;
+	@DatabaseField
+	private int cha;
+	
+	@DatabaseField
 	private boolean weapon_focus;
+	@DatabaseField
 	private boolean power_attack;
-	private boolean flurry_of_blows;
+	@DatabaseField
+	private boolean weapon_finesse;
+	@DatabaseField
 	private String size;
+	@DatabaseField
 	private String weapon_damage;
+	@DatabaseField
 	private int weapon_plus;
+	@DatabaseField
 	private boolean unarmed;
+	@DatabaseField
+	private boolean flurry_of_blows;
+	
+	@DatabaseField
 	private int daily_total;
+	@DatabaseField
 	private int daily_current;
+	@DatabaseField
 	private String daily_title;
+	@DatabaseField
 	private String critical_multiplier;
+	
 	private List<Condition> conditions;
 	
 	public List<Condition> getConditions() {
