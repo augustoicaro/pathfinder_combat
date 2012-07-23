@@ -91,6 +91,28 @@ public class PFCharacter {
 	@ForeignCollectionField(eager = false)
 	private ForeignCollection<Condition> conditions;
 	
+	public PFCharacter() {
+		this.character_class = "Paladin";
+		this.player = "Player";
+		this.level = 1;
+		this.size = "Medium";
+		
+		this.str = 10;
+		this.dex = 10;
+		this.con = 10;
+		this.intel = 10;
+		this.wis = 10;
+		this.cha = 10;
+		
+		this.weapon_damage = "1d6";
+		this.weapon_plus = 0;
+		this.critical_multiplier = "x2";
+
+		this.daily_current = 0;
+		this.daily_total = 0;
+		this.daily_title = "Daily Power";
+	}
+	
 	public ForeignCollection<Condition> getConditions() {
 		return conditions;
 	}
