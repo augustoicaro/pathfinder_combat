@@ -5,20 +5,17 @@ public class PowerAttack extends ModifierBase {
 	public String range() {
 		return _r_melee;
 	}
+
+	@Override
+	public int applyHit(int s) {
+		int mod = (character().getBAB() / 4) + 1;
+		return s -= mod;
+	}
 	
 	@Override
-	public String apply(String field, String value) {
+	public int applyDamage(int s) {
 		int mod = (character().getBAB() / 4) + 1;
-		if (field.equals(_hit)) {
-			int i = parseInt(value);
-			i -= mod;
-			return String.valueOf(i);
-		} else if (field.equals(_damage)) {
-			int i = parseInt(value);
-			i += (mod * 2);
-			return String.valueOf(i);
-		}
-		return value;
+		return s += (mod * 2);
 	}
 
 	@Override

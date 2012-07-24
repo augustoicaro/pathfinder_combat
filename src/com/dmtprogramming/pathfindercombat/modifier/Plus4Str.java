@@ -5,15 +5,10 @@ public class Plus4Str extends ModifierBase {
 	public String range() {
 		return _r_melee;
 	}
-	
+
 	@Override
-	public String apply(String field, String value) {
-		if (field.equals(_str)) {
-			int i = parseInt(value);
-			i += 4;
-			return String.valueOf(i);
-		}
-		return value;
+	public int applyStr(int s) {
+		return s += 4;
 	}
 
 	@Override

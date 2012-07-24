@@ -2,18 +2,14 @@ package com.dmtprogramming.pathfindercombat.modifier;
 
 public class Haste extends ModifierBase {
 
-	private static int _plus_hit = 1;
-
 	@Override
-	public String apply(String field, String value) {
-		if (field.equals(_hit)) {
-			int i = parseInt(value);
-			i += _plus_hit;
-			return String.valueOf(i);
-		} else if (field.equals(_extra_attack)) {
-			return "true";
-		}
-		return value;
+	public int applyHit(int v) {
+		return v += 1;
+	}
+	
+	@Override
+	public int applyExtraAttack(int v) {
+		return v += 1;
 	}
 
 	@Override

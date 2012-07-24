@@ -3,14 +3,11 @@ package com.dmtprogramming.pathfindercombat.modifier;
 public class Plus2d6Damage extends ModifierBase {
 	
 	@Override
-	public String apply(String field, String value) {
-		if (field.equals(_damage_dice)) {
-			if (!value.equals("")) {
-				value = value.concat(" + ");
-			}
-			return value.concat("2d6");
+	public String applyDamageDice(String s) {
+		if (!s.equals("")) {
+			s = s.concat(" + ");
 		}
-		return value;
+		return s.concat("2d6");
 	}
 
 	@Override

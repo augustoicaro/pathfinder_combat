@@ -3,13 +3,8 @@ package com.dmtprogramming.pathfindercombat.modifier;
 public class Plus2Damage extends ModifierBase {
 
 	@Override
-	public String apply(String field, String value) {
-		if (field.equals(_damage)) {
-			int i = parseInt(value);
-			i += 2;
-			return String.valueOf(i);
-		}
-		return value;
+	public int applyDamage(int s) {
+		return s += 2;
 	}
 
 	@Override
