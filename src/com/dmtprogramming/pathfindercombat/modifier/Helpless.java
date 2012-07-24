@@ -1,9 +1,12 @@
 package com.dmtprogramming.pathfindercombat.modifier;
 
-import com.dmtprogramming.*;
-
 public class Helpless extends ModifierBase {
-
+	
+	@Override
+	protected int applyDex(int s) {
+		return -999;
+	}
+	
 	@Override
 	public String name() {
 		return "Helpless";

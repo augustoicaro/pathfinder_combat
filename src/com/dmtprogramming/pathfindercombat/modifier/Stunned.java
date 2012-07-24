@@ -1,11 +1,6 @@
 package com.dmtprogramming.pathfindercombat.modifier;
 
-public class Pinned extends ModifierBase {
-
-	@Override
-	protected int applyAC(int s) {
-		return s - 4;
-	}
+public class Stunned extends ModifierBase {
 	
 	@Override
 	protected int applyDexAC(int s) {
@@ -13,12 +8,17 @@ public class Pinned extends ModifierBase {
 	}
 	
 	@Override
+	protected int applyAC(int s) {
+		return s - 2;
+	}
+	
+	@Override
 	protected String applyActions(String s) {
-		return "standard";
+		return "none";
 	}
 	
 	@Override
 	public String name() {
-		return "Pinned";
+		return "Stunned";
 	}
 }
