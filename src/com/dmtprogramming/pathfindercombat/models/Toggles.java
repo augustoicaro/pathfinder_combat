@@ -21,7 +21,6 @@ import com.dmtprogramming.pathfindercombat.modifier.ModifierFactory;
 public class Toggles {
 	private static final String TAG = "PFCombat:Toggles";
 	
-	
 	public static List<ModifierBase> loadToggles(InputStream xml) {
 		List<ModifierBase> modifiers = new ArrayList<ModifierBase>();
 		try {

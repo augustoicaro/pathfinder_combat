@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.*;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase.ModifierField;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
@@ -24,7 +26,7 @@ public abstract class FragmentBase extends Fragment {
 	private static final String TAG = "PFCombat:FragmentBase";
 	
 	protected View _view;
-	protected List<CharacterModifier> _mods;
+	protected List<ModifierBase> _mods;
 	private CharacterUpdateReceiver _receiver;
     
     public abstract void onAfterUpdateCharacter(String field);
@@ -33,7 +35,7 @@ public abstract class FragmentBase extends Fragment {
 	private DatabaseHelper databaseHelper = null;
     
     public FragmentBase() {
-     	_mods = new ArrayList<CharacterModifier>();
+     	_mods = new ArrayList<ModifierBase>();
     }
     
     public void setupIntentFilter() {
@@ -86,7 +88,7 @@ public abstract class FragmentBase extends Fragment {
 		e.setOnItemSelectedListener(new CustomSpinnerWatcher(e, field, this));
     }
 	
-	protected void populateField(int id, String ignore, String field, String value) {
+	protected void populateField(int id, String ignore, ModifierField field, String value) {
 		if (!ignore.equals(field)) {
 			View v = findViewById(id);
 			String type = v.getClass().getName();
@@ -117,10 +119,10 @@ public abstract class FragmentBase extends Fragment {
 	}
 	 
     // apply the stats from all of the toggles to a single field
-	protected String applyToggles(String field, String value) {
+	protected String applyToggles(ModifierField field, String value) {
 		Log.d(TAG, "applyToggles(" + field + ", " + value +") - mods = " + _mods.size());
 		for (int i = 0; i < _mods.size(); i++) {
-			CharacterModifier mod = _mods.get(i);
+			ModifierBase mod = _mods.get(i);
 			value = mod.apply(field, value);
 		}
 		return value;

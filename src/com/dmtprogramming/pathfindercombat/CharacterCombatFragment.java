@@ -1,23 +1,27 @@
 package com.dmtprogramming.pathfindercombat;
 
+import java.util.Iterator;
+import java.util.List;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.*;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase.ModifierField;
 
 public class CharacterCombatFragment extends FragmentBase {
 
 	private static final String TAG = "PFCombat:CharacterCombatFragment";
-
-	private CharacterModifier _smite;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_combat_fragment, container, false);
@@ -47,43 +51,26 @@ public class CharacterCombatFragment extends FragmentBase {
     	// save some typing
     	PFCharacter c = getCharacter();
 		
-    	populateField(R.id.txtWeaponDice, f, DatabaseHelper._c_characters_weapon_damage, c.getWeaponDamage());
+    	populateField(R.id.txtWeaponDice, f, ModifierField._damage_dice, c.getWeaponDamage());
     	
-    	populateField(R.id.txtAttacks, f, "attacks", c.getAttacks());
-    	populateField(R.id.txtStrModPlusAttack, f, "strmod", String.valueOf(c.getStrMod()));
-    	populateField(R.id.txtWeaponPlusAttack, f, DatabaseHelper._c_characters_weapon_plus, String.valueOf(c.getWeaponPlus()));
-    	populateField(R.id.txtWeaponFocusPlusAttack, f, "weapon_focus_atk", String.valueOf(c.getWeaponFocusMod()));
-    	populateField(R.id.txtOtherPlusAttack, f, "plus_hit", String.valueOf(0));
+    	populateField(R.id.txtAttacks, f, ModifierField._none, c.getAttacks());
+    	populateField(R.id.txtStrModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+    	populateField(R.id.txtWeaponPlusAttack, f, ModifierField._none, String.valueOf(c.getWeaponPlus()));
+    	populateField(R.id.txtWeaponFocusPlusAttack, f, ModifierField._none, String.valueOf(c.getWeaponFocusMod()));
+    	populateField(R.id.txtOtherPlusAttack, f, ModifierField._hit, String.valueOf(0));
     	
-    	populateField(R.id.txtStrModPlusDamage, f, "strmod", String.valueOf(c.getStrMod()));
-    	populateField(R.id.txtWeaponPlusDamage, f, DatabaseHelper._c_characters_weapon_plus, String.valueOf(c.getWeaponPlus()));
-    	populateField(R.id.txtOtherPlusDamage, f, "plus_damage", String.valueOf(c.getPowerAttackDamage()));
+    	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+    	populateField(R.id.txtWeaponPlusDamage, f, ModifierField._none, String.valueOf(c.getWeaponPlus()));
+    	populateField(R.id.txtOtherPlusDamage, f, ModifierField._damage, String.valueOf(c.getPowerAttackDamage()));
     	
-    	populateField(R.id.txtDailyCurrent, f, DatabaseHelper._c_characters_daily_current, String.valueOf(c.getDailyCurrent()));
-    	populateField(R.id.txtDailyTotal, f, DatabaseHelper._c_characters_daily_total, String.valueOf(c.getDailyTotal()));
-    	populateField(R.id.txtDailyTitle, f, DatabaseHelper._c_characters_daily_title, c.getDailyTitle());
-    	
-    	// flurry of blows calcs
-    	ToggleButton flurryOfBlows = (ToggleButton) findViewById(R.id.btnFlurryOfBlows);
-    	flurryOfBlows.setChecked(getCharacter().getFlurryOfBlows());
-    	
-    	// unarmed calcs
-    	//ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
-    	//unarmed.setChecked(getCharacter().getUnarmed());
-    	
-    	// weapon focus calcs
-    	ToggleButton weaponFocus = (ToggleButton) findViewById(R.id.btnWeaponFocus);
-    	weaponFocus.setChecked(getCharacter().getWeaponFocus());
-    	if (weaponFocus.isChecked()) {
-    		TextView tv = (TextView) findViewById(R.id.txtWeaponFocusPlusAttack);
-    		tv.clearFocus();
-    		tv.setText("1");
-    	}
+    	populateField(R.id.txtDailyCurrent, f, ModifierField._none, String.valueOf(c.getDailyCurrent()));
+    	populateField(R.id.txtDailyTotal, f, ModifierField._none, String.valueOf(c.getDailyTotal()));
+    	populateField(R.id.txtDailyTitle, f, ModifierField._none, c.getDailyTitle());
     	
     	// size modifier calcs
     	String weaponDice = getCharacter().getWeaponDamage();
     	int sizeMod = 0;
-    	String sizeStr = applyToggles(DatabaseHelper._c_characters_size, "");
+    	String sizeStr = applyToggles(ModifierField._size, "");
     	if (!sizeStr.equals("")) {
     		sizeMod = Integer.parseInt(sizeStr);
     	}
@@ -97,8 +84,8 @@ public class CharacterCombatFragment extends FragmentBase {
     	weaponDiceText.setText(weaponDice);
     	
     	// extra attack calc
-    	String extraAttack = applyToggles("extra_attack", "false");
-    	if (extraAttack.equals("true")) {
+    	String extraAttack = applyToggles(ModifierField._extra_attack, "0");
+    	if (!extraAttack.equals("0")) {
     		TextView tv = (TextView) findViewById(R.id.txtAttacks);
     		String attacks = tv.getText().toString();
     		attacks = attacks.concat(" / " + getCharacter().getBAB());
@@ -136,101 +123,33 @@ public class CharacterCombatFragment extends FragmentBase {
     	populateSpinner(R.id.spinDamage, getCharacter().getWeaponDamage(), PFCharacter.MEDIUM_WEAPON_DAMAGES);
     	populateSpinner(R.id.spinWeaponPlus, String.valueOf(getCharacter().getWeaponPlus()), weaponPlus);
     	populateSpinner(R.id.spinCriticalMultiplier, getCharacter().getCriticalMultiplier(), PFCharacter.CRITICAL_MULIPLIERS);
+    	
+    	TableLayout table = (TableLayout) findViewById(R.id.combat_toggles);
+    	TableRow row = new TableRow(getActivity());
+    	int position = 0;
+    	
+    	PFCombatApplication app = (PFCombatApplication)getActivity().getApplication();
+    	List<ModifierBase> toggles = app.getToggles();
+    	Iterator<ModifierBase> iter = toggles.iterator();
+    	while (iter.hasNext()) {
+    		ModifierBase mod = iter.next();
 
-    	CharacterModifier powerAttack = new CharacterModifier();
-    	powerAttack.hit = -2;
-    	powerAttack.damage = 4;
-    	
-    	_smite = new CharacterModifier();
-    	updateSmite();
-    	
-    	CharacterModifier plus2Str = new CharacterModifier();
-    	plus2Str.str = 2;
-    	
-    	CharacterModifier plus4Str = new CharacterModifier();
-    	plus4Str.str = 4;
-    	
-    	CharacterModifier plus1Hit = new CharacterModifier();
-    	plus1Hit.hit = 1;
-    	
-    	CharacterModifier plus2Hit = new CharacterModifier();
-    	plus2Hit.hit = 2;
-    	
-    	CharacterModifier plus4Hit = new CharacterModifier();
-    	plus4Hit.hit = 4;
-    	
-    	CharacterModifier flank = new CharacterModifier();
-    	flank.hit = 2;
-    	
-    	CharacterModifier plus1Damage = new CharacterModifier();
-    	plus1Damage.damage = 1;
-    	
-    	CharacterModifier plus2Damage = new CharacterModifier();
-    	plus2Damage.damage = 2;
-    	
-    	CharacterModifier fightDefensively = new CharacterModifier();
-    	fightDefensively.hit = -4;
-    	
-    	CharacterModifier plus1d6 = new CharacterModifier();
-    	plus1d6.damageDice = "1d6";
-    	
-    	CharacterModifier plus2d6 = new CharacterModifier();
-    	plus2d6.damageDice = "2d6";
-    	
-    	CharacterModifier crit = new CharacterModifier();
-    	
-    	CharacterModifier enlargePerson = new CharacterModifier();
-    	enlargePerson.size = 1;
-    	enlargePerson.str = 2;
-    	enlargePerson.hit = -1;
-    	
-    	CharacterModifier haste = new CharacterModifier();
-    	haste.hit = 1;
-    	haste.extraAttack = true;
-    	
-    	addToggle(R.id.btnPowerAttack, powerAttack);
-    	addToggle(R.id.btnSmite, _smite);
-    	addToggle(R.id.btnPlus2Str, plus2Str);
-    	addToggle(R.id.btnPlus4Str, plus4Str);
-    	addToggle(R.id.btnPlus1Hit, plus1Hit);
-    	addToggle(R.id.btnPlus2Hit, plus2Hit);
-    	addToggle(R.id.btnPlus4Hit, plus4Hit);
-    	addToggle(R.id.btnFlank, flank);
-    	addToggle(R.id.btnPlus1Damage, plus1Damage);
-    	addToggle(R.id.btnPlus2Damage, plus2Damage);
-    	addToggle(R.id.btnFightDefensively, fightDefensively);
-    	addToggle(R.id.btnPlus1d6, plus1d6);
-    	addToggle(R.id.btnPlus2d6, plus2d6);
-    	addToggle(R.id.btnCritical, crit);
-    	addToggle(R.id.btnEnlargePerson, enlargePerson);
-    	addToggle(R.id.btnHaste, haste);
-    	
-    	ToggleButton weaponFocus = (ToggleButton) findViewById(R.id.btnWeaponFocus);
-    	weaponFocus.setOnClickListener(new OnClickListener() {
-    		public void onClick(View v) {
-    			ToggleButton tb = (ToggleButton) v;
-    			getCharacter().setWeaponFocus(tb.isChecked());
-    			updateCharacter("weapon_focus");
+    		ToggleButton button = new ToggleButton(getActivity());
+    		button.setTextOn(mod.name());
+    		button.setTextOff(mod.name());
+    		button.setText(mod.name());
+    		row.addView(button);
+    		
+        	button.setOnClickListener(new ToggleClickListener(button, mod, this));
+        	_mods.add(mod);
+    		
+    		position += 1;
+    		if (position == 4) {
+    			table.addView(row);
+    			row = new TableRow(getActivity());
+    			position = 0;
     		}
-    	});
-    	
-    	ToggleButton flurryOfBlows = (ToggleButton) findViewById(R.id.btnFlurryOfBlows);
-    	flurryOfBlows.setOnClickListener(new OnClickListener() {
-    		public void onClick(View v) {
-    			ToggleButton tb = (ToggleButton) v;
-    			getCharacter().setFlurryOfBlows(tb.isChecked());
-    			updateCharacter("flurry_of_blows");
-    		}
-    	});
-    	
-    	/*ToggleButton unarmed = (ToggleButton) findViewById(R.id.btnUnarmed);
-    	unarmed.setOnClickListener(new OnClickListener() {
-    		public void onClick(View v) {
-    			ToggleButton tb = (ToggleButton) v;
-    			getCharacter().setUnarmed(tb.isChecked());
-    			updateCharacter("unarmed");
-    		}
-    	});*/
+    	}
 	}
 	
     private void calculateFinalPlusHit(String attacks_str, int plusHit) {
@@ -250,15 +169,15 @@ public class CharacterCombatFragment extends FragmentBase {
     
     private void calculateFinalPlusDamage(String weaponDice, int plusDamage) {
     	TextView tv = (TextView) findViewById(R.id.txtPlusDamage);
-    	String plusDamageDice = applyToggles("damage_dice", "");
+    	String plusDamageDice = applyToggles(ModifierField._damage_dice, "");
     	if (!plusDamageDice.equals("")) {
     		plusDamageDice = " + " + plusDamageDice;
     	}
-    	ToggleButton crit = (ToggleButton) findViewById(R.id.btnCritical);
+    	/*ToggleButton crit = (ToggleButton) findViewById(R.id.btnCritical);
     	if (crit.isChecked()) {
     		weaponDice = getCharacter().applyWeaponDiceCritical(weaponDice);
     		plusDamage = getCharacter().applyWeaponPlusCritical(plusDamage);
-    	}
+    	}*/
     	tv.clearFocus();
     	tv.setText(weaponDice + " + " + String.valueOf(plusDamage) + plusDamageDice);
     }
@@ -269,23 +188,11 @@ public class CharacterCombatFragment extends FragmentBase {
         Log.v(TAG, String.format("test"));
     }
 
+    
 	@Override
 	public void onAfterUpdateCharacter(String field) {
-		updateSmite();
 		populateStats(field);
 	}
-
-    // update smite when the character gets updated
-    private void updateSmite() {
-    	_smite.hit = getCharacter().getChaMod();
-    	_smite.damage = getCharacter().getLevel();
-    }
-    
-    private void addToggle(int id, CharacterModifier mod) {
-    	ToggleButton t = (ToggleButton) findViewById(id);
-    	t.setOnClickListener(new ToggleClickListener(t, mod, this));
-    	_mods.add(mod);
-    }
     
     @Override
 	public void onResume() {

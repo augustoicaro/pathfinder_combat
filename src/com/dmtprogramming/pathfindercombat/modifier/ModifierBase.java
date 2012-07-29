@@ -3,34 +3,11 @@ package com.dmtprogramming.pathfindercombat.modifier;
 import com.dmtprogramming.pathfindercombat.PFCombatApplication;
 import com.dmtprogramming.pathfindercombat.models.PFCharacter;
 
-/*
-
- -str
- -dex
- -hit
- damage
- damageDice
- critical
- extraAttack
- size
-
- ac
- dex_ac
- actions
- init
- speed
- saves
- skill_checks
- ability_checks
-
-
- */
-
-
-
 public abstract class ModifierBase {
 
 	public enum ModifierField {
+		_none,
+		
 		/* stats */
 		_str, _dex, _con, _int, _wis, _cha,
 		
@@ -38,20 +15,33 @@ public abstract class ModifierBase {
 		_str_mod, _dex_mod, _con_mod, _int_mod, _wis_mod, _cha_mod,
 		
 		/* attacks */
-		_hit, _damage, _damage_dice, _critical, _extra_attack,
+		_hit, _damage, _damage_dice, _extra_attack,
 		
 		_size, _ac, _dex_ac, _actions, _init, _speed,
-		_saves, _skill_checks, _ability_checks, _cmd
+		_saves, _skill_checks, _ability_checks, _cmd,
+		
+		/* critical */
+		_critical_damage, _critical_damage_dice
 	}
 
 	public static final String _r_melee = "melee";
 	public static final String _r_ranged = "ranged";
 	public static final String _all = "all";
 
+	private boolean enabled;
+	
+	public ModifierBase() {
+		this.enabled = false;
+	}
+	
 	// public abstract String apply(String field, String value);
 	public abstract String name();
 
 	public String apply(ModifierField field, String value) {
+		if (!this.enabled) {
+			return value;
+		}
+		
 		switch (field) {
 		case _str:
 			return String.valueOf(applyStr(parseInt(value)));
@@ -87,8 +77,6 @@ public abstract class ModifierBase {
 			return String.valueOf(applyDamage(parseInt(value)));
 		case _damage_dice:
 			return applyDamageDice(value);
-		case _critical:
-			return String.valueOf(applyCritical(parseInt(value)));
 		case _extra_attack:
 			return String.valueOf(applyExtraAttack(parseInt(value)));
 			
@@ -111,6 +99,12 @@ public abstract class ModifierBase {
 			return String.valueOf(applySkillChecks(parseInt(value)));
 		case _ability_checks:
 			return String.valueOf(applyAbilityChecks(parseInt(value)));
+			
+			
+		case _critical_damage:
+			return String.valueOf(applyCriticalDamage(parseInt(value)));			
+		case _critical_damage_dice:
+			return applyCriticalDamageDice(value);
 		}
 
 		return value;
@@ -221,7 +215,15 @@ public abstract class ModifierBase {
 	protected String applyActions(String value) {
 		return value;
 	}
-
+	
+	protected int applyCriticalDamage(int value) {
+		return value;
+	}
+	
+	protected String applyCriticalDamageDice(String value) {
+		return value;
+	}
+	
 	/* informational methods */
 
 	public String classes() {
@@ -246,5 +248,13 @@ public abstract class ModifierBase {
 	protected PFCharacter character() {
 		PFCombatApplication app = PFCombatApplication.getApplication();
 		return app.getCurrentCharacter();
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
 	}
 }

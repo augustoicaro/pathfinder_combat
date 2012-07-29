@@ -1,4 +1,6 @@
 package com.dmtprogramming.pathfindercombat.models;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierFactory;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -37,5 +39,8 @@ public class Condition {
 	}
 	public void setCharacter(PFCharacter cha) {
 		this.character = cha;
+	}
+	public ModifierBase getModifier() {
+		return ModifierFactory.create(this.name);
 	}
 }

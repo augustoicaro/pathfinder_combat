@@ -18,7 +18,7 @@
     <condition name="Panicked" />
     <condition name="Paralyzed" />
     <condition name="Pinned" />
-    <condition name="Shaken" />
+    <condition name="Shakened" />
     <condition name="Sickened" />
     <condition name="Staggered" />
 </conditions>

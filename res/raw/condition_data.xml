@@ -359,7 +359,7 @@ d%	Behavior
         <mod type="actions" value="standard" />
     </condition>
     <condition
-        name="Shaken">
+        name="Shakened">
         <short_description>
 <![CDATA[
     	    &#8226; -2 on attack rolls, saving throws, skill checks and ability checks<br/>

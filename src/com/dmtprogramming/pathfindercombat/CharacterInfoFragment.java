@@ -2,6 +2,7 @@ package com.dmtprogramming.pathfindercombat;
 
 import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.*;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase.ModifierField;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -33,20 +34,20 @@ public class CharacterInfoFragment extends FragmentBase {
     	// save some typing
     	PFCharacter c = getCharacter();
     	
-    	populateField(R.id.txtCharacter, f, "name", c.getName());
+    	populateField(R.id.txtCharacter, f, ModifierField._none, c.getName());
     	//populateField(R.id.txtPlayer, f, "player", c.getPlayer());
-    	populateField(R.id.txtStr, f, "str", String.valueOf(c.getStr()));
-    	populateField(R.id.txtDex, f, "dex", String.valueOf(c.getDex()));
-    	populateField(R.id.txtCon, f, "con", String.valueOf(c.getCon()));
-    	populateField(R.id.txtInt, f, "int", String.valueOf(c.getInt()));
-    	populateField(R.id.txtWis, f, "wis", String.valueOf(c.getWis()));
-    	populateField(R.id.txtCha, f, "cha", String.valueOf(c.getCha()));
-    	populateField(R.id.txtStrMod, f, "strmod", String.valueOf(c.getStrModDisplay()));
-    	populateField(R.id.txtDexMod, f, "dexmod", String.valueOf(c.getDexModDisplay()));
-    	populateField(R.id.txtConMod, f, "conmod", String.valueOf(c.getConModDisplay()));
-    	populateField(R.id.txtIntMod, f, "intmod", String.valueOf(c.getIntModDisplay()));
-    	populateField(R.id.txtWisMod, f, "wismod", String.valueOf(c.getWisModDisplay()));
-    	populateField(R.id.txtChaMod, f, "chamod", String.valueOf(c.getChaModDisplay()));
+    	populateField(R.id.txtStr, f, ModifierField._str, String.valueOf(c.getStr()));
+    	populateField(R.id.txtDex, f, ModifierField._dex, String.valueOf(c.getDex()));
+    	populateField(R.id.txtCon, f, ModifierField._con, String.valueOf(c.getCon()));
+    	populateField(R.id.txtInt, f, ModifierField._int, String.valueOf(c.getInt()));
+    	populateField(R.id.txtWis, f, ModifierField._wis, String.valueOf(c.getWis()));
+    	populateField(R.id.txtCha, f, ModifierField._cha, String.valueOf(c.getCha()));
+    	populateField(R.id.txtStrMod, f, ModifierField._str_mod, String.valueOf(c.getStrModDisplay()));
+    	populateField(R.id.txtDexMod, f, ModifierField._dex_mod, String.valueOf(c.getDexModDisplay()));
+    	populateField(R.id.txtConMod, f, ModifierField._con_mod, String.valueOf(c.getConModDisplay()));
+    	populateField(R.id.txtIntMod, f, ModifierField._int_mod, String.valueOf(c.getIntModDisplay()));
+    	populateField(R.id.txtWisMod, f, ModifierField._wis_mod, String.valueOf(c.getWisModDisplay()));
+    	populateField(R.id.txtChaMod, f, ModifierField._cha_mod, String.valueOf(c.getChaModDisplay()));
     }
 
 	// set up the events for the toggle buttons

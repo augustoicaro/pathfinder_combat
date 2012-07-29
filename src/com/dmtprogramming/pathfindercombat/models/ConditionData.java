@@ -15,6 +15,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.dmtprogramming.pathfindercombat.Log;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierBase;
+import com.dmtprogramming.pathfindercombat.modifier.ModifierFactory;
 
 public class ConditionData {
 	
@@ -23,6 +25,7 @@ public class ConditionData {
 	private String name;
 	private String short_description;
 	private String long_description;
+	private ModifierBase modifier;
 	
 	public String getName() {
 		return name;
@@ -56,6 +59,7 @@ public class ConditionData {
 				Log.d(TAG, "Adding condition with name = " + condition.getName());
 				condition.setShortDescription(getDescriptionContent(elm, "short_description"));
 				condition.setLongDescription(getDescriptionContent(elm, "long_description"));
+				condition.setModifier(ModifierFactory.create(condition.getName()));
 				conditions.add(condition);
 
 			}
@@ -79,5 +83,11 @@ public class ConditionData {
 			return description.getTextContent().replace("\n", " ").replace("\t", " ");
 		}
 		return "";
+	}
+	public void setModifier(ModifierBase modifier) {
+		this.modifier = modifier;
+	}
+	public ModifierBase getModifier() {
+		return modifier;
 	}
 }

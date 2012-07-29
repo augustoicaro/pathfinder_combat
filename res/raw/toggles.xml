@@ -16,4 +16,5 @@
     <toggle name="Plus2Hit" />
     <toggle name="Plus4Hit" />
     <toggle name="FlurryOfBlows" />
+    <toggle name="Critical" />
 </toggles>
