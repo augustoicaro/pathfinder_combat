@@ -124,7 +124,17 @@ public class CharacterCombatFragment extends FragmentBase {
     	populateSpinner(R.id.spinWeaponPlus, String.valueOf(getCharacter().getWeaponPlus()), weaponPlus);
     	populateSpinner(R.id.spinCriticalMultiplier, getCharacter().getCriticalMultiplier(), PFCharacter.CRITICAL_MULIPLIERS);
     	
+    	updateToggleTable();
+	}
+	
+	private void updateToggleTable() {
     	TableLayout table = (TableLayout) findViewById(R.id.combat_toggles);
+    	table.removeAllViews();
+    	for (int i = 0; i < _mods.size(); i++) {
+    		ModifierBase mod = _mods.get(i);
+    		mod.setEnabled(false);
+    	}
+    	_mods.clear();
     	TableRow row = new TableRow(getActivity());
     	int position = 0;
     	
@@ -134,22 +144,26 @@ public class CharacterCombatFragment extends FragmentBase {
     	while (iter.hasNext()) {
     		ModifierBase mod = iter.next();
 
-    		ToggleButton button = new ToggleButton(getActivity());
-    		button.setTextOn(mod.name());
-    		button.setTextOff(mod.name());
-    		button.setText(mod.name());
-    		row.addView(button);
-    		
-        	button.setOnClickListener(new ToggleClickListener(button, mod, this));
-        	_mods.add(mod);
-    		
-    		position += 1;
-    		if (position == 4) {
-    			table.addView(row);
-    			row = new TableRow(getActivity());
-    			position = 0;
+    		if (mod.appliesToCharacterClass(getCharacter().getCharacterClass()) &&
+    				mod.appliesToRange("melee")) {
+	    		
+	    		ToggleButton button = new ToggleButton(getActivity());
+	    		button.setTextOn(mod.name());
+	    		button.setTextOff(mod.name());
+	    		button.setText(mod.name());
+	    		row.addView(button);
+	    		
+	        	button.setOnClickListener(new ToggleClickListener(button, mod, this));
+	        	_mods.add(mod);
+	    		
+	    		position += 1;
+	    		if (position == 4) {
+	    			table.addView(row);
+	    			row = new TableRow(getActivity());
+	    			position = 0;
+	    		}
+	    		Log.d(TAG, "added modifier toggle name = " + mod.name());
     		}
-    		Log.d(TAG, "added modifier toggle name = " + mod.name());
     	}
     	if (position != 4) {
     		table.addView(row);
@@ -190,6 +204,9 @@ public class CharacterCombatFragment extends FragmentBase {
   
 	@Override
 	public void onAfterUpdateCharacter(String field) {
+		if (field.equals(DatabaseHelper._c_characters_character_class)) {
+			updateToggleTable();
+		}
 		populateStats(field);
 	}
     

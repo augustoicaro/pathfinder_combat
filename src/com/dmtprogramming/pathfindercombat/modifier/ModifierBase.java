@@ -258,4 +258,20 @@ public abstract class ModifierBase {
 	public boolean isEnabled() {
 		return enabled;
 	}
+
+	public boolean appliesToCharacterClass(String characterClass) {
+		String clas = classes();
+		if (clas.equals(_all)) {
+			return true;
+		}
+		return clas.equals(characterClass);
+	}
+	
+	public boolean appliesToRange(String characterRange) {
+		String range = range();
+		if (range.equals(_all)) {
+			return true;
+		}
+		return range.equals(characterRange);
+	}
 }
