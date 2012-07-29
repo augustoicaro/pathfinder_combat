@@ -242,6 +242,7 @@ public abstract class ModifierBase {
 		if (s.equals("")) {
 			return 0;
 		}
+		s = s.replace("+", "");
 		return Integer.parseInt(s);
 	}
 

@@ -4,12 +4,12 @@ public class Critical extends ModifierBase {
 	
 	@Override
 	public int applyCriticalDamage(int v) {
-		return v;
+		return character().applyWeaponPlusCritical(v);
 	}
 	
 	@Override
 	public String applyCriticalDamageDice(String s) {
-		return s;
+		return character().applyWeaponDiceCritical(s);
 	}
 	
 	@Override

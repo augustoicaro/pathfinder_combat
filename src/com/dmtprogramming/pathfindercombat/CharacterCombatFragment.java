@@ -149,6 +149,10 @@ public class CharacterCombatFragment extends FragmentBase {
     			row = new TableRow(getActivity());
     			position = 0;
     		}
+    		Log.d(TAG, "added modifier toggle name = " + mod.name());
+    	}
+    	if (position != 4) {
+    		table.addView(row);
     	}
 	}
 	
@@ -173,22 +177,17 @@ public class CharacterCombatFragment extends FragmentBase {
     	if (!plusDamageDice.equals("")) {
     		plusDamageDice = " + " + plusDamageDice;
     	}
-    	/*ToggleButton crit = (ToggleButton) findViewById(R.id.btnCritical);
-    	if (crit.isChecked()) {
-    		weaponDice = getCharacter().applyWeaponDiceCritical(weaponDice);
-    		plusDamage = getCharacter().applyWeaponPlusCritical(plusDamage);
-    	}*/
+    	weaponDice = applyToggles(ModifierField._critical_damage_dice, weaponDice);
+    	String plusDamageStr = applyToggles(ModifierField._critical_damage, String.valueOf(plusDamage));
     	tv.clearFocus();
-    	tv.setText(weaponDice + " + " + String.valueOf(plusDamage) + plusDamageDice);
+    	tv.setText(weaponDice + " + " + plusDamageStr + plusDamageDice);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(TAG, String.format("test"));
     }
-
-    
+  
 	@Override
 	public void onAfterUpdateCharacter(String field) {
 		populateStats(field);

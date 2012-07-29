@@ -117,6 +117,7 @@ public class ConditionsFragment extends FragmentBase {
 						try {
 							dao = getHelper().getConditionDao();
 							dao.create(cond);
+							updateCharacter("");
 						} catch (SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -164,6 +165,7 @@ public class ConditionsFragment extends FragmentBase {
 				}
 				
 				populateList();
+				updateCharacter("");
 			}
 		});
 		

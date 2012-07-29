@@ -2,6 +2,7 @@ package com.dmtprogramming.pathfindercombat;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
@@ -10,6 +11,7 @@ import com.dmtprogramming.pathfindercombat.modifier.ModifierBase;
 import com.dmtprogramming.pathfindercombat.modifier.ModifierBase.ModifierField;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.ForeignCollection;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -120,10 +122,23 @@ public abstract class FragmentBase extends Fragment {
 	 
     // apply the stats from all of the toggles to a single field
 	protected String applyToggles(ModifierField field, String value) {
-		Log.d(TAG, "applyToggles(" + field + ", " + value +") - mods = " + _mods.size());
+		Log.d(TAG, "applyToggles(" + field + ", " + value +")");
+		
+		// apply modifiers
 		for (int i = 0; i < _mods.size(); i++) {
 			ModifierBase mod = _mods.get(i);
 			value = mod.apply(field, value);
+		}
+		
+		// apply conditions
+		ForeignCollection<Condition> conditions = getCharacter().getConditions();
+		Iterator<Condition> iter = conditions.iterator();
+		while(iter.hasNext()) {
+			Condition cond = iter.next();
+			ModifierBase mod = cond.getModifier();
+			mod.setEnabled(true);
+			value = mod.apply(field, value);
+			Log.d(TAG, "applying condition modifier name = " + mod.name());
 		}
 		return value;
 	}
