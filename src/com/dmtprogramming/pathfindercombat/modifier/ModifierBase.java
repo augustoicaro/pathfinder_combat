@@ -15,7 +15,7 @@ public abstract class ModifierBase {
 		_str_mod, _dex_mod, _con_mod, _int_mod, _wis_mod, _cha_mod,
 		
 		/* attacks */
-		_hit, _damage, _damage_dice, _extra_attack,
+		_hit, _damage, _damage_dice, _extra_attack, _attacks,
 		
 		_size, _ac, _dex_ac, _actions, _init, _speed,
 		_saves, _skill_checks, _ability_checks, _cmd,
@@ -79,6 +79,8 @@ public abstract class ModifierBase {
 			return applyDamageDice(value);
 		case _extra_attack:
 			return String.valueOf(applyExtraAttack(parseInt(value)));
+		case _attacks:
+			return applyAttacks(value);
 			
 			
 		case _size:
@@ -205,6 +207,10 @@ public abstract class ModifierBase {
 	}
 	
 	protected int applyExtraAttack(int value) {
+		return value;
+	}
+	
+	protected String applyAttacks(String value) {
 		return value;
 	}
 	

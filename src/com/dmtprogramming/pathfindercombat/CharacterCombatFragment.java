@@ -68,31 +68,31 @@ public class CharacterCombatFragment extends FragmentBase {
     	populateField(R.id.txtDailyTitle, f, ModifierField._none, c.getDailyTitle());
     	
     	// size modifier calcs
-    	String weaponDice = getCharacter().getWeaponDamage();
+    	String weaponDice = c.getWeaponDamage();
     	int sizeMod = 0;
     	String sizeStr = applyToggles(ModifierField._size, "");
     	if (!sizeStr.equals("")) {
     		sizeMod = Integer.parseInt(sizeStr);
     	}
     	if (sizeMod > 0) {
-    		weaponDice = getCharacter().getEnlargedWeaponDamage();
+    		weaponDice = c.getEnlargedWeaponDamage();
     	} else if (sizeMod < 0) {
-    		weaponDice = getCharacter().getReducedWeaponDamage();
+    		weaponDice = c.getReducedWeaponDamage();
     	}
-    	
     	TextView weaponDiceText = (TextView) findViewById(R.id.txtWeaponDice);
     	weaponDiceText.setText(weaponDice);
-    	
-    	// extra attack calc
+
+    	// attacks
+    	TextView tvAttacks = (TextView) findViewById(R.id.txtAttacks);
+		String attacks_str = applyToggles(ModifierField._attacks, c.getAttacks());
     	String extraAttack = applyToggles(ModifierField._extra_attack, "0");
     	if (!extraAttack.equals("0")) {
-    		TextView tv = (TextView) findViewById(R.id.txtAttacks);
-    		String attacks = tv.getText().toString();
-    		attacks = attacks.concat(" / " + getCharacter().getBAB());
-    		tv.clearFocus();
-    		tv.setText(attacks);
+    		attacks_str = attacks_str.concat(" / " + getCharacter().getBAB());
     	}
+		tvAttacks.clearFocus();
+		tvAttacks.setText(attacks_str);
     	
+		// weapon plus
     	Spinner spinWeaponPlus = (Spinner) findViewById(R.id.spinWeaponPlus);
     	TextView weaponPlusAttack = (TextView) findViewById(R.id.txtWeaponPlusAttack);
     	TextView weaponPlusDamage = (TextView) findViewById(R.id.txtWeaponPlusDamage);
@@ -101,7 +101,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	weaponPlusDamage.clearFocus();
     	weaponPlusDamage.setText(spinWeaponPlus.getSelectedItem().toString());
     	
-    	// plus to hit calcs
+    	// plus to hit
     	int plusHit = 0;
     	plusHit += parseIntField(R.id.txtStrModPlusAttack);
     	plusHit += parseIntField(R.id.spinWeaponPlus);
@@ -110,7 +110,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	String attacks = (String) ((TextView) findViewById(R.id.txtAttacks)).getText();
     	calculateFinalPlusHit(attacks, plusHit);
     	
-    	// plus to damage calcs
+    	// plus to damage
     	int plusDamage = 0;
     	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
     	plusDamage += parseIntField(R.id.spinWeaponPlus);

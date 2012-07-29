@@ -385,9 +385,6 @@ public class PFCharacter {
 	
 	public String getAttacks() {
 		String ret = "";
-		if (this.flurry_of_blows) {
-			return PFCharacter.FLURRY_OF_BLOWS_ATTACKS[this.level - 1];
-		}
 		int l = getBAB();
 		ret = String.valueOf(l);
 		l -= 5;

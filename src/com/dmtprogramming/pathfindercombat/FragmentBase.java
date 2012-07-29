@@ -58,14 +58,19 @@ public abstract class FragmentBase extends Fragment {
 	public void updateCharacter(String field) {
 		Log.d(TAG, "updateCharacter()");
 		Dao<PFCharacter, Integer> dao;
+		PFCharacter cha = getCharacter();
 		try {
 			dao = getHelper().getCharacterDao();
-			dao.update(getCharacter());
+			dao.update(cha);
+			cha = dao.queryForId((int) cha.getId());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
+		PFCombatApplication app = PFCombatApplication.getApplication();
+		app.setCurrentCharacter(cha);
+		
 		Intent intent = new Intent();
 		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", field);
@@ -73,11 +78,8 @@ public abstract class FragmentBase extends Fragment {
 	}
 	
 	public PFCharacter getCharacter() {
-		ViewPagerFragmentActivity view = (ViewPagerFragmentActivity) getActivity();
-		if (view != null) {
-			return view.getCharacter();
-		}
-		return null;
+		PFCombatApplication app = PFCombatApplication.getApplication();
+		return app.getCurrentCharacter();
 	}
 	
     protected void setupEditTextTrigger(int id, String field) {
