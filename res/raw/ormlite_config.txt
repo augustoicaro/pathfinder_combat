@@ -1,6 +1,43 @@
 #
-# generated on 2012/07/22 06:33:45
+# generated on 2012/08/04 11:09:34
 #
+# --table-start--
+dataClass=com.dmtprogramming.pathfindercombat.models.Weapon
+tableName=weapons
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=character
+foreign=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --field-start--
+fieldName=damage_dice
+# --field-end--
+# --field-start--
+fieldName=hit
+# --field-end--
+# --field-start--
+fieldName=damage
+# --field-end--
+# --field-start--
+fieldName=critical_multiplier
+# --field-end--
+# --field-start--
+fieldName=range
+# --field-end--
+# --field-start--
+fieldName=additional_damage_dice
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
 # --table-start--
 dataClass=com.dmtprogramming.pathfindercombat.models.PFCharacter
 tableName=characters
@@ -56,12 +93,6 @@ fieldName=weapon_finesse
 fieldName=size
 # --field-end--
 # --field-start--
-fieldName=weapon_damage
-# --field-end--
-# --field-start--
-fieldName=weapon_plus
-# --field-end--
-# --field-start--
 fieldName=unarmed
 # --field-end--
 # --field-start--
@@ -77,11 +108,18 @@ fieldName=daily_current
 fieldName=daily_title
 # --field-end--
 # --field-start--
-fieldName=critical_multiplier
+fieldName=weapon
+foreign=true
 # --field-end--
 # --field-start--
 fieldName=conditions
 foreignCollection=true
+foreignCollectionEager=true
+# --field-end--
+# --field-start--
+fieldName=weapons
+foreignCollection=true
+foreignCollectionEager=true
 # --field-end--
 # --table-fields-end--
 # --table-end--

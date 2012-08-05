@@ -62,11 +62,16 @@
     <string name="addNew">Add</string>
     <string name="new_character">New Character</string>
     <string name="new_condition">New Condition</string>
+    <string name="new_weapon">New Weapon</string>
     <string name="add_round">Next Round</string>
     <string name="submit">Submit</string>
     <string name="rounds">Rounds</string>
     <string name="condition">Condition</string>
     <string name="cancel">Cancel</string>
     <string name="remove_conditions">Remove Selected</string>
+    <string name="manage_weapons">Manage</string>
 
+    <!-- weapon dialog -->
+    <string name="weapon_name">Weapon Name</string>
+    
 </resources>

@@ -7,8 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.dmtprogramming.pathfindercombat.R;
-import com.dmtprogramming.pathfindercombat.models.Condition;
-import com.dmtprogramming.pathfindercombat.models.PFCharacter;
+import com.dmtprogramming.pathfindercombat.models.*;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
@@ -42,23 +41,33 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	public static final String _c_characters_power_attack = "power_attack";
 	public static final String _c_characters_weapon_finesse = "weapon_finesse";
 	public static final String _c_characters_size = "size";
-	public static final String _c_characters_weapon_damage = "weapon_damage";
-	public static final String _c_characters_weapon_plus = "weapon_plus";
 	public static final String _c_characters_unarmed = "unarmed";
 	public static final String _c_characters_flurry_of_blows = "flurry_of_blows";
 	public static final String _c_characters_daily_total = "daily_total";
 	public static final String _c_characters_daily_current = "daily_current";
 	public static final String _c_characters_daily_title = "daily_title";
-	public static final String _c_characters_critical_multiplier = "critical_multiplier";
+	public static final String _c_characters_weapon_id = "weapon_id";
 
 	public static final String _t_conditions = "conditions";
 	public static final String _c_conditions_id = "_id";
 	public static final String _c_conditions_character_id = "character_id";
 	public static final String _c_conditions_name = "name";
 	public static final String _c_conditions_duration = "duration";
+	
+	public static final String _t_weapons = "weapons";
+	public static final String _c_weapons_id = "_id";
+	public static final String _c_weapons_character_id = "character_id";
+	public static final String _c_weapons_name = "name";
+	public static final String _c_weapons_damage_dice = "damage_dice";
+	public static final String _c_weapons_hit = "hit";
+	public static final String _c_weapons_damage = "damage";
+	public static final String _c_weapons_critical_multiplier = "critical_multiplier";
+	public static final String _c_weapons_range = "range";
+	public static final String _c_weapons_additional_damage_dice = "additional_damage_dice";
 
 	private Dao<PFCharacter, Integer> characterDao;
 	private Dao<Condition, Integer> conditionDao;
+	private Dao<Weapon, Integer> weaponDao;
 	
 	public DatabaseHelper(Context context) {
 		super(context, _dbName, null, DBVERSION, R.raw.ormlite_config);
@@ -78,6 +87,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 				addCriticalMultiplerColumn(db, source);
 			} else if (oldVersion == 6) {
 				addConditionsTable(db, source);
+			} else if (oldVersion == 7) {
+				addWeaponsTable(db, source);
 			} else {
 				Log.v(TAG, String.format("unknown upgrade to db from version %d", oldVersion));
 			}
@@ -86,6 +97,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void addWeaponsTable(SQLiteDatabase db, ConnectionSource source) throws SQLException {
+		try {
+			TableUtils.createTable(connectionSource, Weapon.class);
+		} catch (SQLException e) {
+			Log.v(TAG, "Unable to create databases", e);
+		}
+		Dao<PFCharacter, Integer> dao = getCharacterDao();
+		dao.executeRaw("ALTER TABLE characters ADD COLUMN weapon_id INTEGER");
+		dao.executeRaw("ALTER TABLE characters DROP COLUMN weapon_damage");
+		dao.executeRaw("ALTER TABLE characters DROP COLUMN weapon_plus");
+		dao.executeRaw("ALTER TABLE characters DROP COLUMN critical_multiplier");
 	}
 
 	private void addCharacterClass(SQLiteDatabase db, ConnectionSource source) throws SQLException {
@@ -132,6 +156,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, PFCharacter.class);
 			TableUtils.createTable(connectionSource, Condition.class);
+			TableUtils.createTable(connectionSource, Weapon.class);
 		} catch (SQLException e) {
 			Log.v(TAG, "Unable to create databases", e);
 		}
@@ -159,6 +184,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			conditionDao = getDao(Condition.class);
 		}
 		return conditionDao;
+	}
+
+	public Dao<Weapon, Integer> getWeaponDao() throws SQLException {
+		if (weaponDao == null) {
+			weaponDao = getDao(Weapon.class);
+		}
+		return weaponDao;
 	}
 	
 }

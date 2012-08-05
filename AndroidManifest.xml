@@ -11,5 +11,7 @@
         </activity>
         <activity android:name=".ViewPagerFragmentActivity"></activity>
         <activity android:name=".TabletFragmentActivity"></activity>
+        <activity android:name=".WeaponActivity"></activity>
+        <activity android:name=".WeaponEditActivity"></activity>
     </application>
 </manifest>

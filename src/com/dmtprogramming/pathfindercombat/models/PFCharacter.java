@@ -1,4 +1,5 @@
 package com.dmtprogramming.pathfindercombat.models;
+
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -71,10 +72,6 @@ public class PFCharacter {
 	@DatabaseField
 	private String size;
 	@DatabaseField
-	private String weapon_damage;
-	@DatabaseField
-	private int weapon_plus;
-	@DatabaseField
 	private boolean unarmed;
 	@DatabaseField
 	private boolean flurry_of_blows;
@@ -85,11 +82,15 @@ public class PFCharacter {
 	private int daily_current;
 	@DatabaseField
 	private String daily_title;
-	@DatabaseField
-	private String critical_multiplier;
+
+	@DatabaseField(canBeNull = true, foreign = true)
+	private Weapon weapon;
 	
-	@ForeignCollectionField(eager = false)
+	@ForeignCollectionField(eager = true)
 	private ForeignCollection<Condition> conditions;
+	
+	@ForeignCollectionField(eager = true)
+	private ForeignCollection<Weapon> weapons;
 	
 	public PFCharacter() {
 		this.character_class = "Paladin";
@@ -103,14 +104,10 @@ public class PFCharacter {
 		this.intel = 10;
 		this.wis = 10;
 		this.cha = 10;
-		
-		this.weapon_damage = "1d6";
-		this.weapon_plus = 0;
-		this.critical_multiplier = "x2";
 
 		this.daily_current = 0;
 		this.daily_total = 0;
-		this.daily_title = "Daily Power";
+		this.daily_title = "Daily Power";		
 	}
 	
 	public ForeignCollection<Condition> getConditions() {
@@ -120,7 +117,15 @@ public class PFCharacter {
 	public void setConditions(ForeignCollection<Condition> conditions) {
 		this.conditions = conditions;
 	}
+	
+	public void setWeapons(ForeignCollection<Weapon> weapons) {
+		this.weapons = weapons;
+	}
 
+	public ForeignCollection<Weapon> getWeapons() {
+		return weapons;
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -227,21 +232,6 @@ public class PFCharacter {
 			setLevel(i);
 			return true;
 		}
-		if (field == DatabaseHelper._c_characters_weapon_plus) {
-			int i = Integer.parseInt(value);
-			if (this.weapon_plus == i) {
-				return false;
-			}
-			setWeaponPlus(i);
-			return true;
-		}
-		if (field == DatabaseHelper._c_characters_weapon_damage) {
-			if (this.weapon_damage != null && this.weapon_damage.equals(value)) {
-				return false;
-			}
-			setWeaponDamage(value);
-			return true;
-		}
 		if (field == DatabaseHelper._c_characters_character_class) {
 			if (this.character_class != null && this.character_class.equals(value)) {
 				return false;
@@ -272,14 +262,6 @@ public class PFCharacter {
 			setDailyCurrent(i);
 			return true;
 		}
-		if (field == DatabaseHelper._c_characters_critical_multiplier) {
-			if (this.critical_multiplier != null && this.critical_multiplier.equals(value)) {
-				return false;
-			}
-			setCriticalMultiplier(value);
-			return true;
-		}
-
 		return false;
 	}
 	
@@ -473,8 +455,8 @@ public class PFCharacter {
 		this.size = size;
 	}
 	
-	public String getWeaponDamage() {
-		return this.weapon_damage;
+	public String getWeaponDamageDice() {
+		return this.weapon.getDamageDice();
 	}
 	
 	public String getEnlargedWeaponDamage() {
@@ -486,14 +468,14 @@ public class PFCharacter {
 			enlargeDamages = PFCharacter.LARGE_MONK_DAMAGES;
 		}
 		for (int i = 0; i < damages.length; i++) {
-			if (damages[i].equals(this.weapon_damage)) {
+			if (damages[i].equals(this.getWeaponDamageDice())) {
 				ind = i;
 			}
 		}
 		if (ind != -1) {
 			return enlargeDamages[ind];
 		}
-		return this.weapon_damage;
+		return this.getWeaponDamageDice();
 	}
 	
 	public String getReducedWeaponDamage() {
@@ -505,26 +487,18 @@ public class PFCharacter {
 			reduceDamages = PFCharacter.TINY_MONK_DAMAGES;
 		}
 		for (int i = 0; i < damages.length; i++) {
-			if (damages[i].equals(this.weapon_damage)) {
+			if (damages[i].equals(this.getWeaponDamageDice())) {
 				ind = i;
 			}
 		}
 		if (ind != -1) {
 			return reduceDamages[ind];
 		}
-		return this.weapon_damage;
+		return this.getWeaponDamageDice();
 	}
 	
-	public void setWeaponDamage(String weapon_damage) {
-		this.weapon_damage = weapon_damage;
-	}
-	
-	public int getWeaponPlus() {
-		return this.weapon_plus;
-	}
-	
-	public void setWeaponPlus(int weapon_plus) {
-		this.weapon_plus = weapon_plus;
+	public int getWeaponHit() {
+		return this.weapon.getHit();
 	}
 	
 	public int[] getBABProgression() {
@@ -585,27 +559,15 @@ public class PFCharacter {
 	public void setDailyTitle(String t) {
 		this.daily_title = t;
 	}
-	
-	public String getCriticalMultiplier() {
-		return this.critical_multiplier;
-	}
-	
-	public void setCriticalMultiplier(String s) {
-		this.critical_multiplier = s;
-	}
-	
-	public int getCriticalMultiplierInt() {
-		return Integer.parseInt(getCriticalMultiplier().substring(1));
-	}
 
 	public String applyWeaponDiceCritical(String weaponDice) {
 		String[] parts = weaponDice.split("d");
-		parts[0] = String.valueOf(Integer.parseInt(parts[0]) * getCriticalMultiplierInt());
+		parts[0] = String.valueOf(Integer.parseInt(parts[0]) * this.weapon.getCriticalMultiplier());
 		return parts[0] + "d" + parts[1];
 	}
 	
 	public int applyWeaponPlusCritical(int plus) {
-		return plus * getCriticalMultiplierInt();
+		return plus * this.weapon.getCriticalMultiplier();
 	}
 
 	public void setWeaponFinesse(boolean weapon_finesse) {
@@ -614,6 +576,17 @@ public class PFCharacter {
 
 	public boolean getWeaponFinesse() {
 		return weapon_finesse;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
+	public Weapon getWeapon() {
+		if (this.weapon == null) {
+			return new Weapon();
+		}
+		return weapon;
 	}
 }
 

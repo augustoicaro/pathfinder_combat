@@ -229,6 +229,7 @@ public class ConditionsFragment extends FragmentBase {
 		checked.clear();
 		
         conditions = getCharacter().getConditions();
+        Log.d(TAG, "conditions list size = " + conditions.size());
         _listAdapter = new ConditionArrayAdapter(getActivity(), conditions, this);
         
         ListView lv = (ListView) findViewById(R.id.listConditions);
