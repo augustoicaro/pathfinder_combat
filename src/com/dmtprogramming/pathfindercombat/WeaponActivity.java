@@ -24,6 +24,7 @@ public class WeaponActivity extends ListActivity {
 	
 	private static final String TAG = "PFCombat:WeaponActivity";
 	private PFCharacter _char;
+	private List<Weapon> values; 
 	
 	private DatabaseHelper databaseHelper = null;
 	
@@ -31,20 +32,16 @@ public class WeaponActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        this.getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        
         Log.v(TAG, String.format("test"));
         setContentView(R.layout.weapon_dialog);
 
         Bundle extras = getIntent().getExtras();
         long _id = -1;
-        if (extras != null) {
-        	_id = extras.getLong("CHARACTER_ID");
-        }
-        
         _char = null;
+        values = new ArrayList<Weapon>();
 
         if (extras != null) {
+        	_id = extras.getLong("CHARACTER_ID");
         	if (_id > 0) {
         		try {
             		Dao<PFCharacter, Integer> dao = getHelper().getCharacterDao();
@@ -55,23 +52,46 @@ public class WeaponActivity extends ListActivity {
         	}
         }
         
-        if (_char != null) {
-        	Log.d(TAG, "loaded character with id = " + _char.getId());
-        } else {
-        	Log.d(TAG, "CHARACTER IS NULL!!!!!!!");
+        if (_char == null) {
+        	finish();
         }
         
         populateList();
     }
     
-	// Will be called via the onClick attribute
-	// of the buttons in main.xml
 	public void onClick(View view) {
+		Intent editIntent = new Intent(view.getContext(), WeaponEditActivity.class);
+		editIntent.putExtra("CHARACTER_ID", _char.getId());
+		int pos = getListView().getCheckedItemPosition();
+		Weapon weapon = values.get(pos);
+		
 		switch (view.getId()) {
 		case R.id.add_weapon:
-			Intent myIntent = new Intent(view.getContext(), WeaponEditActivity.class);
-			myIntent.putExtra("CHARACTER_ID", _char.getId());
-			startActivityForResult(myIntent, 0);
+			startActivityForResult(editIntent, 0);
+			break;
+		case R.id.edit_weapon:
+			if (weapon != null) {
+				editIntent.putExtra("WEAPON_ID", weapon.getId());
+				startActivityForResult(editIntent, 0);
+			} else {
+				Log.d(TAG, "no weapon selected!!");
+			}
+			break;
+		case R.id.select_weapon:
+			if (weapon != null) {
+				_char.setWeapon(weapon);
+				Log.d(TAG, "equiping weapon - " + weapon.toString());
+				Log.d(TAG, "character weapon = " + _char.getWeapon().toString());
+	    		Dao<PFCharacter, Integer> dao;
+				try {
+					dao = getHelper().getCharacterDao();
+					dao.update(_char);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finish();
+			}
 		}
 	}
 	
@@ -80,17 +100,7 @@ public class WeaponActivity extends ListActivity {
 		populateList();
 		super.onResume();
 	}
-/*
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Weapon weapon = (Weapon) getListAdapter().getItem(position);
-		Log.d(TAG, "weapon selected with id = " + weapon.getId());
-		
-		Intent myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);;
 
-		myIntent.putExtra("WEAPON_ID", weapon.getId());
-		startActivityForResult(myIntent, 0);
-	}
-	*/
 	protected void populateList() {
 		try {
     		Dao<PFCharacter, Integer> dao = getHelper().getCharacterDao();
@@ -99,14 +109,30 @@ public class WeaponActivity extends ListActivity {
 			_char = null;
 		}
 		ForeignCollection<Weapon> weapons = _char.getWeapons();
-		List<Weapon> values = new ArrayList<Weapon>();
+		values.clear();
 		Iterator<Weapon> iter = weapons.iterator();
 		while (iter.hasNext()) {
 			Weapon w = iter.next();
 			values.add(w);
 		}
-		ArrayAdapter<Weapon> adapter = new ArrayAdapter<Weapon>(this, android.R.layout.simple_list_item_1, values);
+		ArrayAdapter<Weapon> adapter = new ArrayAdapter<Weapon>(this, android.R.layout.simple_list_item_activated_1, values);
 		setListAdapter(adapter);
+		getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		getListView().setItemsCanFocus(true);
+		
+        Weapon weapon = _char.getWeapon();
+        if (weapon != null) {
+        	long id = weapon.getId();
+        	Iterator<Weapon> iter2 = values.iterator();
+        	int ind = 0;
+        	while (iter2.hasNext()) {
+        		Weapon w = iter2.next();
+        		if (w.getId() == id) {
+        			getListView().setItemChecked(ind, true);
+        		}
+        		ind += 1;
+        	}
+        }
 	}
 	 
 	protected DatabaseHelper getHelper() {

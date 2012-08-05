@@ -58,5 +58,10 @@ public class TabletFragmentActivity extends FragmentActivity {
         if (_char != null) {
         	Log.d(TAG, "loaded character with id = " + _char.getId());
         }
-	}   
+	}  
+	
+	public void onResume() {
+
+		super.onResume();
+	}
 }

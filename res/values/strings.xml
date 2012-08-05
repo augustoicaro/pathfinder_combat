@@ -70,8 +70,16 @@
     <string name="cancel">Cancel</string>
     <string name="remove_conditions">Remove Selected</string>
     <string name="manage_weapons">Manage</string>
+    <string name="edit_weapon">Edit Selected</string>
+    <string name="select_weapon">Equip Select Weapon</string>
 
     <!-- weapon dialog -->
-    <string name="weapon_name">Weapon Name</string>
+    <string name="weapon_name">Name</string>
+    <string name="weapon_hit">+Hit</string>
+    <string name="weapon_damage">+Damage</string>
+    <string name="weapon_damage_dice">Dice</string>
+    <string name="weapon_range">Range</string>
+    <string name="weapon_additional_dice">Additional Dice</string>
+    <string name="weapon_critical">Critical Multiplier</string>
     
 </resources>

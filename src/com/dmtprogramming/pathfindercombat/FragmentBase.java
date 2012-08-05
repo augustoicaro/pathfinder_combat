@@ -62,7 +62,9 @@ public abstract class FragmentBase extends Fragment {
 		try {
 			dao = getHelper().getCharacterDao();
 			dao.update(cha);
-			cha = dao.queryForId((int) cha.getId());
+			//cha = dao.queryForId((int) cha.getId());
+			Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
+			weaponDao.refresh(cha.getWeapon());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,6 +77,29 @@ public abstract class FragmentBase extends Fragment {
 		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", field);
 		getActivity().sendBroadcast(intent);
+	}
+	
+	public void refreshCharacter() {
+		Log.d(TAG, "refreshCharacter()");
+		Dao<PFCharacter, Integer> dao;
+		PFCharacter cha = getCharacter();
+		try {
+			dao = getHelper().getCharacterDao();
+			dao.refresh(cha);
+			Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
+			weaponDao.refresh(cha.getWeapon());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		PFCombatApplication app = PFCombatApplication.getApplication();
+		app.setCurrentCharacter(cha);
+
+		Intent intent = new Intent();
+		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.putExtra("field", "");
+		getActivity().sendBroadcast(intent);		
 	}
 	
 	public PFCharacter getCharacter() {
@@ -170,6 +195,7 @@ public abstract class FragmentBase extends Fragment {
 	public void onResume() {
      	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
     	getActivity().registerReceiver(_receiver, filter);
+    	refreshCharacter();
 		super.onResume();
 	}
 

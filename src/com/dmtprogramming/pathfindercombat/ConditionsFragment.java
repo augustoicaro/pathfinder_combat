@@ -228,9 +228,12 @@ public class ConditionsFragment extends FragmentBase {
 		holders.clear();
 		checked.clear();
 		
+		_listAdapter = null;
+		
         conditions = getCharacter().getConditions();
-        Log.d(TAG, "conditions list size = " + conditions.size());
-        _listAdapter = new ConditionArrayAdapter(getActivity(), conditions, this);
+        if (conditions != null) { 
+        	_listAdapter = new ConditionArrayAdapter(getActivity(), conditions, this);
+        }
         
         ListView lv = (ListView) findViewById(R.id.listConditions);
         if (lv == null) {
@@ -280,9 +283,11 @@ public class ConditionsFragment extends FragmentBase {
 				list.addView(vi);
         	}
         } else {
-	        lv.setAdapter(_listAdapter);
-	        lv.forceLayout();
-	        _listAdapter.notifyDataSetChanged();
+        	if (_listAdapter != null) {
+        		lv.setAdapter(_listAdapter);
+    	        lv.forceLayout();
+    	        _listAdapter.notifyDataSetChanged();
+        	}
         }
         Log.d(TAG, "populating list, count = " + conditions.size());
         Iterator<Condition> i = conditions.iterator();

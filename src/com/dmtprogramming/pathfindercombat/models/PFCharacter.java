@@ -34,8 +34,7 @@ public class PFCharacter {
 	public static String[] TINY_MONK_DAMAGES = { "1d4", "1d6", "1d8", "1d10", "2d6", "2d8" };
 	public static String[] MEDIUM_MONK_DAMAGES = { "1d6", "1d8", "1d10", "2d6", "2d8", "2d10" };
 	public static String[] LARGE_MONK_DAMAGES = { "1d8", "2d6", "2d8", "3d6", "3d8", "4d8" };
-	
-	public static String[] CRITICAL_MULIPLIERS = { "x2", "x3", "x4", "x5" };
+
 	
 	@DatabaseField(generatedId = true, columnName = "_id")
 	private long id;

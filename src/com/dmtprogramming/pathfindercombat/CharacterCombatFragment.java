@@ -44,10 +44,6 @@ public class CharacterCombatFragment extends FragmentBase {
     	setupEditTextTrigger(R.id.txtDailyTitle, DatabaseHelper._c_characters_daily_title);
     	setupEditTextTrigger(R.id.txtDailyCurrent, DatabaseHelper._c_characters_daily_current);
     	setupEditTextTrigger(R.id.txtDailyTotal, DatabaseHelper._c_characters_daily_total);
-    	
-    	//setupSpinnerTrigger(R.id.spinWeaponPlus, DatabaseHelper._c_characters_weapon_plus);
-    	//setupSpinnerTrigger(R.id.spinDamage, DatabaseHelper._c_characters_weapon_damage);
-    	//setupSpinnerTrigger(R.id.spinCriticalMultiplier, DatabaseHelper._c_characters_critical_multiplier);
 	}
     
     private void setupButtons() {
@@ -112,13 +108,11 @@ public class CharacterCombatFragment extends FragmentBase {
 		tvAttacks.setText(attacks_str);
     	
 		// weapon plus
-    	/*Spinner spinWeaponPlus = (Spinner) findViewById(R.id.spinWeaponPlus);
-    	TextView weaponPlusAttack = (TextView) findViewById(R.id.txtWeaponPlusAttack);
-    	TextView weaponPlusDamage = (TextView) findViewById(R.id.txtWeaponPlusDamage);
-    	weaponPlusAttack.clearFocus();
-    	weaponPlusAttack.setText(spinWeaponPlus.getSelectedItem().toString());
-    	weaponPlusDamage.clearFocus();
-    	weaponPlusDamage.setText(spinWeaponPlus.getSelectedItem().toString());*/
+		TextView weaponFullName = (TextView) findViewById(R.id.txtWeaponFullName);
+		Weapon weapon = c.getWeapon();
+		if (weapon != null) {
+			weaponFullName.setText(weapon.toString());
+		}
     	
     	// plus to hit
     	int plusHit = 0;
@@ -138,11 +132,6 @@ public class CharacterCombatFragment extends FragmentBase {
 	}
 
 	private void setupView() {
-    	//String[] weaponPlus = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
-    	//populateSpinner(R.id.spinDamage, getCharacter().getWeaponDamage(), PFCharacter.MEDIUM_WEAPON_DAMAGES);
-    	//populateSpinner(R.id.spinWeaponPlus, String.valueOf(getCharacter().getWeaponPlus()), weaponPlus);
-    	//populateSpinner(R.id.spinCriticalMultiplier, getCharacter().getCriticalMultiplier(), PFCharacter.CRITICAL_MULIPLIERS);
-    	
     	updateToggleTable();
 	}
 	
@@ -227,10 +216,5 @@ public class CharacterCombatFragment extends FragmentBase {
 			updateToggleTable();
 		}
 		populateStats(field);
-	}
-    
-    @Override
-	public void onResume() {
-		super.onResume();
 	}
 }

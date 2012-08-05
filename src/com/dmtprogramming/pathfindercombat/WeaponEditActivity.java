@@ -11,8 +11,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 public class WeaponEditActivity extends Activity {
 	private static final String TAG = "PFCombat:WeaponEditActivity";
@@ -57,6 +59,11 @@ public class WeaponEditActivity extends Activity {
         	new_record = true;
         }
         
+        if (!new_record) {
+        	Button add = (Button) findViewById(R.id.btnAdd);
+        	add.setText("Update");
+        }
+        
         populateFields();
         setupButtons();
     }
@@ -64,11 +71,67 @@ public class WeaponEditActivity extends Activity {
     private void populateFields() {
     	EditText name = (EditText) findViewById(R.id.txtWeaponName);
     	name.setText(_weapon.getName());
+    	
+    	String[] weaponHit = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
+    	String[] weaponDamage = { "0", "1", "2", "3", "4", "5", "6", "7", "8" };
+    	populateSpinner(R.id.spinWeaponHit, String.valueOf(_weapon.getHit()), weaponHit);
+    	populateSpinner(R.id.spinWeaponDamage, String.valueOf(_weapon.getDamage()), weaponDamage);
+    	populateSpinner(R.id.spinWeaponCritical, String.valueOf(_weapon.getCriticalMultiplier()), Weapon.CRITICAL_MULIPLIERS);
+    	
+    	String[] weaponRanges = { "Melee", "10", "20", "30", "50", "60", "70", "80", "90", "100", "110", "120" };
+    	String weaponRange = String.valueOf(_weapon.getRange());
+    	if (weaponRange.equals("0")) {
+    		weaponRange = "Melee";
+    	}
+    	populateSpinner(R.id.spinWeaponRange, weaponRange, weaponRanges);
+    	
+    	String[] damageDice = {"1d2", "1d3", "1d4", "1d6", "1d8", "1d10", "1d12", "2d4", "2d6", "2d8", "2d10" };
+    	populateSpinner(R.id.spinWeaponDice, _weapon.getDamageDice(), damageDice);
+
+    	String[] additionalDice = { "", "1d4", "2d4", "3d4", "1d6", "2d6", "3d6", "1d8", "2d8", "3d8" };
+    	populateSpinner(R.id.spinWeaponAdditionalDice, _weapon.getAdditionalDamageDice(), additionalDice);
     }
     
+	private void populateSpinner(int id, String selected, String[] options) {
+		Spinner spinner = (Spinner) findViewById(id);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, options);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner.setAdapter(adapter);
+		
+		for (int i = 0; i < options.length; i++) {
+			String test = options[i];
+			if (test.equals(selected)) {
+				spinner.setSelection(i);
+			}
+		}    	
+	}
+    
     private void populateWeapon() {
-    	EditText name = (EditText) findViewById(R.id.txtWeaponName);
-    	_weapon.setName(name.getText().toString());
+    	_weapon.setName(fieldValue(R.id.txtWeaponName));
+    	_weapon.setHit(Integer.parseInt(fieldValue(R.id.spinWeaponHit)));
+    	_weapon.setDamage(Integer.parseInt(fieldValue(R.id.spinWeaponDamage)));
+    	_weapon.setCriticalMultiplier(Integer.parseInt(fieldValue(R.id.spinWeaponHit)));
+    	
+    	String range = fieldValue(R.id.spinWeaponRange);
+    	if (range.equals("Melee")) {
+    		range = "0";
+    	}
+    	_weapon.setRange(Integer.parseInt(range));
+    	_weapon.setDamageDice(fieldValue(R.id.spinWeaponDice));
+    	_weapon.setAdditionalDamageDice(fieldValue(R.id.spinWeaponAdditionalDice));    	
+    }
+    
+    private String fieldValue(int id) {
+    	View v = findViewById(id);
+		String type = v.getClass().getName();
+		if (type.equals("android.widget.EditText")) {
+			EditText tv = (EditText) v;
+			return tv.getText().toString();
+		} else if (type.equals("android.widget.Spinner")) {
+			Spinner sp = (Spinner) v;
+			return sp.getSelectedItem().toString();
+		}
+		return "";
     }
     
     private void setupButtons() {

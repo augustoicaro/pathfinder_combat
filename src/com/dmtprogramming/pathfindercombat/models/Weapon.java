@@ -5,6 +5,8 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "weapons")
 public class Weapon {
 	
+	public static String[] CRITICAL_MULIPLIERS = { "x2", "x3", "x4", "x5" };	
+	
 	@DatabaseField(generatedId = true, columnName = "_id")
 	private long id;
 	@DatabaseField(canBeNull = true, foreign = true)
@@ -39,6 +41,9 @@ public class Weapon {
 	}
 	public void setCriticalMultiplier(int critical_multiplier) {
 		this.critical_multiplier = critical_multiplier;
+	}
+	public String getCriticalMultiplierString() {
+		return "x" + String.valueOf(getCriticalMultiplier());
 	}
 	public int getRange() {
 		return range;
