@@ -1,23 +1,24 @@
 package com.dmtprogramming.pathfindercombat.modifier;
 
-public class Plus4Str extends ModifierBase {
+public class Plus4Dex extends ModifierBase {
 
 	public String range() {
-		return _r_melee;
-	}
-
-	@Override
-	public int applyStr(int s) {
-		return s += 4;
+		return _r_ranged;
 	}
 	
 	@Override
-	public int applyStrMod(int s) {
+	public int applyDex(int s) {
+		return s + 4;
+	}
+
+	@Override
+	public int applyDexMod(int s) {
 		return s + 2;
 	}
 	
 	@Override
 	public String name() {
-		return "+4 Str";
+		return "+4 Dex";
 	}
+
 }

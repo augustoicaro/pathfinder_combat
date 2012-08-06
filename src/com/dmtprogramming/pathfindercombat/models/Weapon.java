@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "weapons")
 public class Weapon {
 	
-	public static String[] CRITICAL_MULIPLIERS = { "x2", "x3", "x4", "x5" };	
+	public static String[] CRITICAL_MULIPLIERS = { "2", "3", "4", "5" };	
 	
 	@DatabaseField(generatedId = true, columnName = "_id")
 	private long id;

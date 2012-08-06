@@ -37,11 +37,10 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/textView144"
+                android:id="@+id/txtPlusHitLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="@string/str"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -83,7 +82,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/txtStrModPlusAttack"
+                android:id="@+id/txtStatModPlusAttack"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center"

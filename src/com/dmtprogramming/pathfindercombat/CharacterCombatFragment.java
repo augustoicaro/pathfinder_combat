@@ -76,12 +76,23 @@ public class CharacterCombatFragment extends FragmentBase {
     	populateField(R.id.txtWeaponDice, f, ModifierField._damage_dice, w.getDamageDice());
     	
     	populateField(R.id.txtAttacks, f, ModifierField._none, c.getAttacks());
-    	populateField(R.id.txtStrModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+    	
+    	if (w.rangeString().equals("ranged")) {
+    		TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
+    		tv.setText("Dex");
+    		populateField(R.id.txtStatModPlusAttack, f, ModifierField._dex_mod, String.valueOf(c.getDexMod()));
+        	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(0));    		
+    	} else {
+    		TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
+    		tv.setText("Str");
+    		populateField(R.id.txtStatModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+        	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+    	}
     	populateField(R.id.txtWeaponPlusAttack, f, ModifierField._none, String.valueOf(w.getHit()));
     	populateField(R.id.txtWeaponFocusPlusAttack, f, ModifierField._none, String.valueOf(c.getWeaponFocusMod()));
     	populateField(R.id.txtOtherPlusAttack, f, ModifierField._hit, String.valueOf(0));
     	
-    	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+
     	populateField(R.id.txtWeaponPlusDamage, f, ModifierField._none, String.valueOf(w.getDamage()));
     	populateField(R.id.txtOtherPlusDamage, f, ModifierField._damage, String.valueOf(c.getPowerAttackDamage()));
     	
@@ -123,7 +134,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	
     	// plus to hit
     	int plusHit = 0;
-    	plusHit += parseIntField(R.id.txtStrModPlusAttack);
+    	plusHit += parseIntField(R.id.txtStatModPlusAttack);
     	plusHit += w.getHit();
     	plusHit += parseIntField(R.id.txtWeaponFocusPlusAttack);
     	plusHit += parseIntField(R.id.txtOtherPlusAttack);

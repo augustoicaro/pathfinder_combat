@@ -289,11 +289,13 @@ public class ConditionsFragment extends FragmentBase {
     	        _listAdapter.notifyDataSetChanged();
         	}
         }
-        Log.d(TAG, "populating list, count = " + conditions.size());
-        Iterator<Condition> i = conditions.iterator();
-        while (i.hasNext()) {
-        	Condition cond = i.next();
-        	Log.d(TAG, "     id = " + cond.getId());
+        if (conditions != null) {
+	        Log.d(TAG, "populating list, count = " + conditions.size());
+	        Iterator<Condition> i = conditions.iterator();
+	        while (i.hasNext()) {
+	        	Condition cond = i.next();
+	        	Log.d(TAG, "     id = " + cond.getId());
+	        }
         }
 	}
 	

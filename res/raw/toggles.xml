@@ -7,6 +7,8 @@
     <toggle name="Enlarge" />
     <toggle name="Plus2Str" />
     <toggle name="Plus4Str" />
+    <toggle name="Plus2Dex" />
+    <toggle name="Plus4Dex" />
     <toggle name="Haste" />
     <toggle name="Plus1d6Damage" />
     <toggle name="Plus2d6Damage" />
@@ -21,4 +23,6 @@
     <toggle name="Critical" />
     <toggle name="FavoredEnemy2" />
     <toggle name="FavoredEnemy4" />
+    <toggle name="RapidShot" />
+    <toggle name="PointBlank" />
 </toggles>

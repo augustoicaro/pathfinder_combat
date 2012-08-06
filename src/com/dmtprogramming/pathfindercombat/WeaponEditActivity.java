@@ -110,7 +110,7 @@ public class WeaponEditActivity extends Activity {
     	_weapon.setName(fieldValue(R.id.txtWeaponName));
     	_weapon.setHit(Integer.parseInt(fieldValue(R.id.spinWeaponHit)));
     	_weapon.setDamage(Integer.parseInt(fieldValue(R.id.spinWeaponDamage)));
-    	_weapon.setCriticalMultiplier(Integer.parseInt(fieldValue(R.id.spinWeaponHit)));
+    	_weapon.setCriticalMultiplier(Integer.parseInt(fieldValue(R.id.spinWeaponCritical)));
     	
     	String range = fieldValue(R.id.spinWeaponRange);
     	if (range.equals("Melee")) {
