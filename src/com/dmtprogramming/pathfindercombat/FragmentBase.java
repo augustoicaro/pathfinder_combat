@@ -13,8 +13,10 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +48,29 @@ public abstract class FragmentBase extends Fragment {
      	getActivity().registerReceiver(_receiver, filter);
     }
     
+    @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d(TAG, "requestCode == " + requestCode);
+        Log.d(TAG, "resultCode == " + resultCode);
+        
+        switch(requestCode) {
+        case(2):
+        	if (resultCode == Activity.RESULT_OK) { 
+	        	Bundle extras = data.getExtras();
+	        	if (extras != null) {
+	        	
+	        	String field = extras.getString("FIELD");
+	        	if (field != null) {
+	        		updateCharacter(field);
+	        	}
+        	}
+        }
+        break;
+        }
+    }
+    
 	protected DatabaseHelper getHelper() {
 	    if (databaseHelper == null) {
 	        databaseHelper =
@@ -56,7 +81,7 @@ public abstract class FragmentBase extends Fragment {
     
     // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
-		Log.d(TAG, "updateCharacter()");
+		Log.d(TAG, "updateCharacter() field = " + field);
 		Dao<PFCharacter, Integer> dao;
 		PFCharacter cha = getCharacter();
 		try {
@@ -75,12 +100,12 @@ public abstract class FragmentBase extends Fragment {
 		
 		Intent intent = new Intent();
 		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
-		intent.putExtra("field", field);
+		intent.putExtra("field", new String(field));
 		getActivity().sendBroadcast(intent);
 	}
 	
-	public void refreshCharacter() {
-		Log.d(TAG, "refreshCharacter()");
+	public void refreshCharacter(String field) {
+		Log.d(TAG, "refreshCharacter() field = " + field);
 		Dao<PFCharacter, Integer> dao;
 		PFCharacter cha = getCharacter();
 		try {
@@ -98,7 +123,7 @@ public abstract class FragmentBase extends Fragment {
 
 		Intent intent = new Intent();
 		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
-		intent.putExtra("field", "");
+		intent.putExtra("field", field);
 		getActivity().sendBroadcast(intent);		
 	}
 	
@@ -195,7 +220,7 @@ public abstract class FragmentBase extends Fragment {
 	public void onResume() {
      	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
     	getActivity().registerReceiver(_receiver, filter);
-    	refreshCharacter();
+    	refreshCharacter("");
 		super.onResume();
 	}
 

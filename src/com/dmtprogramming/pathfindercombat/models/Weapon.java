@@ -97,10 +97,13 @@ public class Weapon {
 		this.character = cha;
 	}
 	public String toString() {
+		return this.name + " (" + rangeString() + ")"; 
+	}
+	public String rangeString() {
 		String range_str = "melee";
 		if (this.range != 0) {
 			range_str = "ranged";
 		}
-		return this.name + " (" + range_str + ")"; 
+		return range_str;
 	}
 }

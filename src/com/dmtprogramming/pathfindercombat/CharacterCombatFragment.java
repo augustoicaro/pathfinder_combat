@@ -24,9 +24,12 @@ import com.dmtprogramming.pathfindercombat.WeaponActivity;
 public class CharacterCombatFragment extends FragmentBase {
 
 	private static final String TAG = "PFCombat:CharacterCombatFragment";
+	private String currentRange;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_combat_fragment, container, false);
+		
+		currentRange = "";
 		
 		setupIntentFilter();
 		
@@ -53,11 +56,10 @@ public class CharacterCombatFragment extends FragmentBase {
 				Intent myIntent = new Intent(view.getContext(), WeaponActivity.class);;
 
 				myIntent.putExtra("CHARACTER_ID", getCharacter().getId());
-				startActivityForResult(myIntent, 0);	            
+				startActivityForResult(myIntent, 2);	            
 			}
 		});
     }
-    	
 
 	protected void populateStats(String f) {
     	Log.d(TAG, "populateStats(" + f + ")");
@@ -66,6 +68,11 @@ public class CharacterCombatFragment extends FragmentBase {
     	PFCharacter c = getCharacter();
     	Weapon w = c.getWeapon();
 		
+    	if (!w.rangeString().equals(currentRange)) {
+    		currentRange = w.rangeString();
+    		updateToggleTable();
+    	}
+    	
     	populateField(R.id.txtWeaponDice, f, ModifierField._damage_dice, w.getDamageDice());
     	
     	populateField(R.id.txtAttacks, f, ModifierField._none, c.getAttacks());
@@ -83,7 +90,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	populateField(R.id.txtDailyTitle, f, ModifierField._none, c.getDailyTitle());
     	
     	// size modifier calcs
-    	String weaponDice = "1d6"; //c.getWeaponDamage();
+    	String weaponDice = w.getDamageDice();
     	int sizeMod = 0;
     	String sizeStr = applyToggles(ModifierField._size, "");
     	if (!sizeStr.equals("")) {
@@ -117,7 +124,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	// plus to hit
     	int plusHit = 0;
     	plusHit += parseIntField(R.id.txtStrModPlusAttack);
-    	//plusHit += parseIntField(R.id.spinWeaponPlus);
+    	plusHit += w.getHit();
     	plusHit += parseIntField(R.id.txtWeaponFocusPlusAttack);
     	plusHit += parseIntField(R.id.txtOtherPlusAttack);
     	String attacks = (String) ((TextView) findViewById(R.id.txtAttacks)).getText();
@@ -126,7 +133,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	// plus to damage
     	int plusDamage = 0;
     	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
-    	//plusDamage += parseIntField(R.id.spinWeaponPlus);
+    	plusDamage += w.getDamage();
     	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
     	calculateFinalPlusDamage(weaponDice, plusDamage);
 	}
@@ -152,8 +159,10 @@ public class CharacterCombatFragment extends FragmentBase {
     	while (iter.hasNext()) {
     		ModifierBase mod = iter.next();
 
+    		Log.d(TAG, "character weapon range = " + getCharacter().getWeapon().rangeString());
+    		
     		if (mod.appliesToCharacterClass(getCharacter().getCharacterClass()) &&
-    				mod.appliesToRange("melee")) {
+    				mod.appliesToRange(getCharacter().getWeapon().rangeString())) {
 	    		
 	    		ToggleButton button = new ToggleButton(getActivity());
 	    		button.setTextOn(mod.name());
@@ -198,6 +207,10 @@ public class CharacterCombatFragment extends FragmentBase {
     	String plusDamageDice = applyToggles(ModifierField._damage_dice, "");
     	if (!plusDamageDice.equals("")) {
     		plusDamageDice = " + " + plusDamageDice;
+    	}
+    	Weapon weapon = getCharacter().getWeapon();
+    	if (!weapon.getAdditionalDamageDice().equals("")) {
+    		plusDamageDice += " + " + weapon.getAdditionalDamageDice();
     	}
     	weaponDice = applyToggles(ModifierField._critical_damage_dice, weaponDice);
     	String plusDamageStr = applyToggles(ModifierField._critical_damage, String.valueOf(plusDamage));

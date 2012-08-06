@@ -72,6 +72,7 @@
     <string name="manage_weapons">Manage</string>
     <string name="edit_weapon">Edit Selected</string>
     <string name="select_weapon">Equip Select Weapon</string>
+    <string name="delete_weapon">Delete Weapon</string>
 
     <!-- weapon dialog -->
     <string name="weapon_name">Name</string>

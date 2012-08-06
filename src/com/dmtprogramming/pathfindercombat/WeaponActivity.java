@@ -12,7 +12,10 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.ForeignCollection;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,7 +66,10 @@ public class WeaponActivity extends ListActivity {
 		Intent editIntent = new Intent(view.getContext(), WeaponEditActivity.class);
 		editIntent.putExtra("CHARACTER_ID", _char.getId());
 		int pos = getListView().getCheckedItemPosition();
-		Weapon weapon = values.get(pos);
+		Weapon weapon = null;
+		if (pos != -1) {
+			weapon = values.get(pos);
+		}
 		
 		switch (view.getId()) {
 		case R.id.add_weapon:
@@ -86,14 +92,57 @@ public class WeaponActivity extends ListActivity {
 				try {
 					dao = getHelper().getCharacterDao();
 					dao.update(_char);
+					
+					Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
+					weaponDao.refresh(weapon);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				Intent intent = this.getIntent();
+				intent.putExtra("FIELD", "weapon_id");
+				if (getParent() == null) {
+					setResult(Activity.RESULT_OK, intent);
+				} else {
+					getParent().setResult(Activity.RESULT_OK, intent);
+				}
 				finish();
 			}
+			break;
+		case R.id.delete_weapon:
+			if (weapon != null) {
+				showConfirmDelete();
+			}
+			break;
 		}
 	}
+	
+	private void showConfirmDelete() {
+		new AlertDialog.Builder(this)
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setTitle("Delete")
+			.setMessage("Really delete selected weapon?")
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					int pos = getListView().getCheckedItemPosition();
+					Weapon weapon = values.get(pos);
+					Dao<Weapon, Integer> dao;
+					try {
+						dao = getHelper().getWeaponDao();
+						dao.delete(weapon);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					populateList();
+				}
+			})
+			.setNegativeButton("No", null)
+			.show();
+	}
+	
 	
 	@Override
 	public void onResume() {

@@ -14,8 +14,8 @@ public class CharacterUpdateReceiver extends BroadcastReceiver {
 		_base = base;
 	}
 	
-	public void onReceive(Context arg0, Intent arg1) {
-		String field = arg1.getExtras().getString("field");
+	public void onReceive(Context context, Intent intent) {
+		String field = (String)intent.getExtras().get("field");
 		Log.d(TAG, "got update intent update for field = " + field);
 		_base.onAfterUpdateCharacter(field);
 	}
