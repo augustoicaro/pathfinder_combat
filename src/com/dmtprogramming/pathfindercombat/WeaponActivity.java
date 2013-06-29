@@ -25,7 +25,7 @@ import android.widget.ListView;
 
 public class WeaponActivity extends ListActivity {
 	
-	private static final String TAG = "PFCombat:WeaponActivity";
+	private static final String TAG = "PFCombat";
 	private PFCharacter _char;
 	private List<Weapon> values; 
 	
@@ -35,7 +35,7 @@ public class WeaponActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        Log.v(TAG, String.format("test"));
+				Log.v(TAG, String.format("WeaponActivity: test"));
         setContentView(R.layout.weapon_dialog);
 
         Bundle extras = getIntent().getExtras();
@@ -80,15 +80,15 @@ public class WeaponActivity extends ListActivity {
 				editIntent.putExtra("WEAPON_ID", weapon.getId());
 				startActivityForResult(editIntent, 0);
 			} else {
-				Log.d(TAG, "no weapon selected!!");
+				Log.d(TAG, "WeaponActivity: no weapon selected!!");
 			}
 			break;
 		case R.id.select_weapon:
 			if (weapon != null) {
 				_char.setWeapon(weapon);
-				Log.d(TAG, "equiping weapon - " + weapon.toString());
-				Log.d(TAG, "character weapon = " + _char.getWeapon().toString());
-	    		Dao<PFCharacter, Integer> dao;
+				Log.d(TAG, "WeaponActivity: equiping weapon - " + weapon.toString());
+				Log.d(TAG, "WeaponActivity: character weapon = " + _char.getWeapon().toString());
+	    	Dao<PFCharacter, Integer> dao;
 				try {
 					dao = getHelper().getCharacterDao();
 					dao.update(_char);

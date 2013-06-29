@@ -20,7 +20,7 @@ import com.dmtprogramming.pathfindercombat.modifier.ModifierFactory;
 
 public class ConditionData {
 	
-	private static final String TAG = "PFCombat:ConditionData";
+	private static final String TAG = "PFCombat";
 	
 	private String name;
 	private String short_description;
@@ -56,7 +56,7 @@ public class ConditionData {
 				Element elm = (Element)condition_nodes.item(i);
 				ConditionData condition = new ConditionData();
 				condition.setName(elm.getAttribute("name"));
-				Log.d(TAG, "Adding condition with name = " + condition.getName());
+				Log.d(TAG, "ConditionData: Adding condition with name = " + condition.getName());
 				condition.setShortDescription(getDescriptionContent(elm, "short_description"));
 				condition.setLongDescription(getDescriptionContent(elm, "long_description"));
 				condition.setModifier(ModifierFactory.create(condition.getName()));

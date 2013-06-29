@@ -7,7 +7,7 @@ import android.widget.Spinner;
 
 //text watcher for the various text fields on the page
 class CustomSpinnerWatcher implements AdapterView.OnItemSelectedListener {
-	private static final String TAG = "PFCombat:CustomTextWatcher";
+	private static final String TAG = "PFCombat";
 	private Spinner _spinner;
 	private String _field;
 	private FragmentBase _fragment;
@@ -20,7 +20,7 @@ class CustomSpinnerWatcher implements AdapterView.OnItemSelectedListener {
 	
 	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
 	 	if (_fragment.getCharacter().setData(_field, _spinner.getSelectedItem().toString())) {
-	 		Log.d(TAG, _field + " updated successfully, updating the sheet");
+			Log.d(TAG, "CustomTextWatcher: " + _field + " updated successfully, updating the sheet");
 	 		_fragment.updateCharacter(_field); 
 	    }
 	}

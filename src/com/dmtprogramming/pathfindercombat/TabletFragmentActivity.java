@@ -12,7 +12,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
 public class TabletFragmentActivity extends FragmentActivity {
-	private static final String TAG = "PFCombat:ViewPagerFragmentActivity";
+	private static final String TAG = "PFCombat";
 	
 	private PFCharacter _char;
 	
@@ -56,7 +56,7 @@ public class TabletFragmentActivity extends FragmentActivity {
         }
         
         if (_char != null) {
-        	Log.d(TAG, "loaded character with id = " + _char.getId());
+					Log.d(TAG, "ViewPagerFragmentActivity: loaded character with id = " + _char.getId());
         }
 	}  
 	

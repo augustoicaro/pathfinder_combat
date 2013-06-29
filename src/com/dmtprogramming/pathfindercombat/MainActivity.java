@@ -19,16 +19,15 @@ import com.j256.ormlite.dao.Dao;
 
 public class MainActivity extends ListActivity {
 	
-	private static final String TAG = "PFCombat:MainActivity";
+	private static final String TAG = "PFCombat";
 	private PFCombatApplication _app;
-	
 	private DatabaseHelper databaseHelper = null;
     
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(TAG, String.format("test"));
+				Log.v(TAG, String.format("MainActivity: test"));
         setContentView(R.layout.main);
         
         _app = (PFCombatApplication)this.getApplication();
@@ -66,12 +65,12 @@ public class MainActivity extends ListActivity {
 
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		PFCharacter cha = (PFCharacter) getListAdapter().getItem(position);
-		Log.d(TAG, "character selected with id = " + cha.getId());
+		Log.d(TAG, "MainActivity: character selected with id = " + cha.getId());
 		
 		Intent myIntent = new Intent(v.getContext(), ViewPagerFragmentActivity.class);;
 		
 		int layout = getResources().getConfiguration().screenLayout;
-		Log.d(TAG, "screen layout = " + layout);
+		Log.d(TAG, "MainActivity: screen layout = " + layout);
 		if (isScreenSize(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
 			myIntent.putExtra("TABLET", true);
 		} else {

@@ -15,7 +15,7 @@ import android.util.Log;
 
 public class PFCombatApplication extends Application {
 	
-	private static final String TAG = "PFCombat:PFCombatApplication";
+	private static final String TAG = "PFCombat";
 
 	private PFCharacter _current_character = null;
 	private List<ConditionData> _conditionData;
@@ -26,7 +26,7 @@ public class PFCombatApplication extends Application {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		Log.v(TAG, "onCreate()");
+		Log.v(TAG, "PFCombatApplication: onCreate()");
 
 		_app = this;
 		setup();

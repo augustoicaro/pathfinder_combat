@@ -19,7 +19,7 @@ import com.dmtprogramming.pathfindercombat.modifier.ModifierBase;
 import com.dmtprogramming.pathfindercombat.modifier.ModifierFactory;
 
 public class Toggles {
-	private static final String TAG = "PFCombat:Toggles";
+	private static final String TAG = "PFCombat";
 	
 	public static List<ModifierBase> loadToggles(InputStream xml) {
 		List<ModifierBase> modifiers = new ArrayList<ModifierBase>();
@@ -29,7 +29,7 @@ public class Toggles {
 			NodeList condition_nodes = doc.getElementsByTagName("toggle");
 			for (int i = 0; i < condition_nodes.getLength(); i++) {
 				Element elm = (Element)condition_nodes.item(i);
-				Log.d(TAG, "Adding toggle with name = " + elm.getAttribute("name"));
+				Log.d(TAG, "Toggles: Adding toggle with name = " + elm.getAttribute("name"));
 				modifiers.add(ModifierFactory.create(elm.getAttribute("name")));
 			}
 		} catch (ParserConfigurationException e) {

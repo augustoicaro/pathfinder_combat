@@ -23,7 +23,7 @@ import com.dmtprogramming.pathfindercombat.WeaponActivity;
 
 public class CharacterCombatFragment extends FragmentBase {
 
-	private static final String TAG = "PFCombat:CharacterCombatFragment";
+	private static final String TAG = "PFCombat";
 	private String currentRange;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class CharacterCombatFragment extends FragmentBase {
     }
 
 	protected void populateStats(String f) {
-    	Log.d(TAG, "populateStats(" + f + ")");
+			Log.d(TAG, "CharacterCombatFragment: populateStats(" + f + ")");
     	
     	// save some typing
     	PFCharacter c = getCharacter();
@@ -170,7 +170,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	while (iter.hasNext()) {
     		ModifierBase mod = iter.next();
 
-    		Log.d(TAG, "character weapon range = " + getCharacter().getWeapon().rangeString());
+				Log.d(TAG, "CharacterCombatFragment: character weapon range = " + getCharacter().getWeapon().rangeString());
     		
     		if (mod.appliesToCharacterClass(getCharacter().getCharacterClass()) &&
     				mod.appliesToRange(getCharacter().getWeapon().rangeString())) {
@@ -190,7 +190,7 @@ public class CharacterCombatFragment extends FragmentBase {
 	    			row = new TableRow(getActivity());
 	    			position = 0;
 	    		}
-	    		Log.d(TAG, "added modifier toggle name = " + mod.name());
+					Log.d(TAG, "CharacterCombatFragment: added modifier toggle name = " + mod.name());
     		}
     	}
     	if (position != 4) {

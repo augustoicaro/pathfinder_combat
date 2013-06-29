@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 public class CharacterInfoFragment extends FragmentBase {
 	
-	private static final String TAG = "PFCombat:CharacterInfoFragment";
+	private static final String TAG = "PFCombat";
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_info_fragment, container, false);
@@ -29,10 +29,12 @@ public class CharacterInfoFragment extends FragmentBase {
     // populate all of the stats from the db model
     // also uses the toggles to change the data
     public void populateStats(String f) {
-    	Log.d(TAG, "populateStats(" + f + ")");
+			Log.d(TAG, "CharacterInfoFragment: populateStats(" + f + ")");
     	
     	// save some typing
     	PFCharacter c = getCharacter();
+			Log.d(TAG, "CharacterInfoFragment: Character: " + c.getName() + " loaded with: " + 
+            String.valueOf(c.getStr()) + String.valueOf(c.getDex()) + String.valueOf(c.getCon()) + String.valueOf(c.getInt()) + String.valueOf(c.getWis())+ String.valueOf(c.getCha()));
     	
     	populateField(R.id.txtCharacter, f, ModifierField._none, c.getName());
     	//populateField(R.id.txtPlayer, f, "player", c.getPlayer());

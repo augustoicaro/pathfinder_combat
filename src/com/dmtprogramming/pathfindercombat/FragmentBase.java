@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 public abstract class FragmentBase extends Fragment {
 
-	private static final String TAG = "PFCombat:FragmentBase";
+	private static final String TAG = "PFCombat";
 	
 	protected View _view;
 	protected List<ModifierBase> _mods;
@@ -52,8 +52,8 @@ public abstract class FragmentBase extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d(TAG, "requestCode == " + requestCode);
-        Log.d(TAG, "resultCode == " + resultCode);
+				Log.d(TAG, "FragmentBase: requestCode == " + requestCode);
+				Log.d(TAG, "FragmentBase: resultCode == " + resultCode);
         
         switch(requestCode) {
         case(2):
@@ -81,7 +81,7 @@ public abstract class FragmentBase extends Fragment {
     
     // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
-		Log.d(TAG, "updateCharacter() field = " + field);
+		Log.d(TAG, "FragmentBase: updateCharacter() field = " + field);
 		Dao<PFCharacter, Integer> dao;
 		PFCharacter cha = getCharacter();
 		try {
@@ -105,7 +105,7 @@ public abstract class FragmentBase extends Fragment {
 	}
 	
 	public void refreshCharacter(String field) {
-		Log.d(TAG, "refreshCharacter() field = " + field);
+		Log.d(TAG, "FragmentBase: refreshCharacter() field = " + field);
 		Dao<PFCharacter, Integer> dao;
 		PFCharacter cha = getCharacter();
 		try {
@@ -174,23 +174,28 @@ public abstract class FragmentBase extends Fragment {
 	 
     // apply the stats from all of the toggles to a single field
 	protected String applyToggles(ModifierField field, String value) {
-		Log.d(TAG, "applyToggles(" + field + ", " + value +")");
+		Log.d(TAG, "FragmentBase: applyToggles(" + field + ", " + value +")");
 		
 		// apply modifiers
 		for (int i = 0; i < _mods.size(); i++) {
 			ModifierBase mod = _mods.get(i);
 			value = mod.apply(field, value);
 		}
+		Log.d(TAG, "FragmentBase: Toggle modifier applyed");
 		
 		// apply conditions
-		ForeignCollection<Condition> conditions = getCharacter().getConditions();
-		Iterator<Condition> iter = conditions.iterator();
-		while(iter.hasNext()) {
-			Condition cond = iter.next();
-			ModifierBase mod = cond.getModifier();
-			mod.setEnabled(true);
-			value = mod.apply(field, value);
-			Log.d(TAG, "applying condition modifier name = " + mod.name());
+		Log.d(TAG, "FragmentBase: " + getCharacter().getConditions());
+		if( getCharacter().getConditions() != null ){
+		  ForeignCollection<Condition> conditions = getCharacter().getConditions();
+  		Iterator<Condition> iter = conditions.iterator();
+	  	Log.d(TAG, "FragmentBase: Condition = " + conditions + " Iterator = " + iter);
+  		while(iter.hasNext()) {
+  			Condition cond = iter.next();
+  			ModifierBase mod = cond.getModifier();
+  			mod.setEnabled(true);
+  			value = mod.apply(field, value);
+  			Log.d(TAG, "FragmentBase: applying condition modifier name = " + mod.name());
+  		}	
 		}
 		return value;
 	}

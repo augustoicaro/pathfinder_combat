@@ -17,7 +17,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final int DBVERSION = 7;
 	
-	private static final String TAG = "PFCombat:DatabaseHelper";
+	private static final String TAG = "PFCombat";
 	
 	private static final String _dbName = "PFCombat";
 
@@ -90,10 +90,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			} else if (oldVersion == 7) {
 				addWeaponsTable(db, source);
 			} else {
-				Log.v(TAG, String.format("unknown upgrade to db from version %d", oldVersion));
+				Log.v(TAG, String.format("DatabaseHelper: unknown upgrade to db from version %d", oldVersion));
 			}
 		} catch (SQLException e) {
-			Log.v(TAG, String.format("error upgrading database", e));
+			Log.v(TAG, String.format("DatabaseHelper: error upgrading database", e));
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -103,7 +103,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, Weapon.class);
 		} catch (SQLException e) {
-			Log.v(TAG, "Unable to create databases", e);
+			Log.v(TAG, "DatabaseHelper: Unable to create databases", e);
 		}
 		Dao<PFCharacter, Integer> dao = getCharacterDao();
 		dao.executeRaw("ALTER TABLE characters ADD COLUMN weapon_id INTEGER");
@@ -147,7 +147,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.createTable(connectionSource, Condition.class);
 		} catch (SQLException e) {
-			Log.v(TAG, "Unable to create databases", e);
+			Log.v(TAG, "DatabaseHelper: Unable to create databases", e);
 		}
 	}
 
@@ -158,15 +158,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Condition.class);
 			TableUtils.createTable(connectionSource, Weapon.class);
 		} catch (SQLException e) {
-			Log.v(TAG, "Unable to create databases", e);
+			Log.v(TAG, "DatabaseHelper: Unable to create databases", e);
 		}
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource source, int oldVersion, int newVersion) {
-		Log.v(TAG, String.format("onUpgrade(%d, %d)", oldVersion, newVersion));
+		Log.v(TAG, String.format("DatabaseHelper: onUpgrade(%d, %d)", oldVersion, newVersion));
 		while (oldVersion < newVersion) {
-			Log.v(TAG, String.format("upgrading database from version %d to %d", oldVersion, oldVersion + 1));
+			Log.v(TAG, String.format("DatabaseHelper: upgrading database from version %d to %d", oldVersion, oldVersion + 1));
 			doUpgrade(db, source, oldVersion);
 			oldVersion++;
 		}

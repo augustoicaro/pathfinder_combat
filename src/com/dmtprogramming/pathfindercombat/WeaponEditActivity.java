@@ -6,7 +6,6 @@ import com.dmtprogramming.pathfindercombat.database.DatabaseHelper;
 import com.dmtprogramming.pathfindercombat.models.Weapon;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 public class WeaponEditActivity extends Activity {
-	private static final String TAG = "PFCombat:WeaponEditActivity";
+	private static final String TAG = "PFCombat";
 	private Weapon _weapon;
 	private PFCombatApplication _app;
 	private boolean new_record;
@@ -52,7 +51,7 @@ public class WeaponEditActivity extends Activity {
         }
         
         if (_weapon != null) {
-        	Log.d(TAG, "loaded weapon with id = " + _weapon.getId());
+					Log.d(TAG, "WeaponEditActivity: loaded weapon with id = " + _weapon.getId());
         	new_record = false;
         } else {
         	_weapon = new Weapon();
@@ -148,7 +147,7 @@ public class WeaponEditActivity extends Activity {
 	        			dao.update(_weapon);
 	        		}
 				} catch (SQLException e) {
-					Log.d(TAG, "error saving weapon to database");
+					Log.d(TAG, "WeaponEditActivity: error saving weapon to database");
 				}
 				finish();
 			}

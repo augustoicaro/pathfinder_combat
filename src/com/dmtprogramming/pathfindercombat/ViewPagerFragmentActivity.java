@@ -27,7 +27,7 @@ import com.j256.ormlite.dao.Dao;
 
 public class ViewPagerFragmentActivity extends FragmentActivity {
 
-	private static final String TAG = "PFCombat:ViewPagerFragmentActivity";
+	private static final String TAG = "PFCombat";
 	
 	private PagerAdapter mPagerAdapter;
 	private PFCharacter _char;
@@ -59,9 +59,9 @@ public class ViewPagerFragmentActivity extends FragmentActivity {
         }
         
         if (_char != null) {
-        	Log.d(TAG, "loaded character with id = " + _char.getId());
+					Log.d(TAG, "ViewPagerFragmentActivity: loaded character with id = " + _char.getId());
         } else {
-        	Log.d(TAG, "CHARACTER IS NULL!!!!!!!");
+					Log.d(TAG, "ViewPagerFragmentActivity: CHARACTER IS NULL!!!!!!!");
         }
             
         if (loadTablet) {

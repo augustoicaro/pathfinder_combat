@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 public class ConditionsFragment extends FragmentBase {
 	
-	private static final String TAG = "PFCombat:ConditionsFragment";
+	private static final String TAG = "PFCombat";
 	private ConditionArrayAdapter _listAdapter;
 	private ForeignCollection<Condition> conditions;
 	private LayoutInflater inflater;
@@ -75,7 +75,7 @@ public class ConditionsFragment extends FragmentBase {
 	
 	private void setupView() {
 		// TODO Auto-generated method stub
-		Log.d(TAG, "test");
+		Log.d(TAG, "ConditionsFragment: test");
 		populateList();
 		
 		Button newCondition = (Button) findViewById(R.id.btnNewCondition);
@@ -209,14 +209,14 @@ public class ConditionsFragment extends FragmentBase {
 	private void hideShowConditionMenu(boolean checked, ConditionViewHolder activeHolder) {
 		if (checked) {
 			this.checked.add(activeHolder.condition);
-			Log.d(TAG, "list checkbox added, showing the menu");
+			Log.d(TAG, "ConditionsFragment: list checkbox added, showing the menu");
 			showConditionMenu();
 		} else {
 			this.checked.remove(activeHolder.condition);
 			if (this.checked.size() == 0) {
 				hideConditionMenu();
 			}
-			Log.d(TAG, "list checkbox removed");
+			Log.d(TAG, "ConditionsFragment: list checkbox removed");
 		}
 	}
 	
@@ -290,11 +290,11 @@ public class ConditionsFragment extends FragmentBase {
         	}
         }
         if (conditions != null) {
-	        Log.d(TAG, "populating list, count = " + conditions.size());
+					Log.d(TAG, "ConditionsFragment: populating list, count = " + conditions.size());
 	        Iterator<Condition> i = conditions.iterator();
 	        while (i.hasNext()) {
 	        	Condition cond = i.next();
-	        	Log.d(TAG, "     id = " + cond.getId());
+						Log.d(TAG, "ConditionsFragment:      id = " + cond.getId());
 	        }
         }
 	}
