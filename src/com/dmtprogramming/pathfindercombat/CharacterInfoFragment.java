@@ -33,8 +33,7 @@ public class CharacterInfoFragment extends FragmentBase {
     	
     	// save some typing
     	PFCharacter c = getCharacter();
-			Log.d(TAG, "CharacterInfoFragment: Character: " + c.getName() + " loaded with: " + 
-            String.valueOf(c.getStr()) + String.valueOf(c.getDex()) + String.valueOf(c.getCon()) + String.valueOf(c.getInt()) + String.valueOf(c.getWis())+ String.valueOf(c.getCha()));
+			Log.d(TAG, "CharacterInfoFragment: Character: " + c.getName());
     	
     	populateField(R.id.txtCharacter, f, ModifierField._none, c.getName());
     	//populateField(R.id.txtPlayer, f, "player", c.getPlayer());

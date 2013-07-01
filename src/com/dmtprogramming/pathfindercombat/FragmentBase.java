@@ -148,8 +148,9 @@ public abstract class FragmentBase extends Fragment {
 			String type = v.getClass().getName();
 			if (type.equals("android.widget.EditText")) {
 				EditText e = (EditText) v;
-				e.clearFocus();
+				//e.clearFocus();
 	    		e.setText(value);
+					e.setSelection(e.getText().length());
 			} else if (type.equals("android.widget.TextView")) {
 				TextView e = (TextView) v;
 				e.clearFocus();
@@ -184,11 +185,11 @@ public abstract class FragmentBase extends Fragment {
 		Log.d(TAG, "FragmentBase: Toggle modifier applyed");
 		
 		// apply conditions
-		Log.d(TAG, "FragmentBase: " + getCharacter().getConditions());
+	  Log.d(TAG, "FragmentBase: " + getCharacter().getConditions());
 		if( getCharacter().getConditions() != null ){
 		  ForeignCollection<Condition> conditions = getCharacter().getConditions();
   		Iterator<Condition> iter = conditions.iterator();
-	  	Log.d(TAG, "FragmentBase: Condition = " + conditions + " Iterator = " + iter);
+	  	//Log.d(TAG, "FragmentBase: Condition = " + conditions + " Iterator = " + iter);
   		while(iter.hasNext()) {
   			Condition cond = iter.next();
   			ModifierBase mod = cond.getModifier();

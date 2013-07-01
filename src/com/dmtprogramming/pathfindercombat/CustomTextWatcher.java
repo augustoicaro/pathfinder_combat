@@ -22,17 +22,18 @@ class CustomTextWatcher implements TextWatcher {
  public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
  public void afterTextChanged(Editable s) {
+  Log.d(TAG, "CustomTextWatcher: Entered!");
 	if (_text == null) {
 		return;
 	}
- 	String txt = _text.getText().toString();
+ 	String txt = _text.getText().toString(); 
  	if (txt == null || txt.equals("")) {
  		return;
  	}
  	if (_fragment != null && _fragment.getCharacter() != null) {
 	 	if (_fragment.getCharacter().setData(_field, _text.getText().toString())) {
 			Log.d(TAG, "CustomTextWatcher: " + _field + " updated successfully, updating the sheet");
-	 		_fragment.updateCharacter(_field);
+		  _fragment.updateCharacter(_field);
 	 	}
  	}
  }
