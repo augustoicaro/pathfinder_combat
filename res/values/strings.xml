@@ -8,6 +8,7 @@
     <string name="damage">DAMAGE</string>
     <string name="conditions">CONDITIONS</string>
     <string name="weapon">WEAPON</string>
+		<string name="dailyPowers">DAILY POWERS</string>
     
     <!-- stats -->
     <string name="player">Player</string>

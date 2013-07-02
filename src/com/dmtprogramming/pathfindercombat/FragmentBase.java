@@ -48,28 +48,32 @@ public abstract class FragmentBase extends Fragment {
      	getActivity().registerReceiver(_receiver, filter);
     }
     
-    @Override
+  @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+  	super.onActivityResult(requestCode, resultCode, data);
 
-				Log.d(TAG, "FragmentBase: requestCode == " + requestCode);
-				Log.d(TAG, "FragmentBase: resultCode == " + resultCode);
+		Log.d(TAG, "FragmentBase: requestCode == " + requestCode);
+		Log.d(TAG, "FragmentBase: resultCode == " + resultCode);
         
-        switch(requestCode) {
-        case(2):
-        	if (resultCode == Activity.RESULT_OK) { 
-	        	Bundle extras = data.getExtras();
-	        	if (extras != null) {
-	        	
+    switch(requestCode) {
+    	case(2):
+        if (resultCode == Activity.RESULT_OK) { 
+	        Bundle extras = data.getExtras();
+	        if (extras != null) {
 	        	String field = extras.getString("FIELD");
 	        	if (field != null) {
-	        		updateCharacter(field);
-	        	}
-        	}
-        }
+							Log.d(TAG, "FragmentBase: extras field == " + field);	
+	        		if(field.compareTo("weapon_id") == 0){
+								updateCharacterWeapon(field);	
+							} else{
+								updateCharacter(field);
+							}
+	       		}
+       		}
+       	}
         break;
-        }
     }
+  }
     
 	protected DatabaseHelper getHelper() {
 	    if (databaseHelper == null) {
@@ -81,7 +85,7 @@ public abstract class FragmentBase extends Fragment {
     
     // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
-		Log.d(TAG, "FragmentBase: updateCharacter() field = " + field);
+		Log.d(TAG, "FragmentBase: updateCharacter() field == " + field);
 		Dao<PFCharacter, Integer> dao;
 		PFCharacter cha = getCharacter();
 		try {
@@ -89,9 +93,9 @@ public abstract class FragmentBase extends Fragment {
 			dao.update(cha);
 			dao.refresh(cha);
 			//cha = dao.queryForId((int) cha.getId());
-			Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
-			weaponDao.update(cha.getWeapon());
-			weaponDao.refresh(cha.getWeapon());
+			//Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
+			//weaponDao.update(cha.getWeapon());
+			//weaponDao.refresh(cha.getWeapon());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -106,8 +110,32 @@ public abstract class FragmentBase extends Fragment {
 		getActivity().sendBroadcast(intent);
 	}
 	
+	// saves the character after a weapon update and refreshes everything
+	public void updateCharacterWeapon(String field) {
+		Log.d(TAG, "FragmentBase: updateCharacterWeapon() field == " + field);
+		Dao<PFCharacter, Integer> dao;
+		PFCharacter cha = getCharacter();
+		try {
+			dao = getHelper().getCharacterDao();
+			cha = dao.queryForId((int) cha.getId());
+			dao.update(cha);
+			dao.refresh(cha);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		PFCombatApplication app = PFCombatApplication.getApplication();
+		app.setCurrentCharacter(cha);
+
+	  Intent intent = new Intent();
+		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.putExtra("field", new String(field));
+		getActivity().sendBroadcast(intent);
+	}
+	
 	public void refreshCharacter(String field) {
-		Log.d(TAG, "FragmentBase: refreshCharacter() field = " + field);
+		Log.d(TAG, "FragmentBase: refreshCharacter() field == " + field);
 		Dao<PFCharacter, Integer> dao;
 		PFCharacter cha = getCharacter();
 		try {
@@ -197,10 +225,10 @@ public abstract class FragmentBase extends Fragment {
   			ModifierBase mod = cond.getModifier();
   			mod.setEnabled(true);
   			value = mod.apply(field, value);
-  			Log.d(TAG, "FragmentBase: applying condition modifier name = " + mod.name());
+  			Log.d(TAG, "FragmentBase: applying condition modifier name == " + mod.name());
   		}	
 		}
-		Log.d(TAG, "FragmentBase: applyToggles returns vqlue = " + value);
+		Log.d(TAG, "FragmentBase: applyToggles returns value == " + value);
 		if( value_aux.compareTo(value) < 0 )
 		  return value_aux;
 		else

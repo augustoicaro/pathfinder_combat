@@ -92,8 +92,10 @@ public class WeaponActivity extends ListActivity {
 				try {
 					dao = getHelper().getCharacterDao();
 					dao.update(_char);
+					dao.refresh(_char);
 					
 					Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
+					weaponDao.update(weapon);
 					weaponDao.refresh(weapon);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

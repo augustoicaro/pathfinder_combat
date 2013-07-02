@@ -2,17 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="false" >
+    android:baselineAligned="false"
+		android:orientation="vertical">
 
     <TableLayout
-        android:id="@+id/combat_toggles"
-        android:layout_width="match_parent"
+      android:id="@+id/combat_toggles"
+      android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:stretchColumns="*" />
-    
+
+
+    <View style="@style/horizontal_break" />
+		<TextView
+        android:id="@+id/textView18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dailyPowers"
+        style="@style/section_header" />
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
 
