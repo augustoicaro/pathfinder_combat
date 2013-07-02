@@ -1,10 +1,10 @@
 Pathfinder Combat Project
 =================
-![alt text](http://www.augustoicaro.com/pfcombat/pfproject.jpg "PathFinder Combat Project Logo")
+![Pathfinder Combat Project](http://www.augustoicaro.com/pfcombat/pfproject.jpg "PathFinder Combat Project Logo")
 
 #Welcome
 
-This project is for Pathfinder role playing game.
+This project is for Pathfinder Role Playing Game.
 
 We understand that pen and paper RPGs are designed to be use with, well, pen and paper. In order to accommodate this, our character sheet is designed to resemble traditional character sheets as much as possible,with just the right amount of technological assistance.
 
