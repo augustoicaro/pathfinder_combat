@@ -87,8 +87,10 @@ public abstract class FragmentBase extends Fragment {
 		try {
 			dao = getHelper().getCharacterDao();
 			dao.update(cha);
+			dao.refresh(cha);
 			//cha = dao.queryForId((int) cha.getId());
 			Dao<Weapon, Integer> weaponDao = getHelper().getWeaponDao();
+			weaponDao.update(cha.getWeapon());
 			weaponDao.refresh(cha.getWeapon());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -183,7 +185,7 @@ public abstract class FragmentBase extends Fragment {
 			value = mod.apply(field, value);
 		}
 		Log.d(TAG, "FragmentBase: Toggle modifier applyed");
-		
+		String value_aux = value;
 		// apply conditions
 	  Log.d(TAG, "FragmentBase: " + getCharacter().getConditions());
 		if( getCharacter().getConditions() != null ){
@@ -198,7 +200,11 @@ public abstract class FragmentBase extends Fragment {
   			Log.d(TAG, "FragmentBase: applying condition modifier name = " + mod.name());
   		}	
 		}
-		return value;
+		Log.d(TAG, "FragmentBase: applyToggles returns vqlue = " + value);
+		if( value_aux.compareTo(value) < 0 )
+		  return value_aux;
+		else
+		  return value;
 	}
 	
     protected View findViewById(int id) {

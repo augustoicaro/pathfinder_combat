@@ -191,6 +191,7 @@ public class ConditionsFragment extends FragmentBase {
 				}
 
 				populateList();
+				updateCharacter("");
 				hideConditionMenu();
 			}
 		});
@@ -231,6 +232,7 @@ public class ConditionsFragment extends FragmentBase {
 		_listAdapter = null;
 		
         conditions = getCharacter().getConditions();
+        Log.d(TAG, "ConditionsFragment: Populatelist() conditions = " + conditions);
         if (conditions != null) { 
         	_listAdapter = new ConditionArrayAdapter(getActivity(), conditions, this);
         }
