@@ -64,7 +64,7 @@ public abstract class FragmentBase extends Fragment {
 	        	String field = extras.getString("FIELD");
 	        	if (field != null) {
 							Log.d(TAG, "FragmentBase: extras field == " + field);	
-	        		if(field.compareTo("weapon_id") == 0){
+	        		if(field.equals("weapon_id")){
 								updateCharacterWeapon(field);	
 							} else{
 								updateCharacter(field);

@@ -22,7 +22,7 @@ class CustomTextWatcher implements TextWatcher {
  public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
  public void afterTextChanged(Editable s) {
-  Log.d(TAG, "CustomTextWatcher: Entered!");
+  Log.d(TAG, "CustomTextWatcher: Entered! editing field == " + _field + " And new tex == " + _text.getText().toString());
 	if (_text == null) {
 		return;
 	}

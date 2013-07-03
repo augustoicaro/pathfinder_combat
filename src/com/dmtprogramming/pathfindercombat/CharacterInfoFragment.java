@@ -65,7 +65,7 @@ public class CharacterInfoFragment extends FragmentBase {
     	setupEditTextTrigger(R.id.txtStr, "str");
     	setupEditTextTrigger(R.id.txtDex, "dex");
     	setupEditTextTrigger(R.id.txtCon, "con");
-    	setupEditTextTrigger(R.id.txtInt, "int");
+    	setupEditTextTrigger(R.id.txtInt, "intel");
     	setupEditTextTrigger(R.id.txtWis, "wis");
     	setupEditTextTrigger(R.id.txtCha, "cha");
     	
