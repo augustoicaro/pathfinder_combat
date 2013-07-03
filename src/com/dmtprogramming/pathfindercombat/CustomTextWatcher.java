@@ -33,7 +33,8 @@ class CustomTextWatcher implements TextWatcher {
  	if (_fragment != null && _fragment.getCharacter() != null) {
 	 	if (_fragment.getCharacter().setData(_field, _text.getText().toString())) {
 			Log.d(TAG, "CustomTextWatcher: " + _field + " updated successfully, updating the sheet");
-		  _fragment.updateCharacter(_field);
+			int lastCursor = _text.getSelectionStart();
+		  _fragment.updateCharacter(_field, lastCursor);
 	 	}
  	}
  }

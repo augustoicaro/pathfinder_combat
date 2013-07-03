@@ -32,21 +32,22 @@ public abstract class FragmentBase extends Fragment {
 	protected View _view;
 	protected List<ModifierBase> _mods;
 	private CharacterUpdateReceiver _receiver;
+	private static int _lastCursor = 0;
     
-    public abstract void onAfterUpdateCharacter(String field);
-    protected abstract void populateStats(String field);
+  public abstract void onAfterUpdateCharacter(String field);
+  protected abstract void populateStats(String field);
 	
 	private DatabaseHelper databaseHelper = null;
     
-    public FragmentBase() {
-     	_mods = new ArrayList<ModifierBase>();
-    }
+  public FragmentBase() {
+  	_mods = new ArrayList<ModifierBase>();
+  }
     
-    public void setupIntentFilter() {
-     	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
-     	_receiver = new CharacterUpdateReceiver(this);
-     	getActivity().registerReceiver(_receiver, filter);
-    }
+  public void setupIntentFilter() {
+    IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+   	_receiver = new CharacterUpdateReceiver(this);
+   	getActivity().registerReceiver(_receiver, filter);
+  }
     
   @Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -83,7 +84,7 @@ public abstract class FragmentBase extends Fragment {
 	    return databaseHelper;
 	}
     
-    // saves the character after a field update and refreshes everything
+  // saves the character after a field update and refreshes everything
 	public void updateCharacter(String field) {
 		Log.d(TAG, "FragmentBase: updateCharacter() field == " + field);
 		Dao<PFCharacter, Integer> dao;
@@ -109,6 +110,32 @@ public abstract class FragmentBase extends Fragment {
 		intent.putExtra("field", new String(field));
 		getActivity().sendBroadcast(intent);
 	}
+	
+
+	// saves the character after a field update and refreshes everything
+	// and recive cursor position for fix edittext bug
+	public void updateCharacter(String field, int cursor) {
+		_lastCursor = cursor;
+		Log.d(TAG, "FragmentBase: updateCharacter() field == " + field);
+		Dao<PFCharacter, Integer> dao;
+		PFCharacter cha = getCharacter();
+		try {
+			dao = getHelper().getCharacterDao();
+			dao.update(cha);
+			dao.refresh(cha);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		PFCombatApplication app = PFCombatApplication.getApplication();
+		app.setCurrentCharacter(cha);
+
+		Intent intent = new Intent();
+		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.putExtra("field", new String(field));
+		getActivity().sendBroadcast(intent);
+		}
 	
 	// saves the character after a weapon update and refreshes everything
 	public void updateCharacterWeapon(String field) {
@@ -179,8 +206,13 @@ public abstract class FragmentBase extends Fragment {
 			if (type.equals("android.widget.EditText")) {
 				EditText e = (EditText) v;
 				//e.clearFocus();
-	    		e.setText(value);
+	    	e.setText(value);
+				Log.d(TAG, "FragmentBase: Cursor position == " + _lastCursor + " and Text lenght == " + e.getText().length());
+				if(_lastCursor > e.getText().length()){
 					e.setSelection(e.getText().length());
+				} else{
+					e.setSelection(_lastCursor);
+				}
 			} else if (type.equals("android.widget.TextView")) {
 				TextView e = (TextView) v;
 				e.clearFocus();
