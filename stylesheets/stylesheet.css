@@ -59,6 +59,7 @@ body {
 a {
   color: #63a52a;
   text-decoration: none;
+  outline: 0;
   -webkit-transition: color ease-in-out 0.3s;
 }
 
@@ -83,7 +84,7 @@ h1.title {
 
 #container {
   border: 1px solid #2a2a2a;
-  background: #ddd url(../images/pattern.png);
+  background: #ddd url(../images/pattern2.png);
   box-shadow: 0 0 5px #b1b1b1;
 }
 
@@ -94,13 +95,13 @@ p.tagline {
 }
 
 #main {
-  margin-top: 20px;
+  margin-top: -10px;
   padding: 0 20px 90px;
   background-color: #fff;
 }
 
 .download-bar {
-  background: #222;
+  background: #ddd url(../images/pattern.png);
   border: 5px solid #444;
   padding: 10px;
   margin: 0 -35px 20px;
@@ -169,9 +170,10 @@ p.tagline {
 }
 
 .download-bar a.code {
-  background: transparent url(../images/code.png) no-repeat 0 2px;
+  background: transparent url(../images/cat-logo.png) no-repeat 0 2px;
   padding-left: 35px;
-  margin-top: 8px;
+  padding-top: 4px;
+  margin-top: 4px;
   display: block;
   float: left;
   text-indent: 0;
@@ -188,7 +190,7 @@ p.tagline {
   left: 50%;
   width: 693px;
   margin-left: -352px;
-  background: #222;
+  background: #ddd url(../images/pattern.png);
   border: 5px solid #444;
   color: #fff;
   opacity: 0;
@@ -205,9 +207,6 @@ p.tagline {
 .current-section a {
   float: right;
   text-indent: -10000px;
-  background: transparent url(../images/top.png) no-repeat 0 0;
-  width: 20px;
-  height: 20px;
   opacity: 0.8;
   margin-right: 12px;
   margin-top: 12px;
@@ -222,15 +221,52 @@ p.tagline {
   filter:alpha(opacity=1);
 }
 
-.current-section a.zip {
+.current-section a.apk {
   margin-right: 8px;
+  background: transparent url(../images/apk.png) no-repeat 0 0;
+  width: 25px;
+  height: 25px;
+  opacity: 0.8;
+  display: inline-block;
+  text-indent: -10000px;
+  margin-top: 10px
+  -moz-opacity: 0.8;
+  filter:alpha(opacity=8);
+  -webkit-transition: opacity ease-in-out 0.3s;
 }
 
-a.zip,
-a.zip span {
-  background: transparent url(../images/zip.png) no-repeat 0 0;
-  width: 30px;
-  height: 21px;
+.current-section a.play {
+  background: transparent url(../images/play.png) no-repeat 0 0;
+  width: 25px;
+  height: 25px;
+  opacity: 0.8;
+  display: inline-block;
+  text-indent: -10000px;
+  -moz-opacity: 0.8;
+  margin-top: 10px;
+  filter:alpha(opacity=8);
+  -webkit-transition: opacity ease-in-out 0.3s;
+}
+
+.current-section a.top {
+ float: right;
+  text-indent: -10000px;
+  background: transparent url(../images/top.png) no-repeat 0 0;
+  width: 20px;
+  height: 20px;
+  opacity: 0.8;
+  margin-right: 12px;
+  margin-top: 12.5px;
+  -moz-opacity: 0.8;
+  filter:alpha(opacity=8);
+  -webkit-transition: opacity ease-in-out 0.3s;
+}
+
+a.apk,
+a.apk span{
+  background: transparent url(../images/apk.png) no-repeat 0 0;
+  width: 25px;
+  height: 25px;
   opacity: 0.8;
   display: inline-block;
   text-indent: -10000px;
@@ -239,34 +275,63 @@ a.zip span {
   -webkit-transition: opacity ease-in-out 0.3s;
 }
 
-a.tar,
-a.tar span {
-  background: transparent url(../images/tar.png) no-repeat 0 0;
-  width: 30px;
-  height: 21px;
+a.play,
+a.play span{
+  background: transparent url(../images/play.png) no-repeat 0 0;
+  width: 25px;
+  height: 25px;
   opacity: 0.8;
   display: inline-block;
   text-indent: -10000px;
+  -moz-opacity: 0.8;
+  filter:alpha(opacity=8);
+  -webkit-transition: opacity ease-in-out 0.3s;
+}
+
+a.brazil{
+  background: transparent url(../images/brazil.png) no-repeat 0 0;
+  width: 34px;
+  height: 34px;
+  opacity: 0.8;
+  display: inline-block;
+  text-indent: -10000px;
+  float: right;
+  -moz-opacity: 0.8;
+  filter:alpha(opacity=8);
+  -webkit-transition: opacity ease-in-out 0.3s;
+}
+
+a.britain {
+  background: transparent url(../images/britain.png) no-repeat 0 0;
+  width: 34px;
+  height: 34px;
+  opacity: 0.8;
+  display: inline-block;
+  text-indent: -10000px;
+  float: right;
   -moz-opacity: 0.8;
   filter:alpha(opacity=8);
   -webkit-transition: opacity ease-in-out 0.3s;
 }
 
 a.code {
-  background: transparent url(../images/code.png) no-repeat 0 2px;
-  width: 30px;
-  height: 21px;
+  background: transparent url(../images/cat-logo.png) no-repeat 0 2px;
+  width: 25px;
+  height: 28px;
   display: block;
   opacity: 0.8;
   display: inline-block;
   text-indent: -10000px;
+  margin-top: 10px;
   -moz-opacity: 0.8;
   filter:alpha(opacity=8);
   -webkit-transition: opacity ease-in-out 0.3s;
 }
 
-a.zip:hover,
-a.tar:hover,
+a.brazil:hover,
+a.britain:hover,
+a.apk:hover,
+a.play:hover,
 a.code:hover {
   opacity: 1;
   -moz-opacity: 1;
@@ -305,7 +370,7 @@ footer {
 }
 
 footer .owner {
-  background: #222;
+  background: #ddd url(../images/pattern.png);
   border: 5px solid #444;
   padding: 5px 15px;
   margin: -67px -10px 35px;
