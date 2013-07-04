@@ -84,7 +84,7 @@ h1.title {
 
 #container {
   border: 1px solid #2a2a2a;
-  background: #ddd url(../images/pattern2.png);
+  background: #ddd url(http://augustoicaro.github.io/pathfinder_combat/images/pattern2.png);
   box-shadow: 0 0 5px #b1b1b1;
 }
 
@@ -100,7 +100,7 @@ p.tagline {
 }
 
 .download-bar {
-  background: #ddd url(../images/pattern.png);
+  background: #ddd url(http://augustoicaro.github.io/pathfinder_combat/images/pattern.png);
   border: 5px solid #444;
   padding: 10px;
   margin: 0 -35px 20px;
@@ -169,7 +169,7 @@ p.tagline {
 }
 
 .download-bar a.code {
-  background: transparent url(../images/cat-logo.png) no-repeat 0 2px;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/cat-logo.png) no-repeat 0 2px;
   padding-left: 35px;
   padding-top: 4px;
   margin-top: 4px;
@@ -189,7 +189,7 @@ p.tagline {
   left: 50%;
   width: 693px;
   margin-left: -352px;
-  background: #ddd url(../images/pattern.png);
+  background: #ddd url(http://augustoicaro.github.io/pathfinder_combat/images/pattern.png);
   border: 5px solid #444;
   color: #fff;
   opacity: 0;
@@ -222,7 +222,7 @@ p.tagline {
 
 .current-section a.apk {
   margin-right: 8px;
-  background: transparent url(../images/apk.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/apk.png) no-repeat 0 0;
   width: 25px;
   height: 25px;
   opacity: 0.8;
@@ -235,7 +235,7 @@ p.tagline {
 }
 
 .current-section a.play {
-  background: transparent url(../images/play.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/play.png) no-repeat 0 0;
   width: 25px;
   height: 25px;
   opacity: 0.8;
@@ -250,7 +250,7 @@ p.tagline {
 .current-section a.top {
  float: right;
   text-indent: -10000px;
-  background: transparent url(../images/top.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/top.png) no-repeat 0 0;
   width: 20px;
   height: 20px;
   opacity: 0.8;
@@ -263,7 +263,7 @@ p.tagline {
 
 a.apk,
 a.apk span{
-  background: transparent url(../images/apk.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/apk.png) no-repeat 0 0;
   width: 25px;
   height: 25px;
   opacity: 0.8;
@@ -276,7 +276,7 @@ a.apk span{
 
 a.play,
 a.play span{
-  background: transparent url(../images/play.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/play.png) no-repeat 0 0;
   width: 25px;
   height: 25px;
   opacity: 0.8;
@@ -288,7 +288,7 @@ a.play span{
 }
 
 a.brazil{
-  background: transparent url(../images/brazil.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/brazil.png) no-repeat 0 0;
   width: 34px;
   height: 34px;
   opacity: 0.8;
@@ -301,7 +301,7 @@ a.brazil{
 }
 
 a.britain {
-  background: transparent url(../images/britain.png) no-repeat 0 0;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/britain.png) no-repeat 0 0;
   width: 34px;
   height: 34px;
   opacity: 0.8;
@@ -314,7 +314,7 @@ a.britain {
 }
 
 a.code {
-  background: transparent url(../images/cat-logo.png) no-repeat 0 2px;
+  background: transparent url(http://augustoicaro.github.io/pathfinder_combat/images/cat-logo.png) no-repeat 0 2px;
   width: 25px;
   height: 28px;
   display: block;
@@ -369,7 +369,7 @@ footer {
 }
 
 footer .owner {
-  background: #ddd url(../images/pattern.png);
+  background: #ddd url(http://augustoicaro.github.io/pathfinder_combat/images/pattern.png);
   border: 5px solid #444;
   padding: 5px 15px;
   margin: -67px -10px 35px;
