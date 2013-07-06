@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,9 +26,11 @@ public class CharacterCombatFragment extends FragmentBase {
 
 	private static final String TAG = "PFCombat";
 	private String currentRange;
+	private String locale;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_combat_fragment, container, false);
+		locale = _view.getContext().getResources().getConfiguration().locale.getDisplayName();
 		
 		currentRange = "";
 		
@@ -79,12 +82,12 @@ public class CharacterCombatFragment extends FragmentBase {
     	
     	if (w.rangeString().equals("ranged")) {
     		TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
-    		tv.setText("Dex");
+	      tv.setText("Dex");
     		populateField(R.id.txtStatModPlusAttack, f, ModifierField._dex_mod, String.valueOf(c.getDexMod()));
         	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(0));    		
     	} else {
     		TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
-    		tv.setText("Str");
+				tv.setText("Str");
     		populateField(R.id.txtStatModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
         	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
     	}

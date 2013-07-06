@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pathfinder Combat</string>
+
+    <!-- headers -->
+    <string name="attacks">ATAQUES</string>
+    <string name="stats">ATRIBUTOS</string>
+    <string name="damage">DANO</string>
+    <string name="conditions">CONDIÇÕES</string>
+    <string name="weapon">ARMA</string>
+		<string name="dailyPowers">PODERES DIÁRIOS</string>
+
+    <!-- stats -->
+    <string name="player">JOGADOR</string>
+   	<string name="characterClass">CLASSE</string>
+		<string name="level">NÍVEL</string>
+		<string name="name">NOME</string>
+    <string name="str">For</string>
+    <string name="dex">Des</string>
+    <string name="con">Con</string>
+    <string name="intel">Int</string>
+    <string name="wis">Sab</string>
+    <string name="cha">Car</string>
+    <string name="statmod">()</string>
+    <string name="weaponPlus">Adicional +</string>
+    <string name="weaponDamage">Dano</string>
+    <string name="weaponCritical">Critico</string>
+
+    <!-- attacks and damage --> 
+    <string name="BAB">BBA</string>
+    <string name="wpn">Arma</string>
+    <string name="feat">Talento</string>
+    <string name="other">Outro</string>
+    <string name="dmg">Dano</string>
+
+    <!-- toggles -->
+    <string name="powerAttack">Atq. Poderoso</string>
+    <string name="smite">Smite</string>
+    <string name="enlarge">Enlarge</string>
+    <string name="plus2Str">+2 For</string>
+    <string name="plus4Str">+4 For</string>
+    <string name="haste">Haste</string>
+    <string name="plus1d6">+1d6 Dano</string>
+    <string name="plus2d6">+2d6 Dano</string>
+    <string name="flank">Flanqueado</string>
+    <string name="plus1Damage">+1 Dano</string>
+    <string name="plus2Damage">+2 Dano</string>
+    <string name="defensive">Defensive</string>
+    <string name="plus1Hit">+1 Atq.</string>
+    <string name="plus2Hit">+2 Atq.</string>
+    <string name="plus4Hit">+4 Atq.</string>
+    <string name="flurryOfBlows">Rajada de Golpes</string>
+    <string name="wpnFocus">Foco em Arma</string>
+    <string name="unarmed">Desarmado</string>
+    <string name="critical">Critico</string>
+    <string name="dailyPower">Poder Diário</string>    
+
+    <!-- dialogs and buttons -->
+    <string name="delete">Deletar</string>
+    <string name="really_delete">Você realmente deseja deletar?</string>
+    <string name="no">Não</string>
+    <string name="yes">Sim</string>
+    <string name="addNew">Adicionar</string>
+    <string name="new_character">Novo Personagem</string>
+    <string name="new_condition">Nova condição</string>
+    <string name="new_weapon">Nova Arma</string>
+    <string name="add_round">Próximo Round</string>
+    <string name="submit">Submeter</string>
+    <string name="rounds">Rodadas</string>
+    <string name="condition">Condição</string>
+    <string name="cancel">Cancelar</string>
+    <string name="remove_conditions">Remover Selecionados</string>
+    <string name="manage_weapons">Inventário</string>
+    <string name="edit_weapon">Editar Selecionado</string>
+    <string name="select_weapon">Equipar Arma Selecionada</string>
+    <string name="delete_weapon">Deletar Arma</string>
+
+    <!-- weapon dialog -->
+    <string name="weapon_name">Nome</string>
+    <string name="weapon_hit">Bônus de Ataque</string>
+    <string name="weapon_damage">Bônus de Dano</string>
+    <string name="weapon_damage_dice">Dano</string>
+    <string name="weapon_range">Alcance</string>
+    <string name="weapon_additional_dice">Dado Adicional</string>
+    <string name="weapon_critical">Decisivo</string>
+
+</resources>

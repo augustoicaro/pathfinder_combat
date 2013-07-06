@@ -13,8 +13,8 @@
     <!-- stats -->
     <string name="player">Player</string>
    	<string name="characterClass">Class</string>
-	<string name="level">Level</string>
-	<string name="name">Name</string>
+  	<string name="level">Level</string>
+	  <string name="name">Name</string>
     <string name="str">Str</string>
     <string name="dex">Dex</string>
     <string name="con">Con</string>
