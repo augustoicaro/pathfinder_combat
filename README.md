@@ -1,6 +1,6 @@
 Pathfinder Combat Project
 =================
-![Pathfinder Combat Project](http://www.augustoicaro.com/pfcombat/pfproject.jpg "PathFinder Combat Project Logo")
+![Pathfinder Combat Project](http://augustoicaro.github.io/pathfinder_combat/images/pfproject.jpg "PathFinder Combat Project Logo")
 
 #Welcome
 
