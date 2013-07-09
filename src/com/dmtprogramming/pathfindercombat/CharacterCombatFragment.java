@@ -117,6 +117,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	}
     	TextView weaponDiceText = (TextView) findViewById(R.id.txtWeaponDice);
     	weaponDiceText.setText(weaponDice);
+			Log.d(TAG, "CharacterCombatFragment: Fishing set size modifiers");
 
     	// attacks
     	TextView tvAttacks = (TextView) findViewById(R.id.txtAttacks);
@@ -127,29 +128,35 @@ public class CharacterCombatFragment extends FragmentBase {
     	}
 		tvAttacks.clearFocus();
 		tvAttacks.setText(attacks_str);
+		Log.d(TAG, "CharacterCombatFragment: Fishing set attacks modifiers");
     	
 		// weapon plus
 		TextView weaponFullName = (TextView) findViewById(R.id.txtWeaponFullName);
+					Log.d(TAG, "CharacterCombatFragment: Fishing setp1 to set weapon plus modifiers");
 		Weapon weapon = c.getWeapon();
+					Log.d(TAG, "CharacterCombatFragment: Fishing step2 to set weapon plus modifiers with: " + weapon.toString());
 		if (weapon != null) {
 			weaponFullName.setText(weapon.toString());
 		}
+		Log.d(TAG, "CharacterCombatFragment: Fishing set weapon plus modifiers");
     	
-    	// plus to hit
-    	int plusHit = 0;
-    	plusHit += parseIntField(R.id.txtStatModPlusAttack);
-    	plusHit += w.getHit();
-    	plusHit += parseIntField(R.id.txtWeaponFocusPlusAttack);
-    	plusHit += parseIntField(R.id.txtOtherPlusAttack);
-    	String attacks = (String) ((TextView) findViewById(R.id.txtAttacks)).getText();
-    	calculateFinalPlusHit(attacks, plusHit);
+    // plus to hit
+    int plusHit = 0;
+   	plusHit += parseIntField(R.id.txtStatModPlusAttack);
+   	plusHit += w.getHit();
+   	plusHit += parseIntField(R.id.txtWeaponFocusPlusAttack);
+   	plusHit += parseIntField(R.id.txtOtherPlusAttack);
+   	String attacks = (String) ((TextView) findViewById(R.id.txtAttacks)).getText();
+   	calculateFinalPlusHit(attacks, plusHit);
+		Log.d(TAG, "CharacterCombatFragment: Fishing set plus to hit modifiers");
     	
-    	// plus to damage
-    	int plusDamage = 0;
-    	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
-    	plusDamage += w.getDamage();
-    	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
-    	calculateFinalPlusDamage(weaponDice, plusDamage);
+   	// plus to damage
+   	int plusDamage = 0;
+   	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
+   	plusDamage += w.getDamage();
+   	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
+   	calculateFinalPlusDamage(weaponDice, plusDamage);
+		Log.d(TAG, "CharacterCombatFragment: Fishing set plus to damage modifiers");
 	}
 
 	private void setupView() {
