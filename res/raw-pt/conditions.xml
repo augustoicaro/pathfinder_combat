@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conditions>
+    <condition name="Sangrando" />
+    <condition name="Cego" />
+    <condition name="Confuso" />
+    <condition name="Cowering" />
+    <condition name="Dazed" />
+    <condition name="Dazzled" />
+    <condition name="Surdo" />
+    <condition name="Impossibilitado" />
+    <condition name="Morrendo" />
+    <condition name="Entangled" />
+    <condition name="Fascinated" />
+    <condition name="Frightened" />
+    <condition name="Indefeso" />
+    <condition name="Invisivel" />
+    <condition name="Nauseado" />
+    <condition name="Em Pânico" />
+    <condition name="Paralizado" />
+    <condition name="Imobilizado" />
+    <condition name="Abalado" />
+    <condition name="Sickened" />
+    <condition name="Staggered" />
+		<condition name="Atordoado" />
+</conditions>

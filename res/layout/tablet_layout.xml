@@ -11,14 +11,14 @@
     tools:context=".CharacterActivity">
 
     <fragment
-        android:name="com.dmtprogramming.pathfindercombat.CharacterInfoFragment"
+        android:name="br.augustoicaro.pathfindercombat.CharacterInfoFragment"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="0.3"
         tools:layout="@layout/character_info" />
 
     <fragment
-        android:name="com.dmtprogramming.pathfindercombat.CharacterCombatFragment"
+        android:name="br.augustoicaro.pathfindercombat.CharacterCombatFragment"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="0.7"

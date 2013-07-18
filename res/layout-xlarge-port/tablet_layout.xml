@@ -15,13 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <fragment
-            android:name="com.dmtprogramming.pathfindercombat.CharacterInfoFragment"
+            android:name="br.augustoicaro.pathfindercombat.CharacterInfoFragment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/character_info" />
 
         <fragment
-            android:name="com.dmtprogramming.pathfindercombat.CharacterCombatFragment"
+            android:name="br.augustoicaro.pathfindercombat.CharacterCombatFragment"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/character_combat" />

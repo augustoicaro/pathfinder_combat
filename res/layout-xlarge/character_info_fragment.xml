@@ -22,7 +22,7 @@
         layout="@layout/_stats" />
 
     <fragment
-        android:name="com.dmtprogramming.pathfindercombat.ConditionsFragment"
+        android:name="br.augustoicaro.pathfindercombat.ConditionsFragment"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/conditions_fragment" />

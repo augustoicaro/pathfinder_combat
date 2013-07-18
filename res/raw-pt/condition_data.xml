@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item name="conditions">
+
+    <condition name="Bleed" >
+        <short_description>
+						<![CDATA[
+						&#8226; Take damage at beginning of turn<br/>
+						&#8226; Stopped by DC 15 Heal check or magical healing<br/>
+						&#8226; Do not stack unless they deal different kinds of damage<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A creature that is taking bleed damage takes the listed amount of damage at the beginning of its turn. Bleeding can be stopped by a DC 15 Heal 
+            check or through the application of any spell that cures hit point damage (even if the bleed is ability damage). Some bleed effects cause ability 
+            damage or even ability drain. Bleed effects do not stack with each other unless they deal different kinds of damage. When two or more bleed effects 
+            deal the same kind of damage, take the worse effect. In this case, ability drain is worse than ability damage.
+        </long_description>
+    </condition>
+    <condition name="Blinded" >
+        <short_description>
+						<![CDATA[
+						&#8226; -2 CA<br/>
+						&#8226; Sem bônus de DES na CA<br/>
+						&#8226; -4 na maioria dos teste perícias de FOR e DES e Percepção<br/>
+						&#8226; CD 20 no teste de acrobacia para se mover mais rápido que a metade do movimento]]>
+        </short_description>
+
+        <long_description>
+						The creature cannot see. It takes a –2 penalty to Armor Class, loses its Dexterity bonus to AC (if any), and takes a –4 penalty on most Strength- 
+						and Dexterity-based skill checks and on opposed Perception skill checks. All checks and activities that rely on vision (such as reading and 
+						Perception checks based on sight) automatically fail. All opponents are considered to have total concealment (50% miss chance) against the blinded 
+						character. Blind creatures must make a DC 10 Acrobatics skill check to move faster than half speed. Creatures that fail this check fall prone. 
+						Characters who remain blinded for a long time grow accustomed to these drawbacks and can overcome some of them.
+        </long_description>
+        <mod type="ac" value="-2" />
+        <mod type="dex_ac" value="0" />
+    </condition>
+    <condition
+        name="Confused">
+        <short_description>
+						<![CDATA[
+						&#8226; Treat all creatures as enemies<br/>
+						&#8226; Roll to see happens on turn<br/>
+						&#8226; 01-25 Act Normally<br/>
+						&#8226; 26-50 Do nothing<br/>
+						&#8226; 51-75 Deal 1d8 + Str mod damage to self<br/>
+						&#8226; 76-100 Attack nearest creature<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A confused creature is mentally befuddled and cannot act normally. A confused creature cannot tell the difference between ally and foe, treating 
+            all creatures as enemies. Allies wishing to cast a beneficial spell that requires a touch on a confused creature must succeed on a melee touch attack. 
+            If a confused creature is attacked, it attacks the creature that last attacked it until that creature is dead or out of sight.
+
+						Roll on the following table at the beginning of each confused subject's turn each round to see what the subject does in that round.
+
+						d%	Behavior
+						01–25	Act normally.
+						26–50	Do nothing but babble incoherently.
+						51–75	Deal 1d8 points of damage + Str modifier to self with item in hand.
+						76–100	Attack nearest creature (for this purpose, a familiar counts as part of the subject's self).
+						A confused creature who can't carry out the indicated action does nothing but babble incoherently. Attackers are not at any special advantage when 
+						attacking a confused creature. Any confused creature who is attacked automatically attacks its attackers on its next turn, as long as it is still 
+						confused when its turn comes. Note that a confused creature will not make attacks of opportunity against anything that it is not already devoted to 
+						attacking (either because of its most recent action or because it has just been attacked).
+        </long_description>
+    </condition>
+    <condition
+        name="Cowering">
+        <short_description>
+						<![CDATA[
+						&#8226; Take no actions<br/>
+						&#8226; -2 to AC and lose Dex bonus<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            The character is frozen in fear and can take no actions. A cowering character takes a –2 penalty to Armor Class and loses his Dexterity bonus (if any).
+        </long_description>
+        <mod type="actions" value="none" />
+        <mod type="ac" value="-2" />
+        <mod type="dex_ac" value="0" />
+    </condition>
+    <condition
+        name="Dazed">
+        <short_description>
+						<![CDATA[
+						&#8226; Take no actions<br/>
+						&#8226; No penalty to AC<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            The creature is unable to act normally. A dazed creature can take no actions, but has no penalty to AC.
+
+						A dazed condition typically lasts 1 round.
+        </long_description>
+        <mod type="actions" value="none" />
+    </condition>
+    <condition
+        name="Dazzled">
+        <short_description>
+						<![CDATA[
+						&#8226; -1 on attack rolls<br/>
+						&#8226; -1 on sight-based Perception checks<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            The creature is unable to see well because of overstimulation of the eyes. A dazzled creature takes a –1 penalty on attack rolls and sight-based 
+            Perception checks.
+        </long_description>
+        <mod type="hit" value="-1" />
+    </condition>
+    <condition
+        name="Deafened">
+        <short_description>
+						<![CDATA[
+						&#8226; Can not hear<br/>
+						&#8226; -4 on initiative<br/>
+						&#8226; Fail Perception based on sound<br/>
+						&#8226; -4 on opposed Perception checks<br/>
+						&#8226; 20% spell failure on spells with verbal components<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A deafened character cannot hear. He takes a –4 penalty on initiative checks, automatically fails Perception checks based on sound, takes a –4 penalty 
+            on opposed Perception checks, and has a 20% chance of spell failure when casting spells with verbal components. Characters who remain deafened for a 
+            long time grow accustomed to these drawbacks and can overcome some of them.
+        </long_description>
+        <mod type="init" value="-4" />
+    </condition>
+    <condition
+        name="Disabled">
+        <short_description>
+						<![CDATA[
+						&#8226; 0 HP<br/>
+						&#8226; Single move action or standard action<br/>
+						&#8226; Move at half speed<br/>
+						&#8226; Standard action deals 1 point of damage after completion<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+						A character with 0 hit points, or one who has negative hit points but has become stable and conscious, is disabled. A disabled character may take a 
+						single move action or standard action each round (but not both, nor can he take full-round actions, but he can still take swift, immediate, and free 
+						actions). He moves at half speed. Taking move actions doesn't risk further injury, but performing any standard action (or any other action the GM 
+						deems strenuous, including some free actions such as casting a quickened spell) deals 1 point of damage after the completion of the act. Unless the 
+						action increased the disabled character's hit points, he is now in negative hit points and dying.
+
+						A disabled character with negative hit points recovers hit points naturally if he is being helped. Otherwise, each day he can attempt a DC 10 
+						Constitution check after resting for 8 hours, to begin recovering hit points naturally. The character takes a penalty on this roll equal to his 
+						negative hit point total. Failing this check causes the character to lose 1 hit point, but this does not cause the character to become unconscious. 
+						Once a character makes this check, he continues to heal naturally and is no longer in danger of losing hit points naturally.
+        </long_description>
+
+        <mod type="actions" value="single" />
+        <mod type="speed" value="half" />
+    </condition>
+    <condition
+        name="Dying">
+        <short_description>
+						<![CDATA[
+						&#8226; Unconscious, no actions<br/>
+						&#8226; DC 10 (plus negative hit point total) Con check to become stable<br/>
+						&#8226; Lose 1 HP after failing Con check<br/>
+						&#8226; Negative hit points equal to Con score is death<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A dying creature is unconscious and near death. Creatures that have negative hit points and have not stabilized are dying. A dying creature can take 
+            no actions. On the character's next turn, after being reduced to negative hit points (but not dead), and on all subsequent turns, the character must
+            make a DC 10 Constitution check to become stable. The character takes a penalty on this roll equal to his negative hit point total. A character that 
+            is stable does not need to make this check. A natural 20 on this check is an automatic success. If the character fails this check, he loses 1 hit point. 
+            If a dying creature has an amount of negative hit points equal to its Constitution score, it dies.
+        </long_description>
+        <mod type="actions" value="none" />
+    </condition>
+    <condition
+        name="Entangled">
+        <short_description>
+						<![CDATA[
+						&#8226; Move at half speed, cannot run or charge<br/>
+						&#8226; -2 on all attack rolls<br/>
+						&#8226; -4 to Dex<br/>
+						&#8226; Concentration check (DC 15 + spell level) or lose spell<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            The character is ensnared. Being entangled impedes movement, but does not entirely prevent it unless the bonds are anchored to an immobile object or 
+            tethered by an opposing force. An entangled creature moves at half speed, cannot run or charge, and takes a –2 penalty on all attack rolls and a –4 
+            penalty to Dexterity. An entangled character who attempts to cast a spell must make a concentration check (DC 15 + spell level) or lose the spell.
+        </long_description>
+        <mod type="speed" value="half" />
+        <mod type="hit" value="-2" />
+        <mod type="dex" value="-4" />
+    </condition>
+    <condition
+        name="Fascinated">
+        <short_description>
+						<![CDATA[
+						&#8226; Stand still or sit quietly, take no actions<br/>
+						&#8226; -4 on skill checks to make reactions<br/>
+						&#8226; Any potential threat allows a new saving throw<br/>
+						&#8226; Any obvious threat breaks spell<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A fascinated creature is entranced by a supernatural or spell effect. The creature stands or sits quietly, taking no actions other than to pay 
+            attention to the fascinating effect, for as long as the effect lasts. It takes a –4 penalty on skill checks made as reactions, such as Perception 
+            checks. Any potential threat, such as a hostile creature approaching, allows the fascinated creature a new saving throw against the fascinating effect. 
+            Any obvious threat, such as someone drawing a weapon, casting a spell, or aiming a ranged weapon at the fascinated creature, automatically breaks the 
+            effect. A fascinated creature's ally may shake it free of the spell as a standard action.
+        </long_description>
+        <mod type="actions" value="none" />
+    </condition>
+    <condition
+        name="Frightened">
+        <short_description>
+						<![CDATA[
+						&#8226; Flee from source of fear<br/>
+						&#8226; May fight if unable to flee<br/>
+						&#8226; -2 on all attack rolls, saving throws, skill checks and ability checks<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A frightened creature flees from the source of its fear as best it can. If unable to flee, it may fight. A frightened creature takes a –2 penalty on 
+            all attack rolls, saving throws, skill checks, and ability checks. A frightened creature can use special abilities, including spells, to flee; indeed, 
+            the creature must use such means if they are the only way to escape.
+
+						Frightened is like shaken, except that the creature must flee if possible. Panicked is a more extreme state of fear.
+        </long_description>
+        <mod type="hit" value="-2" />
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />
+    </condition>
+    <condition
+        name="Helpless">
+        <short_description>
+						<![CDATA[
+						&#8226; 0 Dex<br/>
+						&#8226; +4 from melee attacks<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A helpless character is paralyzed, held, bound, sleeping, unconscious, or otherwise completely at an opponent's mercy. A helpless target is treated as 
+            having a Dexterity of 0 (–5 modifier). Melee attacks against a helpless target get a +4 bonus (equivalent to attacking a prone target). Ranged attacks 
+            get no special bonus against helpless targets. Rogues can sneak attack helpless targets.
+
+						As a full-round action, an enemy can use a melee weapon to deliver a coup de grace to a helpless foe. An enemy can also use a bow or crossbow, provided 
+						he is adjacent to the target. The attacker automatically hits and scores a critical hit. (A rogue also gets his sneak attack damage bonus against a 
+						helpless foe when delivering a coup de grace.) If the defender survives, he must make a Fortitude save (DC 10 + damage dealt) or die. Delivering a 
+						coup de grace provokes attacks of opportunity.
+
+						Creatures that are immune to critical hits do not take critical damage, nor do they need to make Fortitude saves to avoid being killed by a coup de grace.
+        </long_description>
+        <mod type="dex" value="-999" />
+    </condition>
+    <condition
+        name="Invisible">
+        <short_description>
+						<![CDATA[
+						&#8226; +2 on attack rolls against sighted opponents<br/>
+						&#8226; Ignore opponent Dex to AC<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            Invisible creatures are visually undetectable. An invisible creature gains a +2 bonus on attack rolls against sighted opponents, and ignores its 
+            opponents' Dexterity bonuses to AC (if any). See Invisibility, under Special Abilities.
+        </long_description>
+    </condition>
+    <condition
+        name="Nauseated">
+        <short_description>
+						<![CDATA[
+						&#8226; Unable to attack, cast spells, concentrate on spells or do anything requiring attention<br/>
+						&#8226; Single move action<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            Creatures with the nauseated condition experience stomach distress. Nauseated creatures are unable to attack, cast spells, concentrate on spells, 
+            or do anything else requiring attention. The only action such a character can take is a single move actions per turn.
+        </long_description>
+        <mod type="actions" value="move" />
+    </condition>
+    <condition
+        name="Panicked">
+        <short_description>
+						<![CDATA[
+						&#8226; Drop everything held<br/>
+						&#8226; Flee at top speed from source of fear<br/>
+						&#8226; -2 on all saving throws, skill checks and ability checks<br/>
+						&#8226; Cower if cornered<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A panicked creature must drop anything it holds and flee at top speed from the source of its fear, as well as any other dangers it encounters, 
+            along a random path. It can't take any other actions. In addition, the creature takes a –2 penalty on all saving throws, skill checks, and ability 
+            checks. If cornered, a panicked creature cowers and does not attack, typically using the total defense action in combat. A panicked creature can use 
+            special abilities, including spells, to flee; indeed, the creature must use such means if they are the only way to escape.
+
+						Panicked is a more extreme state of fear than shaken or frightened.
+        </long_description>
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />        
+    </condition>
+    <condition
+        name="Paralyzed">
+        <short_description>
+						<![CDATA[
+						&#8226; 0 Dex and Str<br/>
+						&#8226; No movement or actions<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A paralyzed character is frozen in place and unable to move or act. A paralyzed character has effective Dexterity and Strength scores of 0 and is 
+            helpless, but can take purely mental actions. A winged creature flying in the air at the time that it becomes paralyzed cannot flap its wings and 
+            falls. A paralyzed swimmer can't swim and may drown. A creature can move through a space occupied by a paralyzed creature—ally or not. Each square 
+            occupied by a paralyzed creature, however, counts as 2 squares to move through.
+        </long_description>
+        <mod type="dex" value="-999" />
+        <mod type="str" value="-999" />
+        <mod type="actions" value="none" />
+    </condition>
+    <condition
+        name="Pinned">
+        <short_description>
+						<![CDATA[
+						&#8226; Cannot move<br/>
+						&#8226; No Dex bonus<br/>
+						&#8226; -4 to AC<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A pinned creature is tightly bound and can take few actions. A pinned creature cannot move and is denied its Dexterity bonus.. A pinned character 
+            also takes an additional –4 penalty to his Armor Class. A pinned creature is limited in the actions that it can take. A pinned creature can always 
+            attempt to free itself, usually through a combat maneuver check or Escape Artist check. A pinned creature can take verbal and mental actions, but 
+            cannot cast any spells that require a somatic or material component. A pinned character who attempts to cast a spell or use a spell-like ability must 
+            make a concentration check (DC 10 + grappler's CMB + spell level) or lose the spell. Pinned is a more severe version of grappled, and their effects do 
+            not stack.
+        </long_description>
+        <mod type="ac" value="-4" />
+        <mod type="dex_ac" value="0" />
+        <mod type="actions" value="standard" />
+    </condition>
+    <condition
+        name="Shakened">
+        <short_description>
+						<![CDATA[
+						&#8226; -2 on attack rolls, saving throws, skill checks and ability checks<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A shaken character takes a –2 penalty on attack rolls, saving throws, skill checks, and ability checks. Shaken is a less severe state of fear than 
+            frightened or panicked.
+        </long_description>
+        <mod type="hit" value="-2" />
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />
+    </condition>
+    <condition
+        name="Sickened">
+        <short_description>
+						<![CDATA[
+						&#8226; -2 on attack rolls, weapon damage rolls, saving throws, skill checks and ability checks<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            The character takes a –2 penalty on all attack rolls, weapon damage rolls, saving throws, skill checks, and ability checks.
+        </long_description>
+        <mod type="damage" value="-2" />
+        <mod type="hit" value="-2" />
+        <mod type="saves" value="-2" />
+        <mod type="skill_checks" value="-2" />
+        <mod type="ability_checks" value="-2" />
+    </condition>
+    <condition
+        name="Staggered">
+        <short_description>
+						<![CDATA[
+						&#8226; Single move or standard action<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A staggered creature may take a single move action or standard action each round (but not both, nor can he take full-round actions). A staggered 
+            creature can still take free, swift and immediate actions. A creature with nonlethal damage exactly equal to its current hit points gains the 
+            staggered condition.
+        </long_description>
+        <mod type="actions" value="single" />
+    </condition>
+    <condition
+        name="Stunned">
+        <short_description>
+						<![CDATA[
+						&#8226; Drop everything held<br/>
+						&#8226; Cannot take actions<br/>
+						&#8226; -2 to AC<br/>
+						&#8226; No Dex bonus to AC<br/>
+						]]>
+        </short_description>
+
+        <long_description>
+            A stunned creature drops everything held, can't take actions, takes a –2 penalty to AC, and loses its Dexterity bonus to AC (if any).
+        </long_description>
+        <mod type="actions" value="none" />
+        <mod type="dex_ac" value="0" />
+        <mod type="ac" value="-2" />
+    </condition>
+
+</item>

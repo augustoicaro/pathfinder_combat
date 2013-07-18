@@ -53,7 +53,8 @@
     <string name="wpnFocus">Wpn Focus</string>
     <string name="unarmed">Unarmed</string>
     <string name="critical">Critical</string>
-    <string name="dailyPower">Daily Power</string>    
+    <string name="dailyPower">Daily Power</string> 
+		<string name="weaponFinesse">Weapon Finesse</string>
     
     <!-- dialogs and buttons -->
     <string name="delete">Delete</string>

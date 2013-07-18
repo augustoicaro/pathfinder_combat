@@ -2,7 +2,7 @@
 # generated on 2012/08/04 11:09:34
 #
 # --table-start--
-dataClass=com.dmtprogramming.pathfindercombat.models.Weapon
+dataClass=br.augustoicaro.pathfindercombat.models.Weapon
 tableName=weapons
 # --table-fields-start--
 # --field-start--
@@ -39,7 +39,7 @@ fieldName=additional_damage_dice
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.dmtprogramming.pathfindercombat.models.PFCharacter
+dataClass=br.augustoicaro.pathfindercombat.models.PFCharacter
 tableName=characters
 # --table-fields-start--
 # --field-start--
@@ -125,7 +125,7 @@ foreignCollectionEager=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.dmtprogramming.pathfindercombat.models.Condition
+dataClass=br.augustoicaro.pathfindercombat.models.Condition
 tableName=conditions
 # --table-fields-start--
 # --field-start--

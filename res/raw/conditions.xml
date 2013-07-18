@@ -21,4 +21,5 @@
     <condition name="Shakened" />
     <condition name="Sickened" />
     <condition name="Staggered" />
+		<condition name="Stunned" />
 </conditions>
