@@ -84,7 +84,7 @@ public class ConditionsFragment extends FragmentBase {
 				
 				final Dialog dialog = new Dialog(ConditionsFragment.this.getActivity());
 				dialog.setContentView(R.layout.new_condition_dialog);
-				dialog.setTitle("New Condition");
+				dialog.setTitle(R.string.new_condition);
 				dialog.setCancelable(true);
 				
 				EditText durationText = (EditText) dialog.findViewById(R.id.txtRounds);
@@ -172,13 +172,13 @@ public class ConditionsFragment extends FragmentBase {
 		Button removeConditions = (Button) findViewById(R.id.btnRemoveConditions);
 		removeConditions.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-		        ListView lv = (ListView) findViewById(R.id.listConditions);
-	        	List<Condition> deleters;
-		        if (lv == null) {
-		        	deleters = checked;
-		        } else {
-		        	deleters = _listAdapter.checked();
-		        }
+		    ListView lv = (ListView) findViewById(R.id.listConditions);
+	      List<Condition> deleters;
+		    if (lv == null) {
+		      deleters = checked;
+		    } else {
+		      deleters = _listAdapter.checked();
+		    }
 				for (int i = 0; i < deleters.size(); i++) {
 					Dao<Condition, Integer> dao;
 					try {
@@ -329,7 +329,7 @@ public class ConditionsFragment extends FragmentBase {
 			super(context, R.layout.condition_row, R.id.rowTextView, conditions.toArray(new Condition[0]));
 			holders = new ArrayList<ConditionViewHolder>();
 			checked = new ArrayList<Condition>();
-			fragment = frag;;
+			fragment = frag;
 			inflater = LayoutInflater.from(context);
 			menuShown = false;
 		}

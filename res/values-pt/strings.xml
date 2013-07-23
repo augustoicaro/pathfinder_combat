@@ -62,6 +62,7 @@
     <string name="yes">Sim</string>
     <string name="addNew">Adicionar</string>
     <string name="new_character">Novo Personagem</string>
+		<string name="delete_character">Deletar Personagem</string>
     <string name="new_condition">Nova condição</string>
     <string name="new_weapon">Nova Arma</string>
     <string name="add_round">Próximo Round</string>

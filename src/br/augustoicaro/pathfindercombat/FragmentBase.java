@@ -44,7 +44,7 @@ public abstract class FragmentBase extends Fragment {
   }
     
   public void setupIntentFilter() {
-    IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+    IntentFilter filter = new IntentFilter("br.augustoicaro.pathfindercombat.UPDATE_CHARACTER");
    	_receiver = new CharacterUpdateReceiver(this);
    	getActivity().registerReceiver(_receiver, filter);
   }
@@ -106,7 +106,7 @@ public abstract class FragmentBase extends Fragment {
 		app.setCurrentCharacter(cha);
 		
 		Intent intent = new Intent();
-		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.setAction("br.augustoicaro.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", new String(field));
 		getActivity().sendBroadcast(intent);
 	}
@@ -132,7 +132,7 @@ public abstract class FragmentBase extends Fragment {
 		app.setCurrentCharacter(cha);
 
 		Intent intent = new Intent();
-		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.setAction("br.augustoicaro.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", new String(field));
 		getActivity().sendBroadcast(intent);
 		}
@@ -156,7 +156,7 @@ public abstract class FragmentBase extends Fragment {
 		app.setCurrentCharacter(cha);
 
 	  Intent intent = new Intent();
-		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.setAction("br.augustoicaro.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", new String(field));
 		getActivity().sendBroadcast(intent);
 	}
@@ -179,7 +179,7 @@ public abstract class FragmentBase extends Fragment {
 		app.setCurrentCharacter(cha);
 
 		Intent intent = new Intent();
-		intent.setAction("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
+		intent.setAction("br.augustoicaro.pathfindercombat.UPDATE_CHARACTER");
 		intent.putExtra("field", field);
 		getActivity().sendBroadcast(intent);		
 	}
@@ -207,7 +207,7 @@ public abstract class FragmentBase extends Fragment {
 				EditText e = (EditText) v;
 				//e.clearFocus();
 	    	e.setText(value);
-				Log.d(TAG, "FragmentBase: Cursor position == " + _lastCursor + " and Text lenght == " + e.getText().length());
+				//Log.d(TAG, "FragmentBase: Cursor position == " + _lastCursor + " and Text lenght == " + e.getText().length());
 				if(_lastCursor > e.getText().length()){
 					e.setSelection(e.getText().length());
 				} else{
@@ -290,9 +290,9 @@ public abstract class FragmentBase extends Fragment {
     
     @Override
 	public void onResume() {
-     	IntentFilter filter = new IntentFilter("com.dmtprogramming.pathfindercombat.UPDATE_CHARACTER");
-    	getActivity().registerReceiver(_receiver, filter);
-    	refreshCharacter("");
+    IntentFilter filter = new IntentFilter("br.augustoicaro.pathfindercombat.UPDATE_CHARACTER");
+    getActivity().registerReceiver(_receiver, filter);
+   	refreshCharacter("");
 		super.onResume();
 	}
 

@@ -4,8 +4,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/group"
+    <RelativeLayout
+        android:id="@+id/main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
@@ -15,7 +15,15 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="@string/new_character" />
-    </LinearLayout>
+				
+				<Button
+            android:id="@+id/delete_cha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+						android:layout_alignParentRight="true"
+            android:onClick="onClick"
+            android:text="@string/delete_character" />
+    </RelativeLayout>
 
     <ListView
         android:id="@android:id/list"
