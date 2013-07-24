@@ -28,7 +28,7 @@ public abstract class ModifierBase {
 	public static final String _r_ranged = "ranged";
 	public static final String _all = "all";
 
-	private boolean enabled;
+	public boolean enabled;
 	
 	public ModifierBase() {
 		this.enabled = false;

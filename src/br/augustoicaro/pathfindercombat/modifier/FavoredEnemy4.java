@@ -7,7 +7,7 @@ public class FavoredEnemy4 extends ModifierBase {
 
 	@Override
 	public String classes() {
-		return "Ranger";
+		return PFCombatApplication.getString(R.string.ranger);
 	}
 	
 	@Override

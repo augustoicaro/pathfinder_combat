@@ -38,6 +38,19 @@
     <string name="other">Outro</string>
     <string name="dmg">Dano</string>
 
+		<!-- class names -->
+		<string name="barbarian">Bárbaro</string>
+		<string name="bard">Bardo</string>
+		<string name="cleric">Clérigo</string>
+		<string name="druid">Druida</string>
+		<string name="fighter">Guerreiro</string>
+		<string name="monk">Monge</string>
+		<string name="paladin">Paladino</string>
+		<string name="ranger">Ranger</string>
+		<string name="rogue">Ladino</string>
+		<string name="sorcerer">Feiticeiro</string>
+		<string name="wizard">Mago</string>
+		
     <!-- toggles -->
 		<string name="bane">Bane</string>
     <string name="critical">Decisivo</string>

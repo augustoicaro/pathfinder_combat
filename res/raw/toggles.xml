@@ -25,4 +25,5 @@
     <toggle name="FavoredEnemy4" />
     <toggle name="RapidShot" />
     <toggle name="PointBlank" />
+		<toggle name="WeaponFinesse" />
 </toggles>

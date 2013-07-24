@@ -37,7 +37,20 @@
     <string name="feat">Feat</string>
     <string name="other">Other</string>
     <string name="dmg">Dmg</string>
-      
+    
+		<!-- class names -->
+		<string name="barbarian">Barbarian</string>
+		<string name="bard">Bard</string>
+		<string name="cleric">Cleric</string>
+		<string name="druid">Druid</string>
+		<string name="fighter">Fighter</string>
+		<string name="monk">Monk</string>
+		<string name="paladin">Paladin</string>
+		<string name="ranger">Ranger</string>
+		<string name="rogue">Rogue</string>
+		<string name="sorcerer">Sorcerer</string>
+		<string name="wizard">Wizard</string>
+		
     <!-- toggles -->
 		<string name="bane">Bane</string>
     <string name="critical">Critical</string>

@@ -148,11 +148,10 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/textView20"
+                android:id="@+id/txtPlusHitLabel2"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="@string/str"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -185,7 +184,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/txtStrModPlusDamage"
+                android:id="@+id/txtModPlusDamage"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:gravity="center"

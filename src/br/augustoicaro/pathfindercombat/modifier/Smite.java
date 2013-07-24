@@ -7,7 +7,7 @@ public class Smite extends ModifierBase {
 
 	@Override
 	public String classes() {
-		return "Paladin";
+		return PFCombatApplication.getString(R.string.paladin);
 	}
 	
 	@Override

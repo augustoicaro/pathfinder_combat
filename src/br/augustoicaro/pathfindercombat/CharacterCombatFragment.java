@@ -62,66 +62,70 @@ public class CharacterCombatFragment extends FragmentBase {
     }
 
 	protected void populateStats(String f) {
-			Log.d(TAG, "CharacterCombatFragment: populateStats(" + f + ")");
+		Log.d(TAG, "CharacterCombatFragment: populateStats(" + f + ")");
     	
-    	// save some typing
-    	PFCharacter c = getCharacter();
-    	Weapon w = c.getWeapon();
+   	// save some typing
+    PFCharacter c = getCharacter();
+   	Weapon w = c.getWeapon();
 		
-    	if (!w.rangeString().equals(currentRange)) {
-    		currentRange = w.rangeString();
-    		updateToggleTable();
-    	}
+   	if (!w.rangeString().equals(currentRange)) {
+   		currentRange = w.rangeString();
+   		updateToggleTable();
+   	}
     	
-    	populateField(R.id.txtWeaponDice, f, ModifierField._damage_dice, w.getDamageDice());
+    populateField(R.id.txtWeaponDice, f, ModifierField._damage_dice, w.getDamageDice());
     	
-    	populateField(R.id.txtAttacks, f, ModifierField._none, c.getAttacks());
+   	populateField(R.id.txtAttacks, f, ModifierField._none, c.getAttacks());
     	
-    	if (w.rangeString().equals("ranged")) {
-				TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
-				tv.setText(R.string.dex);
-				populateField(R.id.txtStatModPlusAttack, f, ModifierField._dex_mod, String.valueOf(c.getDexMod()));
-				populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(0));    		
-			} else {
-				TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
-				tv.setText(R.string.str);
-				populateField(R.id.txtStatModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));					populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
-			}
-    	populateField(R.id.txtWeaponPlusAttack, f, ModifierField._none, String.valueOf(w.getHit()));
-    	populateField(R.id.txtWeaponFocusPlusAttack, f, ModifierField._none, String.valueOf(c.getWeaponFocusMod()));
-    	populateField(R.id.txtOtherPlusAttack, f, ModifierField._hit, String.valueOf(0));
+    if (w.rangeString().equals("ranged") || c.getWeaponFinesse()) {
+			TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
+			tv.setText(R.string.dex);
+			tv = (TextView) findViewById(R.id.txtPlusHitLabel2);
+			tv.setText(R.string.str);
+			populateField(R.id.txtStatModPlusAttack, f, ModifierField._dex_mod, String.valueOf(c.getDexMod()));
+			populateField(R.id.txtModPlusDamage, f, ModifierField._str_mod, String.valueOf(0));    		
+		} else {
+			TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
+			tv.setText(R.string.str);
+		  tv = (TextView) findViewById(R.id.txtPlusHitLabel2);
+			tv.setText(R.string.str);
+			populateField(R.id.txtStatModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));					
+			populateField(R.id.txtModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+		}
+   	populateField(R.id.txtWeaponPlusAttack, f, ModifierField._none, String.valueOf(w.getHit()));
+   	populateField(R.id.txtWeaponFocusPlusAttack, f, ModifierField._none, String.valueOf(c.getWeaponFocusMod()));
+   	populateField(R.id.txtOtherPlusAttack, f, ModifierField._hit, String.valueOf(0));
     	
 
-    	populateField(R.id.txtWeaponPlusDamage, f, ModifierField._none, String.valueOf(w.getDamage()));
-    	populateField(R.id.txtOtherPlusDamage, f, ModifierField._damage, String.valueOf(c.getPowerAttackDamage()));
+   	populateField(R.id.txtWeaponPlusDamage, f, ModifierField._none, String.valueOf(w.getDamage()));
+   	populateField(R.id.txtOtherPlusDamage, f, ModifierField._damage, String.valueOf(c.getPowerAttackDamage()));
     	
-    	populateField(R.id.txtDailyCurrent, f, ModifierField._none, String.valueOf(c.getDailyCurrent()));
-    	populateField(R.id.txtDailyTotal, f, ModifierField._none, String.valueOf(c.getDailyTotal()));
-    	populateField(R.id.txtDailyTitle, f, ModifierField._none, c.getDailyTitle());
+   	populateField(R.id.txtDailyCurrent, f, ModifierField._none, String.valueOf(c.getDailyCurrent()));
+   	populateField(R.id.txtDailyTotal, f, ModifierField._none, String.valueOf(c.getDailyTotal()));    	populateField(R.id.txtDailyTitle, f, ModifierField._none, c.getDailyTitle());
     	
-    	// size modifier calcs
-    	String weaponDice = w.getDamageDice();
-    	int sizeMod = 0;
-    	String sizeStr = applyToggles(ModifierField._size, "");
-    	if (!sizeStr.equals("")) {
-    		sizeMod = Integer.parseInt(sizeStr);
-    	}
-    	if (sizeMod > 0 && !w.getName().equals("-")) {
-    		weaponDice = c.getEnlargedWeaponDamage();
-    	} else if (sizeMod < 0) {
-    		weaponDice = c.getReducedWeaponDamage();
-    	}
-    	TextView weaponDiceText = (TextView) findViewById(R.id.txtWeaponDice);
-    	weaponDiceText.setText(weaponDice);
-			Log.d(TAG, "CharacterCombatFragment: Fishing set size modifiers");
+    // size modifier calcs
+   	String weaponDice = w.getDamageDice();
+   	int sizeMod = 0;
+   	String sizeStr = applyToggles(ModifierField._size, "");
+   	if (!sizeStr.equals("")) {
+    	sizeMod = Integer.parseInt(sizeStr);
+   	}
+   	if (sizeMod > 0 && !w.getName().equals("-")) {
+    	weaponDice = c.getEnlargedWeaponDamage();
+    } else if (sizeMod < 0) {
+    	weaponDice = c.getReducedWeaponDamage();
+   	}
+    TextView weaponDiceText = (TextView) findViewById(R.id.txtWeaponDice);
+   	weaponDiceText.setText(weaponDice);
+		Log.d(TAG, "CharacterCombatFragment: Fishing set size modifiers");
 
-    	// attacks
-    	TextView tvAttacks = (TextView) findViewById(R.id.txtAttacks);
+  	// attacks
+   	TextView tvAttacks = (TextView) findViewById(R.id.txtAttacks);
 		String attacks_str = applyToggles(ModifierField._attacks, c.getAttacks());
-    	String extraAttack = applyToggles(ModifierField._extra_attack, "0");
-    	if (!extraAttack.equals("0")) {
-    		attacks_str = attacks_str.concat(" / " + getCharacter().getBAB());
-    	}
+    String extraAttack = applyToggles(ModifierField._extra_attack, "0");
+   	if (!extraAttack.equals("0")) {
+    	attacks_str = attacks_str.concat(" / " + getCharacter().getBAB());
+   	}
 		tvAttacks.clearFocus();
 		tvAttacks.setText(attacks_str);
 		Log.d(TAG, "CharacterCombatFragment: Fishing set attacks modifiers");
@@ -148,7 +152,7 @@ public class CharacterCombatFragment extends FragmentBase {
     	
    	// plus to damage
    	int plusDamage = 0;
-   	plusDamage += parseIntField(R.id.txtStrModPlusDamage);
+   	plusDamage += parseIntField(R.id.txtModPlusDamage);
    	plusDamage += w.getDamage();
    	plusDamage += parseIntField(R.id.txtOtherPlusDamage);  
    	calculateFinalPlusDamage(weaponDice, plusDamage);

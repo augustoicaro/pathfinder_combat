@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
 import br.augustoicaro.pathfindercombat.models.PFCharacter;
+import br.augustoicaro.pathfindercombat.MainActivity;
 import br.augustoicaro.pathfindercombat.PFCombatApplication;
 import br.augustoicaro.pathfindercombat.R;
 
@@ -12,7 +13,7 @@ public class FlurryOfBlows extends ModifierBase {
 	}
 	
 	public String classes() {
-		return "Monk";
+		return PFCombatApplication.getString(R.string.monk);
 	}
 	
 	@Override

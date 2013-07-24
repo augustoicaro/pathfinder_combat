@@ -13,6 +13,14 @@ public class Enlarge extends ModifierBase {
 		return v + 2;
 	}
 	
+	public int applyDex(int v) {
+		return v - 2;
+	}
+	
+	public int applyAC(int s) {
+		return s - 1;
+	}
+	
 	public int applySize(int v) {
 		return v + 1;
 	}
