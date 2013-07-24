@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class FavoredEnemy4 extends ModifierBase {
 
@@ -21,10 +22,6 @@ public class FavoredEnemy4 extends ModifierBase {
 	
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "I. Favorito +4";
-		else
-			return "Favored 4";
+			return PFCombatApplication.getString(R.string.fenemy4);
 	}
 }

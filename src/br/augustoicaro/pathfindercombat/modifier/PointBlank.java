@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class PointBlank extends ModifierBase {
 
@@ -20,10 +21,6 @@ public class PointBlank extends ModifierBase {
 	
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "Tiro Certeiro";
-		else
-			return "Point Blank";
+		return PFCombatApplication.getString(R.string.pointBlank);
 	}
 }

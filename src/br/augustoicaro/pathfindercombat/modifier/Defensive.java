@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class Defensive extends ModifierBase {
 
@@ -11,10 +12,6 @@ public class Defensive extends ModifierBase {
 	
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "Defesa Total";
-		else
-			return "Defensive";
+		return PFCombatApplication.getString(R.string.defensive);
 	}
 }

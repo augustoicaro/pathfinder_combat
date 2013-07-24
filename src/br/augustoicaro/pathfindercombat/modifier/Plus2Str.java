@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class Plus2Str extends ModifierBase {
 
@@ -20,11 +21,7 @@ public class Plus2Str extends ModifierBase {
 	
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "+2 For";
-		else
-			return "+2 Str";
+		return PFCombatApplication.getString(R.string.plus2Str);
 	}
 
 }

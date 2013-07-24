@@ -9,6 +9,11 @@
     <string name="conditions">CONDITIONS</string>
     <string name="weapon">WEAPON</string>
 		<string name="dailyPowers">DAILY POWERS</string>
+		
+		<!-- fragment headers -->
+		<string name="fcharacter">Character</string>
+    <string name="fcombat">Combat</string>
+    <string name="fcondition">Conditions</string>
     
     <!-- stats -->
     <string name="player">Player</string>
@@ -34,27 +39,58 @@
     <string name="dmg">Dmg</string>
       
     <!-- toggles -->
-    <string name="powerAttack">Power Attack</string>
-    <string name="smite">Smite</string>
-    <string name="enlarge">Enlarge</string>
-    <string name="plus2Str">+2 Str</string>
-    <string name="plus4Str">+4 Str</string>
-    <string name="haste">Haste</string>
-    <string name="plus1d6">+1d6 Dmg</string>
-    <string name="plus2d6">+2d6 Dmg</string>
-    <string name="flank">Flank</string>
-    <string name="plus1Damage">+1 Dmg</string>
-    <string name="plus2Damage">+2 Dmg</string>
-    <string name="defensive">Defensive</string>
-    <string name="plus1Hit">+1 Hit</string>
-    <string name="plus2Hit">+2 Hit</string>
-    <string name="plus4Hit">+4 Hit</string>
-    <string name="flurryOfBlows">Flurry of Blows</string>
-    <string name="wpnFocus">Wpn Focus</string>
-    <string name="unarmed">Unarmed</string>
+		<string name="bane">Bane</string>
     <string name="critical">Critical</string>
-    <string name="dailyPower">Daily Power</string> 
+		<string name="deadlyaim">Deadly Aim</string>
+    <string name="defensive">Defensive</string>
+    <string name="enlarge">Enlarge</string>
+		<string name="fenemy2">Favored 2</string>
+		<string name="fenemy4">Favored 4</string>
+		<string name="flank">Flank</string>
+    <string name="flurryOfBlows">Flurry of Blows</string>
+		<string name="haste">Haste</string>
+    <string name="plus1d6">+1d6 Dmg</string>
+    <string name="plus1Damage">+1 Dmg</string>
+    <string name="plus1Hit">+1 Hit</string>
+    <string name="plus2d6">+2d6 Dmg</string>
+    <string name="plus2Damage">+2 Dmg</string>
+		<string name="plus2Dex">+2 Dex</string>
+    <string name="plus2Hit">+2 Hit</string>
+    <string name="plus2Str">+2 Str</string>
+		<string name="plus4Dex">+4 Dex</string>
+    <string name="plus4Hit">+4 Hit</string>
+    <string name="plus4Str">+4 Str</string>
+		<string name="pointBlank">Point Blank</string>
+    <string name="powerAttack">Power Attack</string>
+		<string name="rapidShot">Rapid Shot</string>
+		<string name="smite">Smite</string>
+    <string name="unarmed">Unarmed</string> 
 		<string name="weaponFinesse">Weapon Finesse</string>
+    <string name="wpnFocus">Wpn Focus</string>
+		
+		<!-- conditions -->
+		<string name="bleed">Bleed</string>
+    <string name="blinded">Blinded</string>
+    <string name="confused">Confused</string>
+    <string name="cowering">Cowering</string>
+    <string name="dazed">Dazed</string>
+    <string name="dazzled">Dazzled</string>
+    <string name="deafened">Deafened</string>
+    <string name="disabled">Disabled</string>
+    <string name="dying">Dying</string>
+    <string name="entangled">Entangled</string>
+    <string name="fascinated">Fascinated</string>
+    <string name="frightened">Frightned</string>
+    <string name="helpless">Helpless</string>
+    <string name="invisible">Invisible</string>
+    <string name="nauseated">Nauseated</string>
+    <string name="panicked">Panicked</string>
+    <string name="paralyzed">Paralyzed</string>
+    <string name="pinned">Pinned</string>
+    <string name="shakened">Shakened</string>
+    <string name="sickened">Sickened</string>
+    <string name="staggered">Staggered</string>
+		<string name="stunned">Stunned</string>
     
     <!-- dialogs and buttons -->
     <string name="delete">Delete</string>
@@ -76,6 +112,7 @@
     <string name="edit_weapon">Edit Selected</string>
     <string name="select_weapon">Equip Select Weapon</string>
     <string name="delete_weapon">Delete Weapon</string>
+    <string name="dailyPower">Daily Power</string>
 
     <!-- weapon dialog -->
     <string name="weapon_name">Name</string>

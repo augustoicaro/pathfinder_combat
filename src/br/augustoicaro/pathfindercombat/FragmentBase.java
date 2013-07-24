@@ -28,7 +28,6 @@ import android.widget.TextView;
 public abstract class FragmentBase extends Fragment {
 
 	private static final String TAG = "PFCombat";
-	
 	protected View _view;
 	protected List<ModifierBase> _mods;
 	private CharacterUpdateReceiver _receiver;

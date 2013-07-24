@@ -12,6 +12,7 @@ import br.augustoicaro.pathfindercombat.modifier.ModifierBase;
 
 import android.app.Application;
 import android.util.Log;
+import android.content.res.*;
 
 public class PFCombatApplication extends Application {
 	
@@ -21,6 +22,7 @@ public class PFCombatApplication extends Application {
 	private List<ConditionData> _conditionData;
 	private List<ModifierBase> _toggles;
 	private static PFCombatApplication _app = null;
+	private static Resources _res = null;
 	
 	@Override
 	public void onCreate() {
@@ -29,11 +31,18 @@ public class PFCombatApplication extends Application {
 		Log.v(TAG, "PFCombatApplication: onCreate()");
 
 		_app = this;
+		_res = getResources();
 		//setup();
 	}
 	
 	public static PFCombatApplication getApplication() {
 		return _app;
+	}
+	
+	public static String getString(int resId)
+	{
+		String mystring = _res.getString(resId);
+		return mystring;
 	}
 	
 	public void setup() {	

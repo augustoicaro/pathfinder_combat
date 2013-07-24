@@ -9,6 +9,11 @@
     <string name="conditions">CONDIÇÕES</string>
     <string name="weapon">ARMA</string>
 		<string name="dailyPowers">PODERES DIÁRIOS</string>
+		
+		<!-- fragment headers -->
+		<string name="fcharacter">Personagem</string>
+    <string name="fcombat">Combate</string>
+    <string name="fcondition">Condições</string>
 
     <!-- stats -->
     <string name="player">JOGADOR</string>
@@ -34,27 +39,59 @@
     <string name="dmg">Dano</string>
 
     <!-- toggles -->
-    <string name="powerAttack">Atq. Poderoso</string>
-    <string name="smite">Smite</string>
-    <string name="enlarge">Enlarge</string>
-    <string name="plus2Str">+2 For</string>
-    <string name="plus4Str">+4 For</string>
-    <string name="haste">Haste</string>
+		<string name="bane">Bane</string>
+    <string name="critical">Decisivo</string>
+		<string name="deadlyaim">Tiro Mortal</string>
+    <string name="defensive">Defesa Total</string>
+    <string name="enlarge">Aumentar Pessoa</string>
+		<string name="fenemy2">I. Favorito 2</string>
+		<string name="fenemy4">I. Favorito 4</string>
+		<string name="flank">Flanqueando</string>
+    <string name="flurryOfBlows">Sequência de Golpes</string>
+		<string name="haste">Ataque Acelerado</string>
     <string name="plus1d6">+1d6 Dano</string>
-    <string name="plus2d6">+2d6 Dano</string>
-    <string name="flank">Flanqueado</string>
     <string name="plus1Damage">+1 Dano</string>
+    <string name="plus1Hit">+1 Ataque</string>
+    <string name="plus2d6">+2d6 Dano</string>
     <string name="plus2Damage">+2 Dano</string>
-    <string name="defensive">Defensive</string>
-    <string name="plus1Hit">+1 Atq.</string>
-    <string name="plus2Hit">+2 Atq.</string>
-    <string name="plus4Hit">+4 Atq.</string>
-    <string name="flurryOfBlows">Rajada de Golpes</string>
+		<string name="plus2Dex">+2 Des</string>
+    <string name="plus2Hit">+2 Ataque</string>
+    <string name="plus2Str">+2 For</string>
+		<string name="plus4Dex">+4 Des</string>
+    <string name="plus4Hit">+4 Ataque</string>
+    <string name="plus4Str">+4 For</string>
+		<string name="pointBlank">Tiro Certeiro</string>
+    <string name="powerAttack">Ataque Poderoso</string>
+		<string name="rapidShot">Tiro Rápido</string>
+		<string name="smite">Destruir o Mal</string>
+    <string name="unarmed">Desarmado</string> 
+		<string name="weaponFinesse">Acuidade Com Arma</string>
     <string name="wpnFocus">Foco em Arma</string>
-    <string name="unarmed">Desarmado</string>
-    <string name="critical">Critico</string>
-    <string name="dailyPower">Poder Diário</string>    
 
+		<!-- conditions -->
+		<string name="bleed">Sangrando</string>
+    <string name="blinded">Cego</string>
+    <string name="confused">Confuso</string>
+    <string name="cowering">Cowering</string>
+    <string name="dazed">Dazed</string>
+    <string name="dazzled">Dazzled</string>
+    <string name="deafened">Surdo</string>
+    <string name="disabled">Impossibilitado</string>
+    <string name="dying">Morrendo</string>
+    <string name="entangled">Entangled</string>
+    <string name="fascinated">Fascinado</string>
+    <string name="frightened">Frightned</string>
+    <string name="helpless">Indefeso</string>
+    <string name="invisible">Invisivel</string>
+    <string name="nauseated">Nauseado</string>
+    <string name="panicked">Em Pânico</string>
+    <string name="paralyzed">Paralizado</string>
+    <string name="pinned">Imobilizado</string>
+    <string name="shakened">Abalado</string>
+    <string name="sickened">Enjoado</string>
+    <string name="staggered">Nocauteado</string>
+		<string name="stunned">Atordoado</string>
+		
     <!-- dialogs and buttons -->
     <string name="delete">Deletar</string>
     <string name="really_delete">Você realmente deseja deletar?</string>
@@ -65,7 +102,7 @@
 		<string name="delete_character">Deletar Personagem</string>
     <string name="new_condition">Nova condição</string>
     <string name="new_weapon">Nova Arma</string>
-    <string name="add_round">Próximo Round</string>
+    <string name="add_round">Próximo Turno</string>
     <string name="submit">Submeter</string>
     <string name="rounds">Rodadas</string>
     <string name="condition">Condição</string>

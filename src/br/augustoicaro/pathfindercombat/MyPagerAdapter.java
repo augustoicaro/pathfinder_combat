@@ -5,12 +5,12 @@ import java.util.List;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import br.augustoicaro.pathfindercombat.MainActivity;
+
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
 	private List<Fragment> fragments;
-	private String locale = MainActivity.locale;
 
 	public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 		super(fm);
@@ -29,22 +29,13 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 	
 	public CharSequence getPageTitle(int pos) {
 		if (pos == 0) {
-			if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			  return "Personagem";
-			else
-			  return "Character";
+			return PFCombatApplication.getString(R.string.fcharacter);
 		}
 		if (pos == 1) {
-			if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			  return "Combate";
-			else
-			  return "Combat";
+			return PFCombatApplication.getString(R.string.fcombat);
 		}
 		if (pos == 2) {
-			if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			  return "Condições";
-			else
-			  return "Conditions";
+			return PFCombatApplication.getString(R.string.fcondition);
 		}
 		return "Other";
 	}

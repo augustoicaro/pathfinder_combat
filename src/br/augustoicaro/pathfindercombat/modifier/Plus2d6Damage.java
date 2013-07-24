@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class Plus2d6Damage extends ModifierBase {
 	
@@ -14,10 +15,6 @@ public class Plus2d6Damage extends ModifierBase {
 
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "+2d6 Dano";
-		else
-			return "+2d6 Dmg";
+		return PFCombatApplication.getString(R.string.plus2d6);
 	}
 }

@@ -32,11 +32,11 @@ public class MainActivity extends ListActivity {
 	private static final String TAG = "PFCombat";
 	private PFCombatApplication _app;
 	private DatabaseHelper databaseHelper = null;
-	public static String locale = "english";
 	private List<CharacterViewHolder> holders;
 	private List<PFCharacter> checked;
 	private CharacterArrayAdapter _listAdapter;
 	private List<PFCharacter> characters;
+	public static String locale = "English";
 		
     
   /** Called when the activity is first created. */

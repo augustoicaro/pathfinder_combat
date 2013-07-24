@@ -1,7 +1,8 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
 import br.augustoicaro.pathfindercombat.models.PFCharacter;
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class FlurryOfBlows extends ModifierBase {
 	
@@ -16,11 +17,7 @@ public class FlurryOfBlows extends ModifierBase {
 	
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "Sequência de Golpes";
-		else
-			return "Flurry of Blows";
+  	return PFCombatApplication.getString(R.string.flurryOfBlows);
 	}
 
 }

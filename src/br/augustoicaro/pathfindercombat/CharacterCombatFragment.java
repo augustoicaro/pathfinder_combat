@@ -27,11 +27,8 @@ public class CharacterCombatFragment extends FragmentBase {
 
 	private static final String TAG = "PFCombat";
 	private String currentRange;
-	private String locale = MainActivity.locale;
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		_view = inflater.inflate(R.layout.character_combat_fragment, container, false);
-		
 		currentRange = "";
 		
 		setupIntentFilter();
@@ -81,22 +78,15 @@ public class CharacterCombatFragment extends FragmentBase {
     	populateField(R.id.txtAttacks, f, ModifierField._none, c.getAttacks());
     	
     	if (w.rangeString().equals("ranged")) {
-    		TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
-				if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-				  tv.setText("Des");
-	      else
-		  		tv.setText("Dex");
-    		populateField(R.id.txtStatModPlusAttack, f, ModifierField._dex_mod, String.valueOf(c.getDexMod()));
-        	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(0));    		
-    	} else {
-    		TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
-				if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-					tv.setText("For");
-				else
-				  tv.setText("Str");
-    		populateField(R.id.txtStatModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
-        	populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
-    	}
+				TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
+				tv.setText(R.string.dex);
+				populateField(R.id.txtStatModPlusAttack, f, ModifierField._dex_mod, String.valueOf(c.getDexMod()));
+				populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(0));    		
+			} else {
+				TextView tv = (TextView) findViewById(R.id.txtPlusHitLabel);
+				tv.setText(R.string.str);
+				populateField(R.id.txtStatModPlusAttack, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));					populateField(R.id.txtStrModPlusDamage, f, ModifierField._str_mod, String.valueOf(c.getStrMod()));
+			}
     	populateField(R.id.txtWeaponPlusAttack, f, ModifierField._none, String.valueOf(w.getHit()));
     	populateField(R.id.txtWeaponFocusPlusAttack, f, ModifierField._none, String.valueOf(c.getWeaponFocusMod()));
     	populateField(R.id.txtOtherPlusAttack, f, ModifierField._hit, String.valueOf(0));

@@ -1,6 +1,7 @@
 package br.augustoicaro.pathfindercombat.modifier;
 
-import br.augustoicaro.pathfindercombat.MainActivity;
+import br.augustoicaro.pathfindercombat.PFCombatApplication;
+import br.augustoicaro.pathfindercombat.R;
 
 public class Plus1Damage extends ModifierBase {
 
@@ -11,10 +12,6 @@ public class Plus1Damage extends ModifierBase {
 
 	@Override
 	public String name() {
-		String locale = MainActivity.locale;
-		if(locale.equals("Portugês") || locale.equals("Portuges") || locale.equals("Portuguese") || locale.equals("português") || locale.equals("portugues") || locale.equals("portuguese"))
-			return "+1 Dano";
-		else
-			return "+1 Dmg";
+		return PFCombatApplication.getString(R.string.plus1Damage);
 	}
 }
