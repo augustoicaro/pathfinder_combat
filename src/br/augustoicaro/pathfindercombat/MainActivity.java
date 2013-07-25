@@ -316,6 +316,7 @@ public class MainActivity extends ListActivity {
 			Log.v(TAG, String.format("MainActivity: GetView() - Filling row"));
 			checkBox.setText("");
 			textView.setText(character.getName());
+			convertView.setBackgroundResource( R.color.listview_selector );
 			return convertView;
 		}
 	}
